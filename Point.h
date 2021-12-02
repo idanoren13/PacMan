@@ -10,7 +10,7 @@ class Point {
 
 public:
 	Point();
-	Point(int x, int y);
+	Point(int _x, int _y) : x(_x), y(_y) {}
 	void setPoint(int x, int y);
 	int getX();
 	int getY();

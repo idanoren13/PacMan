@@ -1,32 +1,11 @@
 #include "Pacman.h"
 
 //--------Constructors---------------------------------//
-Pacman::Pacman() {
-	curr_point.setPoint(2,9);
-	shape = (char)PACMAN;
-	color = YELLOW;
-	v = STAY;
-	score = 0;
-	life = 3;
-}
-
-Pacman::Pacman(Point _p) {
-	initPacman(_p);
-}
 
 //--------Getters and Setters---------------------------//
-void Pacman::initPacman(Point _p) {
-	curr_point.setPoint(_p.getX(), _p.getY());
-	shape = (char)PACMAN;
-	color = YELLOW;
-	v = STAY;
-	score = 0;
-	life = 3;
-}
-
 void Pacman::setPacman(Point p) {
-	curr_point.draw(' ');
-	curr_point.setPoint(p.getX(), p.getY());
+	this->getCreature().draw(' ');
+	getCreature().setPoint(p.getX(), p.getY());
 	prev_point = curr_point;
 	next_point = curr_point;
 	v = STAY;

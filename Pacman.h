@@ -1,46 +1,28 @@
 #ifndef PACMAN_H_
 #define PACMAN_H_
+
 #include "Point.h"
 #include "Color.h"
 #include "Board.h"
-#include "Ghost.h"
+#include "Creature.h"
 
-class Pacman {
-	Point curr_point;
-	Color color;
-	char shape;
-	Move_Vector v;
+class Pacman : public Creature {
 	int score;
 	int life;
 
-	Point next_point;
-	Point prev_point;
-
 	public:
-		//constructors
-		Pacman();
-		Pacman(Point _p);
+		//--------Constructors--------//
+		Pacman(Point _p): Creature(_p, YELLOW, PACMAN, STAY), score(0), life(3) {}
 		
-		//setters and getters
-		void initPacman(Point _p);
+		//-----Setters & Getters------//
 		void setPacman(Point p);
-		void setVector(Move_Vector dir) { v = dir; }
 		void setLife(int _life) { life = _life; }
-		void setColor(Color c) { color = c; }
 
 		int getLife() { return life; }
 		int getScore() { return score; }
-		char getShape() { return shape; }
-		Point getPacman() { return curr_point; }
-		Point getPacmanPrev() { return prev_point; }
 
-		//methods
+		//----------Methods-----------//
 		void movePacman(Board &board);
-		void printPacman();
-
-	private:
-		void isEndBoard();
-
 };
 
 #endif 

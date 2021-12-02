@@ -1,36 +1,23 @@
 #ifndef GHOST_H_
 #define GHOST_H_
+
 #include "Point.h"
 #include "Color.h"
 #include "Board.h"
+#include "Creature.h"
 
-class Ghost {
-	Point curr_point;
-	Color color;
-	char shape;
-	Move_Vector v;
+class Ghost : Creature {
+	int move_cntr;
 
 public:
-	//constructors
-	Ghost();
-	Ghost(Point _p, Color c);
+	//--------Constructors--------//
+	Ghost(Point _p, Color _color) : Creature(_p, _color, GHOST, UP), move_cntr(0) {}
 
-	//setters and getters
+	//-----Setters & Getters------//
 	void setGhost(Point p, Board & board);
-	Point getGhost() { return curr_point; }
-	Point getGhostPrev() { return prev_point; }
 
-
-	//methods
+	//----------Methods-----------//
 	void moveGhost(Board& board);
-	void printGhost();
-	void setColor(Color c) {color = c;}
-
-private:
-	int move_cntr;
-	Point next_point;
-	Point prev_point;
-	bool isEndBoard();
 };
 
 #endif

@@ -1,24 +1,5 @@
 #include "Ghost.h"
 
-//--------Constructors---------------------------------//
-
-Ghost::Ghost() {
-	curr_point.setPoint(16,5);
-	color = RED;
-	shape = (char)GHOST;
-	v = UP;
-	move_cntr = 0;
-
-}
-
-Ghost::Ghost(Point _p, Color c) {
-	curr_point.setPoint(_p.getX(), _p.getY());
-	color = c;
-	shape = (char)GHOST;
-	v = UP;
-	move_cntr = 0;
-}
-
 //--------Getters and Setters---------------------------//
 
 void Ghost::setGhost(Point p, Board & board) {
@@ -72,11 +53,6 @@ void Ghost::moveGhost(Board& board) {
 	printGhost();
 }
 
-void Ghost::printGhost() {
-	setTextColor(color);
-	curr_point.draw(shape);
-}
-
-bool Ghost::isEndBoard() {
-	return (next_point.getX() > WIDTH - 2 || next_point.getX() < 1 || next_point.getY() > HEIGHT - 1 || next_point.getY() < 1);
-}
+//bool Ghost::isEndBoard() {
+//	return (next_point.getX() > WIDTH - 2 || next_point.getX() < 1 || next_point.getY() > HEIGHT - 1 || next_point.getY() < 1);
+//}
