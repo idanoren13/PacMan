@@ -44,9 +44,9 @@ void Game_Logic::run()
 	bool didILose = false;
 
 	board.printBoard(black_and_white);
-	pacman.printPacman();
-	ghost1.printGhost();
-	ghost2.printGhost();
+	pacman.printCreature();
+	ghost1.printCreature();
+	ghost2.printCreature();
 
 	while (pacman.getScore() < MAX_SCORE && !didILose) {
 		getInput(pauseFlag);
@@ -88,10 +88,10 @@ void Game_Logic::isGameOver(bool& flag) {
 }
 
 bool Game_Logic::collision() {
-	return (pacman.getPacman().isSamePoint(ghost1.getGhost()) ||
-		pacman.getPacman().isSamePoint(ghost2.getGhost()) ||
-		pacman.getPacmanPrev().isSamePoint(ghost1.getGhostPrev()) ||
-		pacman.getPacmanPrev().isSamePoint(ghost2.getGhostPrev()));
+	return (pacman.getCurrPoint().isSamePoint(ghost1.getCurrPoint()) ||
+		pacman.getCurrPoint().isSamePoint(ghost2.getCurrPoint()) ||
+		pacman.getPrevPoint().isSamePoint(ghost1.getPrevPoint()) ||
+		pacman.getPrevPoint().isSamePoint(ghost2.getPrevPoint()));
 }
 
 void Game_Logic::gameOver()
@@ -139,7 +139,8 @@ void Game_Logic::resetGame(string s){
 	system("cls");
 
 	board.initBoard();
-	pacman.initPacman(Point(2, 9));
+	pacman.setPacman(Point(2, 9));
+	pacman.setLife(3);
 	ghost1.setGhost(Point(21, 9), board);
 	ghost2.setGhost(Point(22, 9), board);
 }
@@ -158,9 +159,9 @@ void Game_Logic::getInput(bool& flag) {
 				dir = LEFT;
 			else if (s == 'd' || s == 'D')
 				dir = RIGHT;
-			else if (s == 'x' || s == 'X')
-				dir = DOWN;
 			else if (s == 's' || s == 'S')
+				dir = DOWN;
+			else if (s == ' ' || s == ' ')
 				dir = STAY;
 			else
 				return;

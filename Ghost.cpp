@@ -32,10 +32,12 @@ void Ghost::moveGhost(Board& board) {
 	unsigned char readVal = board.getCell(next_point);
 	while (isEndBoard() || readVal == (unsigned char)WALL)
 	 {
-		if(move_cntr%5==0)
-			v = (Move_Vector)(v - 1);
+		if (move_cntr % 5 == 0)
+			setVector((Move_Vector)(v - 1));
+			//v = (Move_Vector)(v - 1);
 		else
-			v = (Move_Vector)(v + 1);
+			setVector((Move_Vector)(v + 1));
+			//v = (Move_Vector)(v + 1);
 
 		 if (v >= STAY)
 			 v = UP;
@@ -50,9 +52,9 @@ void Ghost::moveGhost(Board& board) {
 	setTextColor(Color::LIGHTGREY);
 	curr_point.draw(board.getCell(curr_point));
 	curr_point = next_point;
-	printGhost();
+	printCreature();
 }
 
-//bool Ghost::isEndBoard() {
-//	return (next_point.getX() > WIDTH - 2 || next_point.getX() < 1 || next_point.getY() > HEIGHT - 1 || next_point.getY() < 1);
-//}
+bool Ghost::isEndBoard() {
+	return (next_point.getX() > WIDTH - 2 || next_point.getX() < 1 || next_point.getY() > HEIGHT - 1 || next_point.getY() < 1);
+}

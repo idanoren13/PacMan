@@ -1,18 +1,19 @@
 #include "Pacman.h"
 
-//--------Constructors---------------------------------//
+//--------Constructors--------//
 
-//--------Getters and Setters---------------------------//
+//-----Setters & Getters------//
+
 void Pacman::setPacman(Point p) {
-	this->getCreature().draw(' ');
-	getCreature().setPoint(p.getX(), p.getY());
+	curr_point.draw(' ');
+	curr_point.setPoint(p.getX(), p.getY());
 	prev_point = curr_point;
 	next_point = curr_point;
 	v = STAY;
-	printPacman();
+	printCreature();
 }
 
-//--------Methods------------------------------------//
+//----------Methods-----------//
 
 void Pacman::movePacman(Board& board) {
 	if (v != STAY) {
@@ -32,14 +33,14 @@ void Pacman::movePacman(Board& board) {
 		curr_point.draw(' ');
 		board.editCell(curr_point, ' ');
 		curr_point = next_point;
-		printPacman();
+		printCreature();
 	}
 }
 
-void Pacman::printPacman() {
-	setTextColor(color);
-	curr_point.draw(shape);
-}
+//void Pacman::printPacman() {
+//	setTextColor(color);
+//	curr_point.draw(shape);
+//}
 
 void Pacman::isEndBoard() {
 	if (next_point.getX() == WIDTH - 1)

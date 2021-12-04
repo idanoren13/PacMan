@@ -12,6 +12,7 @@ class Pacman : public Creature {
 
 	public:
 		//--------Constructors--------//
+		Pacman() : Creature(Point(2,9), YELLOW, PACMAN, STAY), score(0), life(3) {}
 		Pacman(Point _p): Creature(_p, YELLOW, PACMAN, STAY), score(0), life(3) {}
 		
 		//-----Setters & Getters------//
@@ -23,6 +24,7 @@ class Pacman : public Creature {
 
 		//----------Methods-----------//
 		void movePacman(Board &board);
+		void isEndBoard();
 };
 
 #endif 

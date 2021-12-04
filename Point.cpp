@@ -4,9 +4,6 @@ Point::Point() {
 	setPoint(0, 0);
 }
 
-Point::Point(int x, int y) {
-	setPoint(x, y);
-}
 
 void Point::setPoint(int _x, int _y) {
 	x = _x;
