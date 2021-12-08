@@ -66,6 +66,8 @@ void Board::printData(int score, int life) {
 
 }
 
+
+
 //Board::Board() {
 //
 //	board = {

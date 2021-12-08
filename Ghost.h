@@ -19,7 +19,7 @@ public:
 	void setGhost(Point p, Board & board);
 
 	//----------Methods-----------//
-	void moveGhost(Board& board);
+	void move(Board& board);
 	bool isEndBoard();
 };
 

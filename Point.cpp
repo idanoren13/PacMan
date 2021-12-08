@@ -46,7 +46,7 @@ void Point::move(int dir) {
 	}
 }
 
-bool Point::isSamePoint(const Point p1) {
+bool Point::isSamePoint(const Point p1)const {
 	return (x == p1.x) && (y == p1.y);
 }
 

@@ -20,7 +20,7 @@ void Ghost::setGhost(Point p, Board & board) {
 
 //--------Methods------------------------------------//
 
-void Ghost::moveGhost(Board& board) {
+void Ghost::move(Board& board) {
 	prev_point = next_point = curr_point;
 	if (move_cntr == 20) {
 		next_point.move();

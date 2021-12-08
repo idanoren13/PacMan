@@ -15,7 +15,7 @@ void Pacman::setPacman(Point p) {
 
 //----------Methods-----------//
 
-void Pacman::movePacman(Board& board) {
+void Pacman::move(Board& board) {
 	if (v != STAY) {
 		prev_point = curr_point;
 		next_point = curr_point;
@@ -37,18 +37,13 @@ void Pacman::movePacman(Board& board) {
 	}
 }
 
-//void Pacman::printPacman() {
-//	setTextColor(color);
-//	curr_point.draw(shape);
-//}
-
 void Pacman::isEndBoard() {
 	if (next_point.getX() == WIDTH - 1)
 		next_point.setPoint(1, next_point.getY());
-	else if(next_point.getX() < 1)
-		next_point.setPoint(WIDTH-2, next_point.getY());
+	else if (next_point.getX() < 1)
+		next_point.setPoint(WIDTH - 2, next_point.getY());
 	else if (next_point.getY() > HEIGHT - 1)
-		next_point.setPoint(next_point.getX(),1);
+		next_point.setPoint(next_point.getX(), 1);
 	else if (next_point.getY() < 1)
 		next_point.setPoint(next_point.getX(), HEIGHT - 1);
 }

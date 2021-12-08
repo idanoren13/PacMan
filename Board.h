@@ -7,7 +7,8 @@
 #define HEIGHT 17 
 #define MAX_SCORE 300 
 
-enum Shape { PACMAN = '@', GHOST = '&', BREAD = 250, WALL = 178 }; // Move to Game_Logic.h
+// Move to Game_Logic.h
+enum Shape { FIVE = '5', SIX = '6', SEVEN = '7', EIGHT = '8', NINE = '9', PACMAN = '@', GHOST = '&', BREAD = 250, WALL = 178 };
 
 class Board {
 	enum board_chars{ wa = 178, br = 250}; // wall & bread
@@ -38,6 +39,7 @@ public:
 	char getCell(Point p);
 	void editCell(Point p, char ch);
 	void printData(int score, int life);
+
 };
 
 #endif

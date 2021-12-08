@@ -3,7 +3,7 @@
 //--------Constructors--------//
 
 Creature::Creature(Point _p, Color _color, Shape _shape, Move_Vector _v) {
-	curr_point.setPoint(_p.getX(), _p.getY());
+	prev_point = next_point = curr_point = _p;
 	color = _color;
 	shape = (char)_shape;
 	v = _v;
@@ -12,7 +12,7 @@ Creature::Creature(Point _p, Color _color, Shape _shape, Move_Vector _v) {
 //------Setters & Getters-------//
 //void Creature::setCreature(Point p, Board& board)
 
-	//----------Methods-----------//
+//----------Methods-----------//
 //void Creature::moveCreature(Board& board)
 
 void Creature::printCreature() {

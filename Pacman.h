@@ -18,12 +18,13 @@ class Pacman : public Creature {
 		//-----Setters & Getters------//
 		void setPacman(Point p);
 		void setLife(int _life) { life = _life; }
+		void setScore(int _score) { score += _score; }
 
 		int getLife() { return life; }
 		int getScore() { return score; }
 
 		//----------Methods-----------//
-		void movePacman(Board &board);
+		void move(Board &board);
 		void isEndBoard();
 };
 

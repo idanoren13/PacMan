@@ -27,19 +27,19 @@ public:
 
 	//----------Setters-----------//
 	void setColor(Color c) { color = c; }
-	void setPrevPoint(Point p) { prev_point = p; }
+	void setShape(Shape _shape) { shape = _shape; }
 	void setVector(Move_Vector dir) { v = dir; }
 
 	//----------Getters-----------//
-	char getShape() { return shape; }
-	Move_Vector getVector() { return v; }
-	Point getCurrPoint() { return curr_point; }
-	Point getPrevPoint() { return prev_point; }
+	char getShape() const { return shape; }
+	Move_Vector getVector() const { return v; }
+	Point getCurrPoint() const { return curr_point; }
+	Point getPrevPoint() const { return prev_point; }
 
 	//----------Methods-----------//
-	//void moveCreature(Board& board);
 	void printCreature();
-	//bool isEndBoard();
+	virtual void move(Board& board) = 0;	// make Creature an abstract class
+	//virtual bool isEndBoard();
 };
 
 #endif
