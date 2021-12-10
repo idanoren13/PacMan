@@ -26,7 +26,7 @@ void Fruit::move(Board& board) {
 	next_point.move(v);
 
 	unsigned char readVal = board.getCell(next_point);
-	while (isEndBoard() || readVal == (unsigned char)WALL)
+	while (isEndBoard(board.getHeight(), board.getWidth()) || readVal == (unsigned char)WALL)
 	{
 		if (move_cntr % 5 == 0)
 			setVector((Move_Vector)(v - 1));
@@ -51,6 +51,6 @@ void Fruit::move(Board& board) {
 	printCreature();
 }
 
-bool Fruit::isEndBoard() {
-	return (next_point.getX() > WIDTH - 2 || next_point.getX() < 1 || next_point.getY() > HEIGHT - 1 || next_point.getY() < 1);
+bool Fruit::isEndBoard(int height, int width) {
+	return (next_point.getX() > width - 1 || next_point.getX() < 0 || next_point.getY() > height - 1 || next_point.getY() < 0);
 }

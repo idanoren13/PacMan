@@ -13,8 +13,8 @@ public:
 	//enum class fShape { FIVE = '5', SIX, SEVEN, EIGHT, NINE };
 
 	//--------Constructors--------//
-	Fruit() : Creature(Point(21, 9), WHITE, FIVE, UP), move_cntr(0) { setShape(Shape(53 + rand() % 5)); }
-	Fruit(Point _p) : Creature(_p, WHITE, FIVE, UP), move_cntr(0) { setShape(Shape(rand() % 5)); }
+	Fruit() : Creature(Point(21, 9), DARKGREY, FIVE, UP), move_cntr(0) { setShape(Shape(53 + rand() % 5)); }
+	Fruit(Point _p) : Creature(_p, DARKGREY, FIVE, UP), move_cntr(0) { setShape(Shape(rand() % 5)); }
 	Fruit(Point _p, Color _color) : Creature(_p, _color, FIVE, UP), move_cntr(0) { setShape(Shape(rand() % 5)); }
 
 	//-----Setters & Getters------//
@@ -22,7 +22,7 @@ public:
 
 	//----------Methods-----------//
 	void move(Board& board);
-	bool isEndBoard();
+	bool isEndBoard(int height, int width);
 };
 
 #endif

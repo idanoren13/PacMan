@@ -20,7 +20,7 @@ void Pacman::move(Board& board) {
 		prev_point = curr_point;
 		next_point = curr_point;
 		next_point.move(v);
-		isEndBoard();
+		isEndBoard(board.getHeight(), board.getWidth());
 		unsigned char readCurrVal = board.getCell(curr_point);
 		unsigned char readNextVal = board.getCell(next_point);
 		if (readCurrVal == (unsigned char)BREAD) {
@@ -37,13 +37,13 @@ void Pacman::move(Board& board) {
 	}
 }
 
-void Pacman::isEndBoard() {
-	if (next_point.getX() == WIDTH - 1)
-		next_point.setPoint(1, next_point.getY());
-	else if (next_point.getX() < 1)
-		next_point.setPoint(WIDTH - 2, next_point.getY());
-	else if (next_point.getY() > HEIGHT - 1)
-		next_point.setPoint(next_point.getX(), 1);
-	else if (next_point.getY() < 1)
-		next_point.setPoint(next_point.getX(), HEIGHT - 1);
+void Pacman::isEndBoard(int height, int width) {
+	if (next_point.getX() > width - 1)
+		next_point.setPoint(0, next_point.getY());
+	else if (next_point.getX() < 0)
+		next_point.setPoint(width - 1, next_point.getY());
+	else if (next_point.getY() > height - 1)
+		next_point.setPoint(next_point.getX(), 0);
+	else if (next_point.getY() < 0)
+		next_point.setPoint(next_point.getX(), height - 1);
 }

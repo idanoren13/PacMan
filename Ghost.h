@@ -20,7 +20,7 @@ public:
 
 	//----------Methods-----------//
 	void move(Board& board);
-	bool isEndBoard();
+	bool isEndBoard(int height, int width);
 };
 
 #endif

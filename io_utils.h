@@ -12,10 +12,11 @@ using std::cin;
 using std::endl;
 using std::flush;
 using std::string;
+using std::ifstream;
+using std::ios;
 
 void gotoxy(int x, int y);
 void setTextColor(Color);
-void hideCursor();
 void clear_screen();
 void printNewGame();
 void ShowConsoleCursor(bool showFlag);

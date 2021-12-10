@@ -3,13 +3,18 @@
 Game_Logic::Game_Logic() {
 	std::srand(std::time(nullptr));
 	black_and_white = true;
-	ghost1.setGhost(Point(20, 9), board);
-	ghost2.setGhost(Point(23, 9), board);
+	board.initBoard("pacman_01.screen.txt");
+
+	for (int i = 0; i < board.getNumOfGhosts(); i++)
+		ghosts.push_back(Ghost((board.getGhostsPos())[i]));
+	pacman.setPacman(board.getPacmanPos());
+	fruit.setFruit(getRandomPoint(), board);
 }
 
 void Game_Logic::runGame() {
 	char choice;
 	char levelChoice;
+	int j = 2;
 	ShowConsoleCursor(false); // hiding console cursor
 
 	while (true)
@@ -22,15 +27,18 @@ void Game_Logic::runGame() {
 		switch (choice) {
 		case '1':
 			black_and_white = false;
-			ghost1.setColor(RED);
-			ghost2.setColor(MAGENTA);
+			for (auto&& ghost : ghosts) {
+				ghost.setColor(Color(j));
+				j++;
+			}
+			j = 2;
 			pacman.setColor(YELLOW);
 			run();
 			break;
 		case '2':
 			black_and_white = true;
-			ghost1.setColor(WHITE);
-			ghost2.setColor(WHITE);
+			for (auto&& i : ghosts)
+				i.setColor(WHITE);
 			pacman.setColor(WHITE);
 			run();
 			break;
@@ -53,13 +61,13 @@ void Game_Logic::run()
 	board.printBoard(black_and_white);
 	pacman.printCreature();
 
-	while (pacman.getScore() < MAX_SCORE && !didILose) { 
+	while (pacman.getScore() < board.getNumOfCrumbs() && !didILose) { // add an adition field in Pacman -> crumbsEaten
 		getInput(pauseFlag);
 		if (!pauseFlag) {
 			pacman.move(board);
 			if (slowCreature % 2 == 0) {
-				ghost1.move(board);
-				ghost2.move(board);
+				for (Ghost& ghost : ghosts)
+					ghost.move(board);
 			}
 			if (fruitActive) {
 				if (slowCreature % 6 == 0)
@@ -67,7 +75,7 @@ void Game_Logic::run()
 				if (slowCreature % 200 == 0)
 					hideFruit(fruitActive);
 			}
-			if (!fruitActive && (MAX_SCORE - 270 <= pacman.getScore()) && (rand() % 59 == 0)) {
+			if (!fruitActive && (pacman.getScore() > 40) && (rand() % 59 == 0)) {
 				fruitActive = true; 
 			}
 			slowCreature++;
@@ -77,7 +85,7 @@ void Game_Logic::run()
 
 		creaturesCollision(didILose, fruitActive);
 		if (!didILose) {
-			board.printData(pacman.getScore(), pacman.getLife());
+			board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
 			Sleep(100);
 		}
 	}
@@ -87,14 +95,17 @@ void Game_Logic::run()
 }
 
 void Game_Logic::creaturesCollision(bool& didILose, bool& fruitActive) {
-	if (collision(pacman, ghost1) || collision(pacman, ghost2))
-		ghostPacmanCollision(didILose);
+
+	for (Ghost& ghost : ghosts) {
+		if (collision(pacman, ghost))
+			ghostPacmanCollision(didILose);
+
+		if (collision(fruit, ghost))
+			hideFruit(fruitActive);
+	}
 	
 	if (collision(pacman, fruit))	
 		fruitPacmanCollision(fruitActive);
-
-	if (collision(fruit, ghost1) || collision(fruit, ghost2))
-		hideFruit(fruitActive);
 }
 
 void Game_Logic::ghostPacmanCollision(bool& didILose) {
@@ -104,14 +115,14 @@ void Game_Logic::ghostPacmanCollision(bool& didILose) {
 		didILose = !didILose;
 	}
 	else {
-		pacman.setPacman(Point(2, 9));
-		ghost1.setGhost(Point(21, 9), board);
-		ghost2.setGhost(Point(22, 9), board);
+		pacman.setPacman(board.getPacmanPos());
+		for (int i = 0; i < ghosts.size(); i++)
+			ghosts[i].setGhost((board.getGhostsPos())[i], board);
 	}
 }
 
 void Game_Logic::fruitPacmanCollision(bool& fruitActive) {
-	pacman.setScore((int)(fruit.getShape() - '0'));
+	pacman.setFruitScore((int)(fruit.getShape() - '0'));
 	pacman.printCreature(); //  
 	hideFruit(fruitActive);
 }
@@ -124,10 +135,9 @@ void Game_Logic::hideFruit(bool& fruitActive) {
 
 Point Game_Logic::getRandomPoint() {
 	Point res;
-
-	res.setPoint(rand() % (WIDTH - 3) + 2, rand() % (HEIGHT - 3) + 2);
-	while (board.getCell(res) == (char)WALL || fruit.isEndBoard())
-		res.setPoint(rand() % (WIDTH - 3) + 2, rand() % (HEIGHT - 3) + 2);
+	res.setPoint(rand() % (board.getWidth() - 3), rand() % (board.getHeight() - 3));
+	while (board.getCell(res) == (char)WALL || fruit.isEndBoard(board.getHeight(), board.getWidth()))
+		res.setPoint(rand() % (board.getWidth() - 3), rand() % (board.getHeight() - 3));
 
 	return res;
 }
@@ -173,7 +183,6 @@ void Game_Logic::winGame(){
 }
 
 void Game_Logic::resetGame(string s){
-	char ch;
 	clear_screen();
 	gotoxy(0, 0);
 	setTextColor(Color(WHITE));
@@ -182,12 +191,14 @@ void Game_Logic::resetGame(string s){
 	_getch();
 	system("cls");
 
-	board.initBoard();
-	pacman.setPacman(Point(2, 9));
+	board.initBoard("pacman_01.screen.txt"); // adjust !
+	pacman.setPacman(board.getPacmanPos());
 	pacman.setLife(3);  
 	pacman.setScore(pacman.getScore() * -1);
-	ghost1.setGhost(Point(21, 9), board);
-	ghost2.setGhost(Point(22, 9), board);
+	for (int i = 0; i < ghosts.size(); i++)
+		ghosts[i].setGhost((board.getGhostsPos())[i], board);
+
+	// ghosts.clear(); // while moving to different screen
 }
 
 void Game_Logic::getInput(bool& flag) {
@@ -251,6 +262,7 @@ char Game_Logic::levelMenu()
 
 void Game_Logic::printMenu() {
 	gotoxy(0, 0);
+	setTextColor(Color::WHITE);
 	cout << "" << endl
 		<< "********************************************" << endl
 		<< "    _____           __  __			      " << endl
@@ -318,7 +330,7 @@ void Game_Logic::printExit() {
 
 void Game_Logic::printGamePause() {
 	setTextColor(Color::WHITE);
-	gotoxy(0, HEIGHT + 3);
+	gotoxy(0, board.getHeight() + 3);
 	cout << "Game paused, press ESC again to continue";
 	Sleep(950);
 	cout << "\33[2K" << endl; // erase line from console

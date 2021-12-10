@@ -3,8 +3,9 @@
 
 #include "io_utils.h"
 #include "Point.h"
-#include "Color.h"
 #include "Board.h"
+#include "Color.h"
+#include <vector>
 #include "Pacman.h"
 #include "Ghost.h"
 #include "Fruit.h"
@@ -14,7 +15,7 @@ class Game_Logic {
 private:
 	Board board;
 	Pacman pacman;
-	Ghost ghost1, ghost2;
+	std::vector<Ghost> ghosts;
 	Fruit fruit;
 	bool black_and_white;
 	char ghostLevel;
