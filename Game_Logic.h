@@ -1,5 +1,6 @@
 #ifndef GAME_LOGIC_H__
 #define GAME_LOGIC_H_
+#define _CRT_SECURE_NO_WORNINGS
 
 #include "io_utils.h"
 #include "Point.h"
@@ -13,12 +14,16 @@
 class Game_Logic {
 
 private:
+	
+	char ghostLevel;
+	bool black_and_white;
+	int stage;
+	char fileName[21] = "pacman_01.screen.txt";
+
 	Board board;
 	Pacman pacman;
 	std::vector<Ghost> ghosts;
 	Fruit fruit;
-	bool black_and_white;
-	char ghostLevel;
 
 	public:
 		//--------Constructors--------//
@@ -26,6 +31,8 @@ private:
 
 		//-----Setters & Getters------//
 		void setGameLogic(Point p);
+		void setFileName(const string& choice);
+
 		void setGhostLevel(char _ghostLevel) {ghostLevel = _ghostLevel;	}
 		char getGhostLevel() { return ghostLevel; }
 
@@ -33,6 +40,8 @@ private:
 
 		char menu();
 		char levelMenu();
+		void chooseBoard();
+		void checkFileInput(bool& fileSuccess);
 
 		void getInput(bool& flag);
 		void runGame();
@@ -47,6 +56,7 @@ private:
 		void printInstractions();
 		void printLevelMenu();
 		void printGamePause();
+		void printPacmanSign();
 		void printExit();
 
 		Point getRandomPoint();

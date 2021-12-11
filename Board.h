@@ -41,7 +41,7 @@ public:
 	Point* getGhostsPos() { return ghostsPos; }
 	
 	//----------Methods-----------//
-	void initBoard(const char* filename);
+	void initBoard(const char* filename, bool& fileSuccess);
 	void handleRead(const char read, int& row, int& col, int& countChars);
 	void initLegend();
 	void initDefaultBoard();

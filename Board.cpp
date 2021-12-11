@@ -20,7 +20,7 @@ void Board::editCell(Point p, char ch) {
 
 //----------Methods-----------//
 
-void Board::initBoard(const char* filename) 
+void Board::initBoard(const char* filename, bool& fileSuccess)
 {
 	// TODO: filename input check
 
@@ -28,10 +28,15 @@ void Board::initBoard(const char* filename)
 	char read;
 
 	ifstream in_file(filename, ios::ate);
-	if (!(in_file.is_open())) /*handle case*/;
+	if (!(in_file.is_open())) {
+		fileSuccess = false;
+		return;
+	}
+	else
+		fileSuccess = true;
 	int fileSize = in_file.tellg();
 	in_file.seekg(0, in_file.beg);
-	
+
 	while ((countChars <= fileSize) && (row <= MAX_ROWS) && (col <= MAX_COLS))
 	{
 		read = in_file.get();
