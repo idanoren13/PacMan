@@ -30,14 +30,12 @@ void Ghost::move(Board& board) {
 		next_point.move(v);
 
 	unsigned char readVal = board.getCell(next_point);
-	while (isEndBoard(board.getHeight(), board.getWidth()) || readVal == (unsigned char)WALL)
+	while (isEndBoard(board.getHeight(), board.getWidth()) || readVal == (unsigned char)WALL || readVal == (unsigned char)GHOST)
 	 {
 		if (move_cntr % 5 == 0)
 			setVector((Move_Vector)(v - 1));
-			//v = (Move_Vector)(v - 1);
 		else
 			setVector((Move_Vector)(v + 1));
-			//v = (Move_Vector)(v + 1);
 
 		 if (v >= STAY)
 			 v = UP;

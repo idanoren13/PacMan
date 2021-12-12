@@ -84,8 +84,10 @@ void Board::handleRead(const char read, int& row, int& col, int& countChars) {
 		board[row][col] = ' ';
 		break;
 	case '$':
-		ghostsPos[num_of_ghosts].setPoint(col, row);
-		num_of_ghosts++;
+		if (num_of_ghosts < 4) {
+			ghostsPos[num_of_ghosts].setPoint(col, row);
+			num_of_ghosts++;
+		}
 		board[row][col] = ' ';
 		break;
 	case '&':
