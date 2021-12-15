@@ -10,7 +10,7 @@ Game_Logic::Game_Logic() {
 	checkFileInput(fileSuccess);
 	
 	pacman.setPacman(board.getPacmanPos());
-	fruit.setFruit(getRandomPoint(), board);
+	fruit.setFruit(board.getRandomPoint(), board);
 	for (int i = 0; i < board.getNumOfGhosts(); i++)
 		ghosts.push_back(Ghost((board.getGhostsPos())[i]));
 }
@@ -128,18 +128,9 @@ void Game_Logic::fruitPacmanCollision(bool& fruitActive) {
 }
 
 void Game_Logic::hideFruit(bool& fruitActive) {
-	fruit.setFruit(getRandomPoint(), board);
+	fruit.setFruit(board.getRandomPoint(), board);
 	fruit.setShape(Shape(53 + rand() % 5));
 	fruitActive = false;
-}
-
-Point Game_Logic::getRandomPoint() {
-	Point res;
-	res.setPoint(rand() % (board.getWidth() - 3), rand() % (board.getHeight() - 3));
-	while (board.getCell(res) == (char)WALL || fruit.isEndBoard(board.getHeight(), board.getWidth()))
-		res.setPoint(rand() % (board.getWidth() - 3), rand() % (board.getHeight() - 3));
-
-	return res;
 }
 
 bool Game_Logic::collision(const Creature& A, const Creature& B) {
@@ -153,6 +144,7 @@ void Game_Logic::resetGame(string s){
 	setTextColor(Color(WHITE));
 	cout << s;
 	Sleep(2000);
+	_getch();
 	system("cls");
 
 	bool fileSuccess = true;
@@ -161,7 +153,7 @@ void Game_Logic::resetGame(string s){
 	checkFileInput(fileSuccess);
 
 	pacman.setPacman(board.getPacmanPos());
-	pacman.setLife(3); 
+	pacman.setLife(3);
 	pacman.setScore(pacman.getScore() * -1);
 
 	ghosts.clear();
@@ -265,7 +257,7 @@ void Game_Logic::checkFileInput(bool& fileSuccess) {
 	while (!fileSuccess) {
 		system("cls");
 		cout << "file does not exist.";
-		Sleep(2000);
+		Sleep(2300);
 		chooseBoard();
 		board.initBoard(fileName, fileSuccess);
 	}

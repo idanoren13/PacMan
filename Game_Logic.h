@@ -59,8 +59,6 @@ private:
 		void printPacmanSign();
 		void printExit();
 
-		Point getRandomPoint();
-
 private:
 		bool collision(const Creature& A, const Creature& B);
 		void ghostPacmanCollision(bool& didILose);
