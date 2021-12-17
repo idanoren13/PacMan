@@ -4,21 +4,42 @@ Game_Logic::Game_Logic() {
 	bool fileSuccess = true;
 	std::srand(std::time(nullptr));
 	black_and_white = true;
-	stage = 0;
+	ShowConsoleCursor(false); // hiding console cursor
 
-	board.initBoard(fileName, fileSuccess);
+
+	/*board.initBoard(fileName, fileSuccess);
 	checkFileInput(fileSuccess);
 	
 	pacman.setPacman(board.getPacmanPos());
 	fruit.setFruit(board.getRandomPoint(), board);
 	for (int i = 0; i < board.getNumOfGhosts(); i++)
-		ghosts.push_back(Ghost((board.getGhostsPos())[i]));
+		ghosts.push_back(Ghost((board.getGhostsPos())[i]));*/
+}
+// if 1 or 2 load all screensFiles
+// else if 4 load single file by name
+// if gameOver/winGame return to menu and repeat the above
+//
+// emptycntr does nothing but zeroeing
+// if choice = 1/2, resetGame with all files
+// if choice = 4, resetGame only with fileName
+// if winGame, "you won level << fileIndex ,load nextFile
+// if gameOver, reset everything and go back to menu
+
+
+void Game_Logic::initScreens() {
+	const fs::path projPath = fs::current_path();
+
+	for (const auto& entry : fs::directory_iterator(projPath)) {
+		auto fileName = entry.path().filename().string();
+		if (entry.is_regular_file())
+			if (fileName.find(".screen") != string::npos)
+				screenNames.push_back(static_cast<string>(fileName));
+	}
+	sort(screenNames.begin(), screenNames.end());
 }
 
 void Game_Logic::runGame() {
 	char choice;
-	int j = 2;
-	ShowConsoleCursor(false); // hiding console cursor
 
 	while (true)
 	{
@@ -27,35 +48,81 @@ void Game_Logic::runGame() {
 		switch (choice) {
 		case '1':
 			black_and_white = false;
-			for (auto&& ghost : ghosts) {
-				ghost.setColor(Color(j));
-				j++;
-			}
-			j = 2;
-			pacman.setColor(YELLOW);
 			run();
 			break;
 		case '2':
 			black_and_white = true;
-			for (auto&& i : ghosts)
-				i.setColor(WHITE);
-			pacman.setColor(WHITE);
 			run();
 			break;
 		case '9':
 			printExit();
 			return;
 		}
+		fileName = "";
+		screenNames.clear();
 	}
 }
 
-void Game_Logic::run()
+void Game_Logic::run() {
+	bool didILose = false;
+	bool isValidFile = true;
+
+	if (fileName.find(".screen") != string::npos)
+		screenNames.push_back(static_cast<string>(fileName));
+	else
+		initScreens();
+
+	for (string& screen : screenNames) {
+		resetGame(screen, isValidFile);
+		if (!isValidFile)
+			break;
+		runScreen(didILose);
+		if (!didILose)
+			winGame();
+		else {
+			gameOver();
+			break;
+		}
+	}
+}
+
+void Game_Logic::resetGame(string screen, bool& isValidFile) {
+	//reset board
+	string errMsg;
+	board.initBoard(screen.c_str(), isValidFile, errMsg);
+	if (!isValidFile) {
+		printMsg(errMsg);
+		return;
+	}
+	
+	//reset pacman
+	pacman.resetScore();
+	pacman.setPacman(board.getPacmanPos());
+
+	//reset ghost
+	ghosts.clear();
+	for (int i = 0; i < board.getNumOfGhosts(); i++)
+		ghosts.push_back(Ghost((board.getGhostsPos())[i]));
+
+	if (black_and_white) {
+		for (auto&& ghost : ghosts)
+			ghost.setColor(WHITE);
+		pacman.setColor(WHITE);
+	}
+	else {
+		int j = 2;
+		for (auto&& ghost : ghosts) {
+			ghost.setColor(Color(j));
+			j++;
+		}
+		pacman.setColor(YELLOW);
+	}
+}
+
+void Game_Logic::runScreen(bool& didILose)
 {
 	int slowCreature = 1;
-	Move_Vector dir = STAY;
-
 	bool pauseFlag = false;
-	bool didILose = false;
 	bool fruitActive = false;
 
 	board.printBoard(black_and_white);
@@ -79,19 +146,14 @@ void Game_Logic::run()
 				fruitActive = true; 
 			}
 			slowCreature++;
+			creaturesCollision(didILose, fruitActive);
+			board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
 		}
 		else
-			printGamePause();			
+			printGamePause();		
 
-		creaturesCollision(didILose, fruitActive);
-		if (!didILose) {
-			board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
-			Sleep(100);
-		}
+		Sleep(100);
 	}
-	if(!didILose)
-		winGame();
-	didILose = false;
 }
 
 void Game_Logic::creaturesCollision(bool& didILose, bool& fruitActive) {
@@ -110,10 +172,8 @@ void Game_Logic::creaturesCollision(bool& didILose, bool& fruitActive) {
 
 void Game_Logic::ghostPacmanCollision(bool& didILose) {
 	pacman.setLife(pacman.getLife() - 1);
-	if (pacman.getLife() <= 0) {
-		gameOver();
-		didILose = !didILose;
-	}
+	if (pacman.getLife() <= 0) 
+		didILose = true;
 	else {
 		pacman.setPacman(board.getPacmanPos());
 		for (int i = 0; i < ghosts.size(); i++)
@@ -123,42 +183,19 @@ void Game_Logic::ghostPacmanCollision(bool& didILose) {
 
 void Game_Logic::fruitPacmanCollision(bool& fruitActive) {
 	pacman.setFruitScore((int)(fruit.getShape() - '0'));
-	pacman.printCreature(); //  
+	pacman.printCreature();
 	hideFruit(fruitActive);
 }
 
 void Game_Logic::hideFruit(bool& fruitActive) {
 	fruit.setFruit(board.getRandomPoint(), board);
-	fruit.setShape(Shape(53 + rand() % 5));
+	fruit.setShape(Shape(FIVE + rand() % 5));
 	fruitActive = false;
 }
 
 bool Game_Logic::collision(const Creature& A, const Creature& B) {
 	return (A.getCurrPoint().isSamePoint(B.getCurrPoint()) ||
 		A.getPrevPoint().isSamePoint(B.getPrevPoint()));
-}
-
-void Game_Logic::resetGame(string s){
-	clear_screen();
-	gotoxy(0, 0);
-	setTextColor(Color(WHITE));
-	cout << s;
-	Sleep(2000);
-	_getch();
-	system("cls");
-
-	bool fileSuccess = true;
-
-	board.initBoard(fileName, fileSuccess);
-	checkFileInput(fileSuccess);
-
-	pacman.setPacman(board.getPacmanPos());
-	pacman.setLife(3);
-	pacman.setScore(pacman.getScore() * -1);
-
-	ghosts.clear();
-	for (int i = 0; i < board.getNumOfGhosts(); i++)
-		ghosts.push_back(Ghost((board.getGhostsPos())[i]));
 }
 
 void Game_Logic::getInput(bool& flag) {
@@ -186,30 +223,30 @@ void Game_Logic::getInput(bool& flag) {
 	}
 }
 
-char Game_Logic::menu()
-{
+char Game_Logic::menu() {
 	printMenu();
 	char choice = _getch();
-	char levelChoice;
 
-	while (choice != '1' && choice != '2' && choice != '9'){
-
-		if (choice == '3') {
-			levelChoice = levelMenu();
+	while (choice != '1' && choice != '2' && choice != '9') {
+		switch (choice) {
+		case '3':
+			char levelChoice = levelMenu();
 			setGhostLevel(levelChoice);
 			printMenu();
-		}
-		else if (choice == '4') {
+			break;
+		case '4':
 			chooseBoard();
 			printMenu();
-		}
-		else if (choice == '8') {
+			break;
+		case '8':
 			printInstractions();
 			printMenu();
-		}
-		else {
-			gotoxy(0, 16);
-			cout << "Invalid choice. Choose a number from [1/2/8/9]" << endl;
+			break;
+		default:
+			gotoxy(0, 19);
+			cout << "Invalid choice. Choose a number from [1/2/3/4/8/9]" << endl;
+			gotoxy(0, 0);
+			break;
 		}
 		choice = _getch();
 	}
@@ -236,37 +273,36 @@ void Game_Logic::chooseBoard() {  // split to 2 funcs
 	gotoxy(0, 0);
 
 	printPacmanSign();
-	cout << "Please choose file number [01 - 99] : " << endl;
+	cout << "Please insert screen name : " << endl;
+	fileName.clear();
+	cin >> fileName;
 
-	string choice;
-	cin >> choice;
-
-	while (choice[0] < '0' || choice[0] > '9' || choice[1] < '0' || choice[1] > '9') {
-		gotoxy(0, 16);
-		cout << "Invalid choice.\nScreen does not exist." << endl;
-		gotoxy(0, 11); 
-		cout << "\33[2K";
-		cin >> choice;
-	}
-	setFileName(choice);
-	resetGame("Loading Screen");
+	//while (choice[0] < '0' || choice[0] > '9' || choice[1] < '0' || choice[1] > '9') {
+	//	gotoxy(0, 16);
+	//	cout << "Invalid choice.\nScreen does not exist." << endl;
+	//	gotoxy(0, 11); 
+	//	cout << "\33[2K";
+	//	cin >> choice;
+	//}
+	//setFileName(choice);
+	//resetGame("Loading Screen");
 	system("cls");
 }
 
-void Game_Logic::checkFileInput(bool& fileSuccess) {
-	while (!fileSuccess) {
-		system("cls");
-		cout << "file does not exist.";
-		Sleep(2300);
-		chooseBoard();
-		board.initBoard(fileName, fileSuccess);
-	}
-}
-
-void Game_Logic::setFileName(const string& choice) {
-	fileName[7] = choice[0];
-	fileName[8] = choice[1];
-}
+//void Game_Logic::checkFileInput(bool& fileSuccess) {
+//	while (!fileSuccess) {
+//		system("cls");
+//		cout << "file does not exist.";
+//		Sleep(2300);
+//		chooseBoard();
+//		board.initBoard(fileName, fileSuccess);
+//	}
+//}
+//
+//void Game_Logic::setFileName(const string& choice) {
+//	fileName[7] = choice[0];
+//	fileName[8] = choice[1];
+//}
 
 void Game_Logic::printGamePause() {
 	setTextColor(Color::WHITE);
@@ -345,6 +381,7 @@ void Game_Logic::printExit() {
 
 void Game_Logic::gameOver()
 {
+	pacman.setLife(3);
 	/*prints:
 	*    _____      ___       ___  ___   _______
 		/  ___|    /   |     /   |/   | |   ____|
@@ -359,9 +396,8 @@ void Game_Logic::gameOver()
 		| | | |  | | / /   |  __|   |  _   /
 		| |_| |  | |/ /    | |____  | | \  \
 		\_____/  |___/     |______| |_|  \__\ */
-	string s = "   _____      ___       ___  ___   _______ \n  /  ___|    /   |     /   |/   | |   ____| \n  | |       /    |    / /|   /| | |  |__ \n  | |  _   /  /| |   / / |__/ | | |   __| \n  | |_| | /  ___ |  / /       | | |  |____ \n  \\_____//_/   |_| /_/        |_| |_______| \n\n   _____    _     _   ______   ______ \n  /  _  \\  | |   / / | _____| |  _   \\ \n  | | | |  | |  / /  | |__    | |_|  | \n  | | | |  | | / /   |  __|   |  _   / \n  | |_| |  | |/ /    | |____  | | \\  \\ \n  \\_____/  |___/     |______| |_|  \\__\\  \n\nPress any key to return to the menu\n";
-
-	resetGame(s);
+	string s = "   _____      ___       ___  ___   _______ \n  /  ___|    /   |     /   |/   | |   ____| \n  | |       /    |    / /|   /| | |  |__ \n  | |  _   /  /| |   / / |__/ | | |   __| \n  | |_| | /  ___ |  / /       | | |  |____ \n  \\_____//_/   |_| /_/        |_| |_______| \n\n   _____    _     _   ______   ______ \n  /  _  \\  | |   / / | _____| |  _   \\ \n  | | | |  | |  / /  | |__    | |_|  | \n  | | | |  | | / /   |  __|   |  _   / \n  | |_| |  | |/ /    | |____  | | \\  \\ \n  \\_____/  |___/     |______| |_|  \\__\\  \n\nReturning to the menu";
+	printMsg(s);
 }
 
 void Game_Logic::winGame() {
@@ -372,7 +408,17 @@ void Game_Logic::winGame() {
 		  \   /| |  | | |  | |   \ \/  \/ /   | | | . ` |
 		   | | | |__| | |__| |    \  /\  /   _| |_| |\  |
 		   |_|  \____/ \____/      \/  \/   |_____|_| \_|*/
-	string s = " __     ______  _    _  __          _______ _   _\n \\ \\   / / __ \\| |  | | \\ \\        / /_   _| \\ | |\n  \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| |\n   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` |\n    | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  |\n    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_|\n\nPress any key to return to the menu\n";
-
-	resetGame(s);
+	string s = " __     ______  _    _  __          _______ _   _\n \\ \\   / / __ \\| |  | | \\ \\        / /_   _| \\ | |\n  \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| |\n   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` |\n    | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  |\n    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_|\n\nLoading next screen";
+	printMsg(s);
 }
+
+void Game_Logic::printMsg(string s) {
+	clear_screen();
+	gotoxy(0, 0);
+	setTextColor(Color(WHITE));
+	s.append("\nPlease wait\n");
+	cout << s;
+	Sleep(4200);
+	system("cls");
+}
+

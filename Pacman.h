@@ -20,6 +20,7 @@ class Pacman : public Creature {
 		void setPacman(Point p);
 		void setLife(int _life) { life = _life; }
 		void setScore(int _score) { score += _score; }
+		void resetScore() { score = 0; }
 		void setFruitScore(int _fruitScore) { fruitScore += _fruitScore; }
 
 		int getLife() { return life; }

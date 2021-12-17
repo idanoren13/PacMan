@@ -10,6 +10,9 @@
 #include "Pacman.h"
 #include "Ghost.h"
 #include "Fruit.h"
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 class Game_Logic {
 
@@ -17,21 +20,21 @@ private:
 	
 	char ghostLevel;
 	bool black_and_white;
-	int stage;
-	char fileName[21] = "pacman_01.screen.txt";
+	string fileName = "";
 
 	Board board;
 	Pacman pacman;
-	std::vector<Ghost> ghosts;
 	Fruit fruit;
+	std::vector<Ghost> ghosts;
+	std::vector<string> screenNames;
 
-	public:
+public:
 		//--------Constructors--------//
 		Game_Logic();
 
 		//-----Setters & Getters------//
-		void setGameLogic(Point p);
-		void setFileName(const string& choice);
+		//void setGameLogic(Point p);
+		//void setFileName(const string& choice);
 
 		void setGhostLevel(char _ghostLevel) {ghostLevel = _ghostLevel;	}
 		char getGhostLevel() { return ghostLevel; }
@@ -41,16 +44,18 @@ private:
 		char menu();
 		char levelMenu();
 		void chooseBoard();
-		void checkFileInput(bool& fileSuccess);
+		//void checkFileInput(bool& isValidFile);
 
 		void getInput(bool& flag);
 		void runGame();
 		void run();
+		void runScreen(bool& didILose);
 		
-		void creaturesCollision(bool& flag, bool& fruitActive);
+		void creaturesCollision(bool& didILose, bool& fruitActive);
 		void winGame();
 		void gameOver();
-		void resetGame(string s);
+		void resetGame(string screen, bool& isValidFile);
+		void initScreens();
 
 		void printMenu();
 		void printInstractions();
@@ -58,6 +63,8 @@ private:
 		void printGamePause();
 		void printPacmanSign();
 		void printExit();
+		void printMsg(string s);
+
 
 private:
 		bool collision(const Creature& A, const Creature& B);

@@ -30,7 +30,9 @@ Point Board::getRandomPoint() {
 	return res;
 }
 
-void Board::initBoard(const char* filename, bool& fileSuccess)
+
+
+void Board::initBoard(const char* filename, bool& isValidFile, string& errMsg)
 {
 	// TODO: filename input check
 
@@ -39,11 +41,12 @@ void Board::initBoard(const char* filename, bool& fileSuccess)
 
 	ifstream in_file(filename, ios::ate);
 	if (!(in_file.is_open())) {
-		fileSuccess = false;
+		isValidFile = false;
+		errMsg = "File does not exist";
 		return;
 	}
 	else
-		fileSuccess = true;
+		isValidFile = true;
 	int fileSize = in_file.tellg();
 	in_file.seekg(0, in_file.beg);
 
@@ -121,6 +124,7 @@ void Board::handleRead(const char read, int& row, int& col, int& countChars) {
 }
 
 void Board::printBoard(bool black_and_white) {
+	gotoxy(0, 0);
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			if (board[i][j] == (unsigned char)WALL) {

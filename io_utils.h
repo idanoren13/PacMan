@@ -11,9 +11,6 @@ using std::cout;
 using std::cin; 
 using std::endl;
 using std::flush;
-using std::string;
-using std::ifstream;
-using std::ios;
 
 void gotoxy(int x, int y);
 void setTextColor(Color);

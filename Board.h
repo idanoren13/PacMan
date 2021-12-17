@@ -5,6 +5,10 @@
 #include "io_utils.h"
 #include <fstream>
 
+using std::string;
+using std::ifstream;
+using std::ios;
+
 #define MAX_COLS 80 
 #define MAX_ROWS 25 
 
@@ -46,7 +50,7 @@ public:
 
 	Point getRandomPoint();
 
-	void initBoard(const char* filename, bool& fileSuccess);
+	void initBoard(const char* filename, bool& isValidFile, string& errMsg);
 	void handleRead(const char read, int& row, int& col, int& countChars);
 	void initLegend();
 	void initDefaultBoard();
