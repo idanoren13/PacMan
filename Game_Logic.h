@@ -6,10 +6,10 @@
 #include "Point.h"
 #include "Board.h"
 #include "Color.h"
-#include <vector>
 #include "Pacman.h"
 #include "Ghost.h"
 #include "Fruit.h"
+#include <vector>
 #include <filesystem>
 
 namespace fs = std::filesystem;
@@ -33,14 +33,10 @@ public:
 		Game_Logic();
 
 		//-----Setters & Getters------//
-		//void setGameLogic(Point p);
-		//void setFileName(const string& choice);
-
 		void setGhostLevel(char _ghostLevel) {ghostLevel = _ghostLevel;	}
 		char getGhostLevel() { return ghostLevel; }
 
 		//----------Methods-----------//
-
 		char menu();
 		char levelMenu();
 		void chooseBoard();
@@ -64,7 +60,6 @@ public:
 		void printPacmanSign();
 		void printExit();
 		void printMsg(string s);
-
 
 private:
 		bool collision(const Creature& A, const Creature& B);

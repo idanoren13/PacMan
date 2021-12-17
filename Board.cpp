@@ -5,6 +5,7 @@
 Board::Board() {
 	num_of_ghosts = 0;
 	num_of_bread_crumbs = 0;
+	height = width = 0;
 }
 
 //-----Setters & Getters------//
@@ -34,10 +35,9 @@ Point Board::getRandomPoint() {
 
 void Board::initBoard(const char* filename, bool& isValidFile, string& errMsg)
 {
-	// TODO: filename input check
-
 	int col = 0, row = 0, countChars = 0;
 	char read;
+	resetBoard();
 
 	ifstream in_file(filename, ios::ate);
 	if (!(in_file.is_open())) {
