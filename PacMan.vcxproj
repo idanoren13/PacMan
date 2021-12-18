@@ -152,7 +152,6 @@
     <ClCompile Include="Board.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="pacman_01.screen.txt" />
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>

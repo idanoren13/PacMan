@@ -36,8 +36,12 @@ void Game_Logic::run() {
 	bool didILose = false;
 	bool isValidFile = true;
 
-	if (fileName.find(".screen") != string::npos)
-		screenNames.push_back(static_cast<string>(fileName));
+	if (fileName.size()/**/) {
+		if (fileName.find(".screen") != string::npos)
+			screenNames.push_back(static_cast<string>(fileName));
+		/*else
+			printMsg();*/
+	}
 	else
 		initScreens();
 

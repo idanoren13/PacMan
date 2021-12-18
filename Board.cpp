@@ -31,8 +31,6 @@ Point Board::getRandomPoint() {
 	return res;
 }
 
-
-
 void Board::initBoard(const char* filename, bool& isValidFile, string& errMsg)
 {
 	int col = 0, row = 0, countChars = 0;
