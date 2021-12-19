@@ -18,8 +18,6 @@ protected:
 	Point next_point;
 	Point prev_point;
 
-	//void setCreature(Point p, const Board& board);
-
 public:
 
 	//--------Constructors--------//
@@ -38,7 +36,7 @@ public:
 
 	//----------Methods-----------//
 	void printCreature();
-	virtual void move(Board& board) = 0;	// make Creature an abstract class
+	//virtual void move(Board& board) = 0;	// make Creature an abstract class
 	//virtual bool isEndBoard();
 };
 

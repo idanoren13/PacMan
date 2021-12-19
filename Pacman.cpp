@@ -36,7 +36,7 @@ void Pacman::move(Board& board) {
 		printCreature();
 	}
 }
-
+// change to override !
 void Pacman::isEndBoard(int height, int width) {
 	if (next_point.getX() > width - 1)
 		next_point.setPoint(0, next_point.getY());

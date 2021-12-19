@@ -36,11 +36,13 @@ void Game_Logic::run() {
 	bool didILose = false;
 	bool isValidFile = true;
 
-	if (fileName.size()/**/) {
+	if (fileName.size()) {
 		if (fileName.find(".screen") != string::npos)
 			screenNames.push_back(static_cast<string>(fileName));
-		/*else
-			printMsg();*/
+		else {
+			printMsg("File should end with .screen");
+			return;
+		}
 	}
 	else
 		initScreens();
@@ -76,7 +78,7 @@ void Game_Logic::runScreen(bool& didILose)
 			pacman.move(board);
 			if (slowCreature % 2 == 0) {
 				for (Ghost& ghost : ghosts)
-					ghost.move(board);
+					ghost.move(board, pacman);
 			}
 			if (fruitActive) {
 				if (slowCreature % 6 == 0)
@@ -113,8 +115,10 @@ void Game_Logic::resetGame(string screen, bool& isValidFile) {
 
 	//reset ghost
 	ghosts.clear();
-	for (int i = 0; i < board.getNumOfGhosts(); i++)
+	for (int i = 0; i < board.getNumOfGhosts(); i++) {
 		ghosts.push_back(Ghost((board.getGhostsPos())[i]));
+		ghosts[i].setGhostLevel(ghostLevel);
+	}
 
 	if (black_and_white) {
 		for (auto&& ghost : ghosts)

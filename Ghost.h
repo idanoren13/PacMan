@@ -9,6 +9,7 @@
 
 class Ghost : public Creature {
 	int move_cntr;
+	char level;
 
 public:
 	//--------Constructors--------//
@@ -18,18 +19,20 @@ public:
 
 	//-----Setters & Getters------//
 	void setGhost(Point p, Board & board);
+	void setGhostLevel(char _level) {level = _level;}
 
 	//----------Methods-----------//
-	void move(Board& board, Creature& pacman, char level);
+
+	void move(Board& board, Creature& pacman);
 	void smartMove(Board& board, Creature& pacman);
 	void avgMove(Board& board);
 	void dumbMove(Board& board);
+	void printGhost(Board& board);
 
-	bool isEndBoard(int height, int width);
 
-	Point move(Board& board, Creature& ghost, Creature& pacman);
-	bool isEndBoard(int height, int width, Point point);
+	//bool isEndBoard(int height, int width, Point point);
 	bool isValidMove(Board& board, Point point);
+	bool isEndBoard(int height, int width);
 };
 
 #endif

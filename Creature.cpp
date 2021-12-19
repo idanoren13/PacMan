@@ -9,11 +9,8 @@ Creature::Creature(Point _p, Color _color, Shape _shape, Move_Vector _v) {
 	v = _v;
 }
 
-//------Setters & Getters-------//
-//void Creature::setCreature(Point p, Board& board)
 
 //----------Methods-----------//
-//void Creature::moveCreature(Board& board)
 
 void Creature::printCreature() {
 	setTextColor(color);
