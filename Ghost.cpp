@@ -109,7 +109,7 @@ bool Ghost::isValidMove(Board& board, Point point) {
 }
 
 bool Ghost::isEndBoard(int height, int width) {
-	return (next_point.getX() > width - 1 || next_point.getX() < 0 || next_point.getY() > height - 1 || next_point.getY() < 0);
+	return (next_point.getX() > width - 2 || next_point.getX() < 0 || next_point.getY() > height - 2 || next_point.getY() < 0);
 }
 //bool Ghost::isEndBoard(int height, int width, Point point) {
 //	return (point.getX() > width - 1 || point.getX() < 0 || point.getY() > height - 1 || point.getY() < 0);
