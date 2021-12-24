@@ -6,6 +6,7 @@
 #include "Board.h"
 #include "Creature.h"
 #include <queue>
+#include <stdlib.h>
 
 class Ghost : public Creature {
 	int move_cntr;
@@ -29,7 +30,8 @@ public:
 	void dumbMove(Board& board);
 	void printGhost(Board& board);
 
-
+private:
+	bool nextPoint(Point q);
 	//bool isEndBoard(int height, int width, Point point);
 	bool isValidMove(Board& board, Point point);
 	bool isEndBoard(int height, int width);

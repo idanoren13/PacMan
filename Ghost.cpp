@@ -37,15 +37,46 @@ void Ghost::move(Board& board, Creature& pacman) {
 void Ghost::avgMove(Board& board) {}
 
 
+//void Ghost::smartMove(Board& board, Creature& pacman) {
+//	Point near_cell, cell, pacmanPos = pacman.getCurrPoint();
+//	std::queue<Point> q;
+//	std::vector<std::vector<bool>> visitedPointArr(board.getHeight() + 1, std::vector<bool>(board.getWidth(), false));
+//
+//	// Mark starting cell as visited
+//	q.push(pacmanPos);
+//	visitedPointArr[pacmanPos.getY()][pacmanPos.getX()] = true;
+//
+//	while (!q.empty()) {
+//		cell = q.front();
+//		q.pop();
+//
+//		for (int i = 0; i < 4; i++) {
+//			near_cell = cell;
+//			near_cell.move(i);
+//
+//			if (near_cell.isSamePoint(curr_point)) {
+//				next_point.move(i); //need to set it to ghost vector instead
+//				printGhost(board);
+//			}
+//
+//			else if (!isEndBoard(board.getHeight(), board.getWidth()) && board.getCell(near_cell) != (unsigned char)WALL && visitedPointArr[near_cell.getY()][near_cell.getX()] == false) {
+//				q.push(near_cell);
+//				visitedPointArr[near_cell.getY()][near_cell.getX()] = true;
+//			}
+//		}
+//	}
+//}
+
 void Ghost::smartMove(Board& board, Creature& pacman) {
+	int b_height = board.getHeight(), b_width = board.getWidth();
 	Point near_cell, cell, pacmanPos = pacman.getCurrPoint();
 	std::queue<Point> q;
 	std::vector<std::vector<bool>> visitedPointArr(board.getHeight() + 1, std::vector<bool>(board.getWidth(), false));
-
+	prev_point =curr_point;
 	// Mark starting cell as visited
 	q.push(pacmanPos);
 	visitedPointArr[pacmanPos.getY()][pacmanPos.getX()] = true;
-
+	int counter = 0;
 	while (!q.empty()) {
 		cell = q.front();
 		q.pop();
@@ -53,18 +84,25 @@ void Ghost::smartMove(Board& board, Creature& pacman) {
 		for (int i = 0; i < 4; i++) {
 			near_cell = cell;
 			near_cell.move(i);
-
-			if (near_cell.isSamePoint(curr_point)) {
-				next_point.move(i); //need to set it to ghost vector instead
+			if (nextPoint(pacmanPos)) {
 				printGhost(board);
+				next_point = pacmanPos;
+				return;
+			}
+			if (nextPoint(near_cell) && board.getCell(near_cell) != (unsigned char)WALL) {
+				printGhost(board);
+				next_point = near_cell;
+				return;
 			}
 
-			else if (!isEndBoard(board.getHeight(), board.getWidth()) && board.getCell(near_cell) != (unsigned char)WALL && visitedPointArr[near_cell.getY()][pacmanPos.getX()] == false) {
+			else if (board.isPointValid(near_cell) && board.getCell(near_cell) != (unsigned char)WALL && visitedPointArr[near_cell.getY()][near_cell.getX()] == false) {
 				q.push(near_cell);
-				visitedPointArr[near_cell.getY()][pacmanPos.getX()] = true;
+				visitedPointArr[near_cell.getY()][near_cell.getX()] = true;
 			}
 		}
+		counter++;
 	}
+	q.empty();
 }
 
 void Ghost::dumbMove(Board& board) {
@@ -102,6 +140,11 @@ void Ghost::printGhost(Board& board) {
 	curr_point.draw(board.getCell(curr_point));
 	curr_point = next_point;
 	printCreature();
+}
+
+bool Ghost::nextPoint(Point _p) {
+	return (((std::abs(_p.getX() - curr_point.getX()) <= 1) && (_p.getY() == curr_point.getY())) ||
+		((std::abs(_p.getY() - curr_point.getY()) <= 1) && (_p.getX() == curr_point.getX())));
 }
 
 bool Ghost::isValidMove(Board& board, Point point) {

@@ -10,7 +10,7 @@ Board::Board() {
 
 //-----Setters & Getters------//
 
-char Board::getCell(Point p) {
+unsigned char Board::getCell(Point p) {
 	return board[p.getY()][p.getX()];
 }
 
@@ -56,7 +56,7 @@ void Board::initBoard(const char* filename, bool& isValidFile, string& errMsg)
 		countChars++;
 	}
 
-	height = row;
+	height = row-1;
 	initLegend();
 	in_file.close();
 }

@@ -37,7 +37,7 @@ public:
 	void editCell(Point p, char ch);
 	void resetBoard() { num_of_bread_crumbs = num_of_ghosts = 0; }
 	
-	char getCell(Point p);
+	unsigned char getCell(Point p);
 	int getHeight() { return height; }
 	int getWidth() { return width; }
 	int getNumOfCrumbs() { return num_of_bread_crumbs; }
@@ -56,6 +56,10 @@ public:
 	void initLegend();
 	void printBoard(bool black_and_white);
 	void printData(int score, int life);
+
+	bool isPointValid(Point _p) {
+		return (_p.getY() < height) && (_p.getY() >= 0) && (_p.getX() < width) && (_p.getX() >= 0);
+	}
 
 //private:
 //	enum board_chars { wa = 178, br = 250 }; // wall & bread
