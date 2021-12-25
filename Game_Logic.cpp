@@ -35,6 +35,7 @@ void Game_Logic::runGame() {
 void Game_Logic::run() {
 	bool didILose = false;
 	bool isValidFile = true;
+	bool continue_game = true;
 
 	if (fileName.size()) {
 		if (fileName.find(".screen") != string::npos)
@@ -46,24 +47,28 @@ void Game_Logic::run() {
 	}
 	else
 		initScreens();
-
-	for (string& screen : screenNames) {
-		resetGame(screen, isValidFile);
-		if (!isValidFile)
-			return;
-		runScreen(didILose);
-		if (!didILose)
-			winGame();
-		else {
-			gameOver();
-			break;
+	
+	if (continue_game)	{
+		for (string& screen : screenNames) {
+			resetGame(screen, isValidFile);
+			if (!isValidFile)
+				return;
+			runScreen(didILose, continue_game);
+			if (!continue_game)
+				break;
+			if (!didILose)
+				winGame();
+			else {
+				gameOver();
+				break;
+			}
 		}
+		if (!didILose && continue_game)
+			printMsg("You won the last screen, congrats !\n");
 	}
-	if (!didILose)
-		printMsg("You won the last screen, congrats !\n");
 }
 
-void Game_Logic::runScreen(bool& didILose)
+void Game_Logic::runScreen(bool& didILose, bool& continue_game)
 {
 	int slowCreature = 1;
 	bool pauseFlag = false;
@@ -72,8 +77,8 @@ void Game_Logic::runScreen(bool& didILose)
 	board.printBoard(black_and_white);
 	pacman.printCreature();
 
-	while (pacman.getScore() < board.getNumOfCrumbs() && !didILose) {
-		getInput(pauseFlag);
+	while (pacman.getScore() < board.getNumOfCrumbs() && !didILose &&continue_game) {
+		getInput(pauseFlag, continue_game);
 		if (!pauseFlag) {
 			pacman.move(board);
 			if (slowCreature % 2 == 0) {
@@ -189,13 +194,16 @@ bool Game_Logic::collision(const Creature& A, const Creature& B) {
 		A.getPrevPoint().isSamePoint(B.getPrevPoint()));
 }
 
-void Game_Logic::getInput(bool& flag) {
+void Game_Logic::getInput(bool& flag, bool& continue_game) {
 	int s;
 	Move_Vector dir;
 	if (_kbhit()) {
 		s = _getch();
 		if (s == 27) // Pause game if user presses ESC  
 			flag = !flag;
+		else if (flag && (s =='H' || s == 'h')) {
+			continue_game = !continue_game;
+		}
 		else {
 			if (s == 'w' || s == 'W')
 				dir = UP;
@@ -327,7 +335,7 @@ void Game_Logic::printMsg(string s) {
 void Game_Logic::printGamePause() {
 	setTextColor(Color::WHITE);
 	gotoxy(0, board.getHeight() + 3);
-	cout << "Game paused, press ESC again to continue";
+	cout << "Game paused, press ESC again to continue press H to return the main menu";
 	Sleep(950);
 	cout << "\33[2K" << endl; // erase line from console
 	Sleep(200);
@@ -336,6 +344,7 @@ void Game_Logic::printGamePause() {
 void Game_Logic::printMenu() {
 	gotoxy(0, 0);
 	setTextColor(Color::WHITE);
+	clear_screen();
 	printPacmanSign();
 	cout << "Choose option from the following menu: " << endl
 		<< " 1.\tStart a new game (with colors) " << endl
@@ -367,7 +376,8 @@ void Game_Logic::printInstractions() {
 		<< "UP -> w or W" << endl
 		<< "DOWN -> x or X" << endl
 		<< "STAY -> s or S" << endl
-		<< "ESC -> Pause" << endl << endl
+		<< "ESC -> Pause" << endl
+		<< "H after ESC -> return the main menu" << endl << endl
 		<< "Press any key to return to the menu" << endl;
 	_getch();
 	system("cls");

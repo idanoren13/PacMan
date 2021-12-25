@@ -42,10 +42,10 @@ public:
 		void chooseBoard();
 		//void checkFileInput(bool& isValidFile);
 
-		void getInput(bool& flag);
+		void getInput(bool& flag, bool& continue_game);
 		void runGame();
 		void run();
-		void runScreen(bool& didILose);
+		void runScreen(bool& didILose, bool& continue_game);
 		
 		void creaturesCollision(bool& didILose, bool& fruitActive);
 		void winGame();
