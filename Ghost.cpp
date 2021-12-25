@@ -85,13 +85,13 @@ void Ghost::smartMove(Board& board, Creature& pacman) {
 			near_cell = cell;
 			near_cell.move(i);
 			if (nextPoint(pacmanPos)) {
-				printGhost(board);
 				next_point = pacmanPos;
+				printGhost(board);
 				return;
 			}
 			if (nextPoint(near_cell) && board.getCell(near_cell) != (unsigned char)WALL) {
-				printGhost(board);
 				next_point = near_cell;
+				printGhost(board);
 				return;
 			}
 
