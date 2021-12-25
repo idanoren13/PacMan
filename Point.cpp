@@ -18,7 +18,7 @@ int Point::getY() {
 	return y;
 }
 
-void Point::draw(char ch) {
+void Point::draw(unsigned char ch) {
 	gotoxy(x, y);
 	cout << ch << endl;
 }

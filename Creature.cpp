@@ -9,7 +9,6 @@ Creature::Creature(Point _p, Color _color, Shape _shape, Move_Vector _v) {
 	v = _v;
 }
 
-
 //----------Methods-----------//
 
 void Creature::printCreature() {

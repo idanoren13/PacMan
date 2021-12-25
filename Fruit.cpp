@@ -13,38 +13,44 @@ void Fruit::setFruit(Point p, Board& board) {
 		curr_point.draw(' ');
 		break;
 	}
-	//curr_point.setPoint(p.getX(), p.getY());
 	next_point = prev_point = curr_point = p;
 }
+
 
 //--------Methods------------------------------------//
 
 void Fruit::move(Board& board) {
-	prev_point = curr_point;
-	if (move_cntr == 20)
+	int overrun = 0;
+	prev_point = next_point = curr_point;
+	if (move_cntr == 20) {
+		next_point.move();
 		move_cntr = 0;
-	next_point.move(v);
+	}
+	else
+		next_point.move(v);
 
 	unsigned char readVal = board.getCell(next_point);
 	while (isEndBoard(board.getHeight(), board.getWidth()) || readVal == (unsigned char)WALL)
 	{
-		//if (move_cntr % 5 == 0)
-		//	setVector((Move_Vector)(v - 1));
-		////v = (Move_Vector)(v - 1);
-		//else
-		//	setVector((Move_Vector)(v + 1));
-		////v = (Move_Vector)(v + 1);
+		if (move_cntr % 5 == 0)
+			setVector((Move_Vector)(v - 1));
+		else
+			setVector((Move_Vector)(v + 1));
 
-		//if (v >= STAY)
-		//	v = UP;
-		//if (v < UP)
-		//	v = DOWN;
-		v = (Move_Vector)(rand()%5);
+		if (v >= STAY)
+			v = UP;
+		if (v < UP)
+			v = DOWN;
+
 		next_point = curr_point;
 		next_point.move(v);
 		readVal = board.getCell(next_point);
+		overrun++;
+		if (overrun > 30) {
+			curr_point = board.getRandomPoint();
+			overrun = 0;
+		}
 	}
-
 	move_cntr++;
 	setTextColor(Color::LIGHTGREY);
 	curr_point.draw(board.getCell(curr_point));
