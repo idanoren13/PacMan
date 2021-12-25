@@ -119,6 +119,7 @@ void Game_Logic::resetGame(string screen, bool& isValidFile) {
 	//reset pacman
 	pacman.resetScore();
 	pacman.setPacman(board.getPacmanPos());
+	pacman.setVector(Move_Vector(STAY));
 
 	//reset ghost
 	ghosts.clear();
@@ -172,17 +173,18 @@ void Game_Logic::ghostPacmanCollision(bool& didILose) {
 	pacman.setLife(pacman.getLife() - 1);
 	if (pacman.getLife() <= 0) 
 		didILose = true;
-	else {
-		pacman.setPacman(board.getPacmanPos());
+	else 
+	{
 		for (int i = 0; i < ghosts.size(); i++)
 			ghosts[i].setGhost((board.getGhostsPos())[i], board);
+		pacman.setPacman(board.getPacmanPos());
 	}
 }
 
 void Game_Logic::fruitPacmanCollision(bool& fruitActive) {
 	pacman.setFruitScore((int)(fruit.getShape() - '0'));
-	//pacman.printCreature();
 	hideFruit(fruitActive);
+	pacman.printCreature();
 }
 
 void Game_Logic::hideFruit(bool& fruitActive) {
@@ -270,7 +272,7 @@ char Game_Logic::levelMenu()
 	return choice;
 }
 
-void Game_Logic::chooseBoard() {  // split to 2 funcs
+void Game_Logic::chooseBoard() {
 	system("cls");
 	gotoxy(0, 0);
 
@@ -278,16 +280,6 @@ void Game_Logic::chooseBoard() {  // split to 2 funcs
 	cout << "Please insert screen name : " << endl;
 	fileName.clear();
 	cin >> fileName;
-
-	//while (choice[0] < '0' || choice[0] > '9' || choice[1] < '0' || choice[1] > '9') {
-	//	gotoxy(0, 16);
-	//	cout << "Invalid choice.\nScreen does not exist." << endl;
-	//	gotoxy(0, 11); 
-	//	cout << "\33[2K";
-	//	cin >> choice;
-	//}
-	//setFileName(choice);
-	//resetGame("Loading Screen");
 	system("cls");
 }
 
@@ -337,10 +329,10 @@ void Game_Logic::printMsg(string s) {
 void Game_Logic::printGamePause() {
 	setTextColor(Color::WHITE);
 	gotoxy(0, board.getHeight() + 3);
-	cout << "Game paused, press ESC again to continue press H to return the main menu";
-	Sleep(950);
+	cout << "Game paused: press ESC to continue / press H to return the main menu";
+	Sleep(650);
 	cout << "\33[2K" << endl; // erase line from console
-	Sleep(200);
+	Sleep(100);
 }
 
 void Game_Logic::printMenu() {

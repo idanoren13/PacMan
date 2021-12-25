@@ -19,7 +19,7 @@ public:
 	int getY();
 
 	//----------Methods-----------//
-	void draw(char ch);
+	void draw(unsigned char ch);
 	void move();
 	void move(int direction);
 	bool isSamePoint(const Point p1)const;
