@@ -82,8 +82,10 @@ void Game_Logic::runScreen(bool& didILose, bool& continue_game)
 		if (!pauseFlag) {
 			pacman.move(board);
 			if (slowCreature % 2 == 0) {
-				for (Ghost& ghost : ghosts)
-					ghost.move(board, pacman);
+				for (Ghost& ghost : ghosts) {
+					ghost.move(board);
+					ghost.setPacmanPoint(pacman.getCurrPoint());
+				}
 			}
 			if (fruitActive) {
 				if (slowCreature % 6 == 0)
