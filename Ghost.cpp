@@ -44,36 +44,6 @@ void Ghost::avgMove(Board& board, Creature& pacman) {
 }
 
 
-//void Ghost::smartMove(Board& board, Creature& pacman) {
-//	Point near_cell, cell, pacmanPos = pacman.getCurrPoint();
-//	std::queue<Point> q;
-//	std::vector<std::vector<bool>> visitedPointArr(board.getHeight() + 1, std::vector<bool>(board.getWidth(), false));
-//
-//	// Mark starting cell as visited
-//	q.push(pacmanPos);
-//	visitedPointArr[pacmanPos.getY()][pacmanPos.getX()] = true;
-//
-//	while (!q.empty()) {
-//		cell = q.front();
-//		q.pop();
-//
-//		for (int i = 0; i < 4; i++) {
-//			near_cell = cell;
-//			near_cell.move(i);
-//
-//			if (near_cell.isSamePoint(curr_point)) {
-//				next_point.move(i); //need to set it to ghost vector instead
-//				printGhost(board);
-//			}
-//
-//			else if (!isEndBoard(board.getHeight(), board.getWidth()) && board.getCell(near_cell) != (unsigned char)WALL && visitedPointArr[near_cell.getY()][near_cell.getX()] == false) {
-//				q.push(near_cell);
-//				visitedPointArr[near_cell.getY()][near_cell.getX()] = true;
-//			}
-//		}
-//	}
-//}
-
 void Ghost::smartMove(Board& board, Creature& pacman) {
 	int b_height = board.getHeight(), b_width = board.getWidth();
 	Point near_cell, cell, pacmanPos = pacman.getCurrPoint();
