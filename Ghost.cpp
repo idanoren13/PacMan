@@ -20,13 +20,13 @@ void Ghost::setGhost(Point p, Board& board) {
 
 //--------Methods------------------------------------//
 
-void Ghost::move(Board& board, Creature& pacman) {
+void Ghost::move(Board& board) {
 	switch (level) {
 	case 'a':
-		smartMove(board, pacman);
+		smartMove(board);
 		break;
 	case 'b':
-		avgMove(board, pacman);
+		avgMove(board);
 		break;
 	case 'c':
 		dumbMove(board);
@@ -34,19 +34,19 @@ void Ghost::move(Board& board, Creature& pacman) {
 	}
 }
 
-void Ghost::avgMove(Board& board, Creature& pacman) {
+void Ghost::avgMove(Board& board) {
 	if (move_cntr % 20 < 5)
 		dumbMove(board);
 	else {
-		smartMove(board, pacman);
+		smartMove(board);
 		move_cntr++;
 	}
 }
 
 
-void Ghost::smartMove(Board& board, Creature& pacman) {
+void Ghost::smartMove(Board& board) {
 	int b_height = board.getHeight(), b_width = board.getWidth();
-	Point near_cell, cell, pacmanPos = pacman.getCurrPoint();
+	Point near_cell, cell, pacmanPos = pacmanPoint;
 	std::queue<Point> q;
 	std::vector<std::vector<bool>> visitedPointArr(board.getHeight() + 1, std::vector<bool>(board.getWidth(), false));
 	prev_point =curr_point;

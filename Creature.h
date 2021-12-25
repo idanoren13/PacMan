@@ -36,7 +36,7 @@ public:
 
 	//----------Methods-----------//
 	void printCreature();
-	//virtual void move(Board& board) = 0;	// make Creature an abstract class
+	virtual void move(Board& board) = 0;	// make Creature an abstract class
 	//virtual bool isEndBoard();
 };
 
