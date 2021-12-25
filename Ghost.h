@@ -26,7 +26,7 @@ public:
 
 	void move(Board& board, Creature& pacman);
 	void smartMove(Board& board, Creature& pacman);
-	void avgMove(Board& board);
+	void avgMove(Board& board, Creature& pacman);
 	void dumbMove(Board& board);
 	void printGhost(Board& board);
 

@@ -26,7 +26,7 @@ void Ghost::move(Board& board, Creature& pacman) {
 		smartMove(board, pacman);
 		break;
 	case 'b':
-		avgMove(board);
+		avgMove(board, pacman);
 		break;
 	case 'c':
 		dumbMove(board);
@@ -34,7 +34,14 @@ void Ghost::move(Board& board, Creature& pacman) {
 	}
 }
 
-void Ghost::avgMove(Board& board) {}
+void Ghost::avgMove(Board& board, Creature& pacman) {
+	if (move_cntr % 20 < 5)
+		dumbMove(board);
+	else {
+		smartMove(board, pacman);
+		move_cntr++;
+	}
+}
 
 
 //void Ghost::smartMove(Board& board, Creature& pacman) {
