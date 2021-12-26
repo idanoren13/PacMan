@@ -10,7 +10,6 @@ class Fruit : public Creature {
 	int move_cntr;
 
 public:
-	//enum class fShape { FIVE = '5', SIX, SEVEN, EIGHT, NINE };
 
 	//--------Constructors--------//
 	Fruit() : Creature(Point(21, 8), BROWN, FIVE, UP), move_cntr(0) { setShape(Shape(53 + rand() % 5)); }
@@ -21,8 +20,7 @@ public:
 	void setFruit(Point p, Board& board);
 
 	//----------Methods-----------//
-	void move(Board& board);
-	bool isEndBoard(int height, int width);
+	void virtual move(Board& board);
 };
 
 #endif

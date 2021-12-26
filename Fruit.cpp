@@ -57,7 +57,3 @@ void Fruit::move(Board& board) {
 	curr_point = next_point;
 	printCreature();
 }
-
-bool Fruit::isEndBoard(int height, int width) {
-	return (next_point.getX() > width - 1 || next_point.getX() < 0 || next_point.getY() > height - 1 || next_point.getY() < 0);
-}

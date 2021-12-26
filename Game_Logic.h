@@ -40,7 +40,6 @@ public:
 		char menu();
 		char levelMenu();
 		void chooseBoard();
-		//void checkFileInput(bool& isValidFile);
 
 		void getInput(bool& flag, bool& continue_game);
 		void runGame();
@@ -51,6 +50,7 @@ public:
 		void winGame();
 		void gameOver();
 		void resetGame(string screen, bool& isValidFile);
+		void readScreens();
 		void initScreens();
 
 		void printMenu();

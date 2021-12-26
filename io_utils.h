@@ -15,7 +15,6 @@ using std::flush;
 void gotoxy(int x, int y);
 void setTextColor(Color);
 void clear_screen();
-void printNewGame();
 void ShowConsoleCursor(bool showFlag);
 
 #endif

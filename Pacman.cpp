@@ -20,7 +20,7 @@ void Pacman::move(Board& board) {
 		prev_point = curr_point;
 		next_point = curr_point;
 		next_point.move(v);
-		isEndBoard(board.getHeight(), board.getWidth());
+		manageBoardEdge(board.getHeight(), board.getWidth());
 		unsigned char readCurrVal = board.getCell(curr_point);
 		unsigned char readNextVal = board.getCell(next_point);
 		if (readCurrVal == (unsigned char)BREAD) {
@@ -36,8 +36,8 @@ void Pacman::move(Board& board) {
 		printCreature();
 	}
 }
-// change to override !
-void Pacman::isEndBoard(int height, int width) {
+
+void Pacman::manageBoardEdge(int height, int width) {
 	if (next_point.getX() > width - 1)
 		next_point.setPoint(0, next_point.getY());
 	else if (next_point.getX() < 0)
