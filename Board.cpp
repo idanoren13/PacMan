@@ -66,11 +66,6 @@ void Board::initLegend() {
 	int row = legendPos.getY();
 	int col = legendPos.getX();
 
-	/*if (row >= height - 1)
-		height += 2;
-	if (col == width - 1)
-		width += 19;*/
-
 	for (int j = 0; j < 3; j++)
 		for (int i = 0; i < 20; i++) 
 			board[row + j][col + i] = ' ';
@@ -150,5 +145,6 @@ void Board::printData(int score, int life) {
 	setTextColor(Color::WHITE);
 	gotoxy(legendPos.getX(), legendPos.getY());
 	cout << "Current Score  : " << score << endl;
+	gotoxy(legendPos.getX(), legendPos.getY() + 1);
 	cout << "Remaining Lives: " << life << endl;
 }
