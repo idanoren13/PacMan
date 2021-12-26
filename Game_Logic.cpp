@@ -90,10 +90,10 @@ void Game_Logic::runScreen(bool& didILose, bool& continue_game)
 			if (fruitActive) {
 				if (slowCreature % 6 == 0)
 					fruit.move(board);
-				if (slowCreature % 200 == 0)
+				if (slowCreature % 203 == 0)
 					hideFruit(fruitActive);
 			}
-			if (!fruitActive && (pacman.getScore() > 40) && (rand() % 59 == 0)) {
+			if (!fruitActive && (pacman.getScore() > 50) && (rand() % 59 == 0)) {
 				fruitActive = true;
 			}
 			slowCreature++;
@@ -158,8 +158,10 @@ void Game_Logic::initScreens() {
 void Game_Logic::creaturesCollision(bool& didILose, bool& fruitActive) {
 
 	for (Ghost& ghost : ghosts) {
-		if (collision(pacman, ghost))
+		if (collision(pacman, ghost)) {
 			ghostPacmanCollision(didILose);
+			break;
+		}
 
 		if (collision(fruit, ghost))
 			hideFruit(fruitActive);
@@ -173,7 +175,7 @@ void Game_Logic::ghostPacmanCollision(bool& didILose) {
 	pacman.setLife(pacman.getLife() - 1);
 	if (pacman.getLife() <= 0) 
 		didILose = true;
-	else 
+	else
 	{
 		for (int i = 0; i < ghosts.size(); i++)
 			ghosts[i].setGhost((board.getGhostsPos())[i], board);
