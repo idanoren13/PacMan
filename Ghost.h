@@ -27,17 +27,15 @@ public:
 
 	//----------Methods-----------//
 	
-	void move(Board& board);
+	void virtual move(Board& board);
 	void smartMove(Board& board);
 	void avgMove(Board& board);
 	void dumbMove(Board& board);
 	void printGhost(Board& board);
 
 private:
-	bool nextPoint(Point q);
-	//bool isEndBoard(int height, int width, Point point);
+	bool isNextToCurrPoint(Point _p);
 	bool isValidMove(Board& board, Point point);
-	bool isEndBoard(int height, int width);
 };
 
 #endif

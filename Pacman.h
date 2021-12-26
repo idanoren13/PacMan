@@ -28,8 +28,8 @@ class Pacman : public Creature {
 		int getFruitScore() { return fruitScore; }
 
 		//----------Methods-----------//
-		void move(Board &board);
-		void isEndBoard(int height, int width);
+		void virtual move(Board &board);
+		void manageBoardEdge(int height, int width);
 };
 
 #endif 

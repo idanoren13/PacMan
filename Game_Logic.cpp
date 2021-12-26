@@ -37,19 +37,12 @@ void Game_Logic::run() {
 	bool isValidFile = true;
 	bool continue_game = true;
 
-	if (fileName.size()) {
-		if (fileName.find(".screen") != string::npos)
-			screenNames.push_back(static_cast<string>(fileName));
-		else {
-			printMsg("File should end with .screen");
-			return;
-		}
-	}
-	else
-		initScreens();
+	readScreens();
 	
-	if (continue_game)	{
-		for (string& screen : screenNames) {
+	if (continue_game)	
+	{
+		for (string& screen : screenNames) 
+		{
 			resetGame(screen, isValidFile);
 			if (!isValidFile)
 				return;
@@ -143,6 +136,18 @@ void Game_Logic::resetGame(string screen, bool& isValidFile) {
 	}
 }
 
+void Game_Logic::readScreens() {
+	if (fileName.size()) {
+		if (fileName.find(".screen") != string::npos)
+			screenNames.push_back(static_cast<string>(fileName));
+		else {
+			printMsg("File should end with .screen");
+			return;
+		}
+	}
+	else
+		initScreens();
+}
 void Game_Logic::initScreens() {
 	const fs::path projPath = fs::current_path();
 

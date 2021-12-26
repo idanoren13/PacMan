@@ -16,7 +16,8 @@ void Creature::printCreature() {
 	curr_point.draw(shape);
 }
 
-//bool Creature::isEndBoard() {
-//	return (next_point.getX() > WIDTH - 2 || next_point.getX() < 1 || next_point.getY() > HEIGHT - 1 || next_point.getY() < 1);
-//}
+bool Creature::isEndBoard(int height, int width) {
+	return (next_point.getX() > width - 2 || next_point.getX() < 0 || next_point.getY() > height - 2 || next_point.getY() < 0);
+}
+
 

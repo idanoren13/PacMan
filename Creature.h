@@ -36,8 +36,8 @@ public:
 
 	//----------Methods-----------//
 	void printCreature();
+	bool isEndBoard(int height, int width);
 	virtual void move(Board& board) = 0;	// make Creature an abstract class
-	//virtual bool isEndBoard();
 };
 
 #endif
