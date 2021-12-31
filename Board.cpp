@@ -1,12 +1,12 @@
 #include "Board.h"
 
-//--------Constructors--------//
+// //--------Constructors--------//
 
-Board::Board() {
-	num_of_ghosts = 0;
-	num_of_bread_crumbs = 0;
-	height = width = 0;
-}
+// Board::Board() {
+// 	num_of_ghosts = 0;
+// 	num_of_bread_crumbs = 0;
+// 	height = width = 0;
+// }
 
 //-----Setters & Getters------//
 
@@ -16,6 +16,12 @@ unsigned char Board::getCell(Point p) {
 
 void Board::editCell(Point p, char ch) {
 	board[p.getY()][p.getX()] = ch;
+}
+
+void Board::resetBoard() {
+num_of_bread_crumbs = num_of_ghosts = 0; 
+isValidScreen = true;
+errMsg = "";
 }
 
 
@@ -31,7 +37,7 @@ Point Board::getRandomPoint() {
 	return res;
 }
 
-void Board::initBoard(const char* filename, bool& isValidFile, string& errMsg)
+void Board::initBoard(const char* filename)
 {
 	int col = 0, row = 0, countChars = 0;
 	char read;
@@ -39,36 +45,47 @@ void Board::initBoard(const char* filename, bool& isValidFile, string& errMsg)
 
 	ifstream in_file(filename, ios::ate);
 	if (!(in_file.is_open())) {
-		isValidFile = false;
-		errMsg = "File does not exist";
+		isValidScreen = false;
+		errMsg = "Screen does not exist";
 		return;
 	}
-	else
-		isValidFile = true;
+
 	int fileSize = in_file.tellg();
 	in_file.seekg(0, in_file.beg);
 
-	while ((countChars <= fileSize) && (row <= MAX_ROWS) && (col <= MAX_COLS))
+	while ((countChars <= fileSize) && (row < MAX_ROWS) && (col < MAX_COLS))
 	{
+		if (!isValidScreen)
+			return;
 		read = in_file.get();
 		handleRead(read, row, col, countChars);
 		col++;
 		countChars++;
 	}
 
-	height = row-1;
+	height = row - 1;
 	initLegend();
+	if (!initPacman) {
+		isValidScreen = false;
+		errMsg = "Invalid screen, missing Pacman position";
+	}
 	in_file.close();
 }
 
 void Board::initLegend() {
+	if (!initLegend) {
+		isValidScreen = false;
+		errMsg = "Invalid screen, missing Legend position";
+	}
 
+	else {
 	int row = legendPos.getY();
 	int col = legendPos.getX();
 
 	for (int j = 0; j < 3; j++)
 		for (int i = 0; i < 20; i++) 
 			board[row + j][col + i] = ' ';
+	}
 }
 
 void Board::handleRead(const char read, int& row, int& col, int& countChars) {
@@ -86,19 +103,34 @@ void Board::handleRead(const char read, int& row, int& col, int& countChars) {
 		countChars++;		  // '\n' weight as 2 chars when read from file
 		break;
 	case '@':
+		if (initPacman) {
+			isValidScreen = false;
+			errMsg = "Invalid screen, cannot initiate more then 1 Pacman";
+			return;
+		}
 		pacmanPos.setPoint(col, row);
 		board[row][col] = ' ';
+		initPacman = true;
 		break;
 	case '$':
-		if (num_of_ghosts < 4) {
-			ghostsPos[num_of_ghosts].setPoint(col, row);
-			num_of_ghosts++;
+		if (num_of_ghosts > 4) {
+			isValidScreen = false;
+			errMsg = "Invalid screen, cannot initiate more then 4 ghosts";
+			return;
 		}
+		ghostsPos[num_of_ghosts].setPoint(col, row);
+		num_of_ghosts++;
 		board[row][col] = ' ';
 		break;
 	case '&':
+		if (initLegend){
+			isValidScreen = false;
+			errMsg = "Invalid screen, cannot initiate more then 1 Legend";
+			return;
+		}
 		legendPos.setPoint(col, row);
 		board[row][col] = ' ';
+		initLegend = true;
 		break;
 	case '%':
 		board[row][col] = ' ';
@@ -111,7 +143,8 @@ void Board::handleRead(const char read, int& row, int& col, int& countChars) {
 		num_of_bread_crumbs++;
 		break;
 	default:
-		board[row][col] = ' ';
+		isValidScreen = false;
+		errMsg = "Invalid screen, file contain invalid chars";
 		break;
 	}
 }
