@@ -15,7 +15,6 @@ TODO:
 	- read argv argc from the cmd:
 		♦ check valdity
 		♦ choose the game method
-	- Check files -> Sagi
 	- Save files -> Idan
 	- Load file: ->Sagi
 		♦ Add method Creature:dummyMove
@@ -25,3 +24,9 @@ TODO:
 		♦ Silent option
 	- modernize the code (implemention of new technique) -> both
 	- Add file_format.txt
+	
+DONE:
+	- Check files -> Sagi
+
+
+

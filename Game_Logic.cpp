@@ -34,7 +34,6 @@ void Game_Logic::runGame() {
 
 void Game_Logic::run() {
 	bool didILose = false;
-	bool isValidFile = true;
 	bool continue_game = true;
 
 	readScreens();
@@ -43,8 +42,8 @@ void Game_Logic::run() {
 	{
 		for (string& screen : screenNames) 
 		{
-			resetGame(screen, isValidFile);
-			if (!isValidFile)
+			resetGame(screen);
+			if (!board.isValidScreen())
 				return;
 			runScreen(didILose, continue_game);
 			if (!continue_game)
@@ -100,12 +99,11 @@ void Game_Logic::runScreen(bool& didILose, bool& continue_game)
 	}
 }
 
-void Game_Logic::resetGame(string screen, bool& isValidFile) {
+void Game_Logic::resetGame(string screen) {
 	//reset board
-	string errMsg;
-	board.initBoard(screen.c_str(), isValidFile, errMsg);
-	if (!isValidFile) {
-		printMsg(errMsg);
+	board.initBoard(screen.c_str());
+	if (!board.isValidScreen()) {
+		printMsg(board.getErrMsg());
 		return;
 	}
 	

@@ -40,7 +40,7 @@ public:
 		char menu();
 		char levelMenu();
 		void chooseBoard();
-
+		
 		void getInput(bool& flag, bool& continue_game);
 		void runGame();
 		void run();
@@ -49,7 +49,7 @@ public:
 		void creaturesCollision(bool& didILose, bool& fruitActive);
 		void winGame();
 		void gameOver();
-		void resetGame(string screen, bool& isValidFile);
+		void resetGame(string screen);
 		void readScreens();
 		void initScreens();
 

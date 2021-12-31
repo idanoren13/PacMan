@@ -9,7 +9,7 @@ using std::string;
 using std::ifstream;
 using std::ios;
 
-#define MAX_COLS 80 
+#define MAX_COLS 80
 #define MAX_ROWS 25 
 
 // Change to enum class
@@ -26,16 +26,20 @@ class Board {
 	Point pacmanPos;
 	Point ghostsPos[4];
 
+	bool isValidScreen = true;
+	bool initPacman = false;
+	bool initLegend = false;
+	string errMsg;
+
 public:
 
 	//-----Constructors--------//
 
-	Board();
+	Board() : height(0), width(0), num_of_bread_crumbs(0), num_of_ghosts(0) {}
 
 	//-----Setters & Getters------//
 
 	void editCell(Point p, char ch);
-	void resetBoard() { num_of_bread_crumbs = num_of_ghosts = 0; }
 	
 	unsigned char getCell(Point p);
 	int getHeight() { return height; }
@@ -46,41 +50,27 @@ public:
 	Point getLegendPos() { return legendPos; }
 	Point getPacmanPos() { return pacmanPos; }
 	Point* getGhostsPos() { return ghostsPos; }
+	string getErrMsg() { return errMsg; }
 	
 	//----------Methods-----------//
 
 	Point getRandomPoint();
 
-	void initBoard(const char* filename, bool& isValidFile, string& errMsg);
+	void initBoard(const char* filename);
 	void handleRead(const char read, int& row, int& col, int& countChars);
 	void initLegend();
 	void printBoard(bool black_and_white);
 	void printData(int score, int life);
 
+	bool isValidScreen(){ return isValidScreen; }
 	bool isPointValid(Point _p) {
 		return (_p.getY() < height) && (_p.getY() >= 0) && (_p.getX() < width) && (_p.getX() >= 0);
 	}
+
+private:
+	void resetBoard();
+
 };
 
 #endif
-
-
-//{' '},
-// 01234567890123456789012345678901234567890123456789 = 42 * 17
-//{ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓}
-//{ ▓▓········▓▓······▓▓  ▓▓······▓▓········▓▓}
-//{ ▓▓··▓▓▓▓··▓▓··▓▓··▓▓  ▓▓··▓▓··▓▓··▓▓▓▓··▓▓}
-//{ ▓▓··▓▓▓▓··▓▓··▓▓··········▓▓··▓▓··▓▓▓▓··▓▓}
-//{ ▓▓··▓▓····▓▓··▓▓▓▓▓▓▓▓▓▓▓▓▓▓··▓▓····▓▓··▓▓}
-//{ ▓▓··▓▓······························▓▓··▓▓}
-//{ ▓▓··▓▓····▓▓···▓▓▓      ▓▓▓···▓▓····▓▓··▓▓}
-//{ ▓▓·······▓▓▓▓··▓▓        ▓▓··▓▓▓▓·······▓▓}
-//{   ·············▓▓        ▓▓·············  }10,21,22
-//{ ▓▓··▓▓···▓▓▓▓··▓▓▓▓▓▓▓▓▓▓▓▓··▓▓▓▓···▓▓··▓▓}
-//{ ▓▓··▓▓······························▓▓··▓▓}
-//{ ▓▓··▓▓····▓▓··▓▓▓▓▓▓▓▓▓▓▓▓▓▓··▓▓····▓▓··▓▓}
-//{ ▓▓··▓▓▓▓··▓▓··▓▓▓ PacMan ▓▓▓··▓▓··▓▓▓▓··▓▓}
-//{ ▓▓··▓▓▓▓··▓▓··▓▓▓▓▓▓▓▓▓▓▓▓▓▓··▓▓··▓▓▓▓··▓▓}
-//{ ▓▓········▓▓··················▓▓········▓▓}
-//{ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓}
 
