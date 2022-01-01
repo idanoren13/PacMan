@@ -20,8 +20,6 @@ private:
 
 	std::string formatLine(const Creature& pacman,const Creature*& ghost,const Creature& fruit);
 
-
-
 public:
 	File_handler();
 	~File_handler();

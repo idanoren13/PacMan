@@ -26,7 +26,7 @@ class Board {
 	Point pacmanPos;
 	Point ghostsPos[4];
 
-	bool isValidScreen = true;
+	bool validScreen = true;
 	bool initPacman = false;
 	bool initLegend = false;
 	string errMsg;
@@ -58,7 +58,7 @@ public:
 
 	void initBoard(const char* filename);
 	void handleRead(const char read, int& row, int& col, int& countChars);
-	void initLegend();
+	void initiateLegend();
 	void printBoard(bool black_and_white);
 	void printData(int score, int life);
 

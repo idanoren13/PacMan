@@ -20,7 +20,7 @@ void Board::editCell(Point p, char ch) {
 
 void Board::resetBoard() {
 num_of_bread_crumbs = num_of_ghosts = 0; 
-isValidScreen = true;
+validScreen = true;
 errMsg = "";
 }
 
@@ -45,7 +45,7 @@ void Board::initBoard(const char* filename)
 
 	ifstream in_file(filename, ios::ate);
 	if (!(in_file.is_open())) {
-		isValidScreen = false;
+		validScreen = false;
 		errMsg = "Screen does not exist";
 		return;
 	}
@@ -55,7 +55,7 @@ void Board::initBoard(const char* filename)
 
 	while ((countChars <= fileSize) && (row < MAX_ROWS) && (col < MAX_COLS))
 	{
-		if (!isValidScreen)
+		if (!validScreen)
 			return;
 		read = in_file.get();
 		handleRead(read, row, col, countChars);
@@ -64,17 +64,17 @@ void Board::initBoard(const char* filename)
 	}
 
 	height = row - 1;
-	initLegend();
+	initiateLegend();
 	if (!initPacman) {
-		isValidScreen = false;
+		validScreen = false;
 		errMsg = "Invalid screen, missing Pacman position";
 	}
 	in_file.close();
 }
 
-void Board::initLegend() {
+void Board::initiateLegend() {
 	if (!initLegend) {
-		isValidScreen = false;
+		validScreen = false;
 		errMsg = "Invalid screen, missing Legend position";
 	}
 
@@ -104,7 +104,7 @@ void Board::handleRead(const char read, int& row, int& col, int& countChars) {
 		break;
 	case '@':
 		if (initPacman) {
-			isValidScreen = false;
+			validScreen = false;
 			errMsg = "Invalid screen, cannot initiate more then 1 Pacman";
 			return;
 		}
@@ -114,7 +114,7 @@ void Board::handleRead(const char read, int& row, int& col, int& countChars) {
 		break;
 	case '$':
 		if (num_of_ghosts > 4) {
-			isValidScreen = false;
+			validScreen = false;
 			errMsg = "Invalid screen, cannot initiate more then 4 ghosts";
 			return;
 		}
@@ -124,7 +124,7 @@ void Board::handleRead(const char read, int& row, int& col, int& countChars) {
 		break;
 	case '&':
 		if (initLegend){
-			isValidScreen = false;
+			validScreen = false;
 			errMsg = "Invalid screen, cannot initiate more then 1 Legend";
 			return;
 		}
@@ -143,7 +143,7 @@ void Board::handleRead(const char read, int& row, int& col, int& countChars) {
 		num_of_bread_crumbs++;
 		break;
 	default:
-		isValidScreen = false;
+		validScreen = false;
 		errMsg = "Invalid screen, file contain invalid chars";
 		break;
 	}
