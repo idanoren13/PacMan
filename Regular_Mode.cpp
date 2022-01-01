@@ -1,7 +1,8 @@
 #include "Regular_Mode.h"
 
-void Regular_Mode::runGame() {
+void Regular_Mode::runGame(bool _save_mode) {
 	char choice;
+	save_mode = _save_mode;
 
 	while (true)
 	{
@@ -38,9 +39,14 @@ void Regular_Mode::run() {
 			resetGame(screen);
 			if (!board.isValidScreen())
 				return;
+
 			runScreen(didILose, continue_game);
 			if (!continue_game)
 				break;
+
+			if (save_game)
+				stream.write2Files(screen, didILose, point_of_time);
+
 			if (!didILose)
 				winGame();
 			else {
@@ -55,7 +61,7 @@ void Regular_Mode::run() {
 
 void Regular_Mode::runScreen(bool& didILose, bool& continue_game)
 {
-	int slowCreature = 1;
+	int slowCreature = 0;
 	bool pauseFlag = false;
 	bool fruitActive = false;
 
@@ -84,12 +90,15 @@ void Regular_Mode::runScreen(bool& didILose, bool& continue_game)
 			slowCreature++;
 			creaturesCollision(didILose, fruitActive);
 			board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
+			if (save_mode)
+				stream.push2Queue(formatLine(pacman, ghosts, fruit, fruitActive));
 		}
 		else
 			printGamePause();
 
 		Sleep(100);
 	}
+	point_of_time = slowCreature;
 }
 
 char Regular_Mode::menu() {

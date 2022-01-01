@@ -4,9 +4,10 @@
 
 class Regular_Mode : public Game_Logic
 {
-
 private:
+	bool save_mode;
 	char ghostLevel;
+	int point_of_time;
 
 public:
 
@@ -18,8 +19,7 @@ public:
 	char getGhostLevel() { return ghostLevel; }
 
 	//----------Methods-----------//
-
-	virtual void runGame();
+	virtual void runGame(bool _save_mode);
 	virtual void run();
 	virtual void runScreen(bool& didILose, bool& continue_game);
 
@@ -31,8 +31,6 @@ public:
 	void printInstractions();
 	void printLevelMenu();
 	void printGamePause();
-
-
 
 };
 
