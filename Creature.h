@@ -33,6 +33,7 @@ public:
 	Move_Vector getVector() const { return v; }
 	Point getCurrPoint() const { return curr_point; }
 	Point getPrevPoint() const { return prev_point; }
+	char getVectorInChar();
 
 	//----------Methods-----------//
 	void printCreature();
