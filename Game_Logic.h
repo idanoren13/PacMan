@@ -2,13 +2,16 @@
 #define GAME_LOGIC_H_
 #define _CRT_SECURE_NO_WORNINGS
 
-#include "io_utils.h"
-#include "Point.h"
-#include "Board.h"
-#include "Color.h"
 #include "Pacman.h"
 #include "Ghost.h"
 #include "Fruit.h"
+
+#include "Point.h"
+#include "Board.h"
+#include "Color.h"
+
+#include "io_utils.h"
+#include "File_handler.h"
 #include <vector>
 #include <filesystem>
 
@@ -17,10 +20,8 @@ namespace fs = std::filesystem;
 class Game_Logic {
 
 private:
-	
-	char ghostLevel;
-	bool black_and_white;
-	string fileName = "";
+
+protected:
 
 	Board board;
 	Pacman pacman;
@@ -28,44 +29,36 @@ private:
 	std::vector<Ghost> ghosts;
 	std::vector<string> screenNames;
 
+	bool black_and_white;
+	string fileName = "";
+	File_handler my_stream;
+
+
 public:
 		//--------Constructors--------//
 		Game_Logic();
 
-		//-----Setters & Getters------//
-		void setGhostLevel(char _ghostLevel) {ghostLevel = _ghostLevel;	}
-		char getGhostLevel() { return ghostLevel; }
-
 		//----------Methods-----------//
-		char menu();
-		char levelMenu();
-		void chooseBoard();
-		
+		virtual void runGame() = 0;
+		virtual void run() = 0;
+		virtual void runScreen(bool& didILose, bool& continue_game) = 0;
+
 		void getInput(bool& flag, bool& continue_game);
-		void runGame();
-		void run();
-		void runScreen(bool& didILose, bool& continue_game);
-		
+
 		void creaturesCollision(bool& didILose, bool& fruitActive);
-		void winGame();
-		void gameOver();
 		void resetGame(string screen);
 		void readScreens();
 		void initScreens();
+		void winGame();
+		void gameOver();
 
-		void printMenu();
-		void printInstractions();
-		void printLevelMenu();
-		void printGamePause();
-		void printPacmanSign();
-		void printExit();
-		void printMsg(string s);
-
-private:
 		bool collision(const Creature& A, const Creature& B);
 		void ghostPacmanCollision(bool& didILose);
 		void fruitPacmanCollision(bool& fruitActive);
 		void hideFruit(bool& fruitActive);
-};
 
+		void printExit();
+		void printPacmanSign();
+		void printMsg(string s);
+};
 #endif

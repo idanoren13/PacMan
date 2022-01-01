@@ -1,13 +1,13 @@
-﻿#include "Regular_Game.h"
-#include "Load_Game.h"
+﻿#include "Regular_Mode.h"
+#include "Load_Mode.h"
 
 void main(char** argv, int argc) {
 	if (argc == 0){
-		Regular_Game game;
+		Regular_Mode game;
 		game.runGame();
 	}
 	else { // TODO: handle silent mode
-		Load_Game game;
+		Load_Mode game;
 		game.runGame();
 	}
 	// Game_Logic game;
