@@ -62,7 +62,7 @@ public:
 	void printBoard(bool black_and_white);
 	void printData(int score, int life);
 
-	bool isValidScreen(){ return isValidScreen; }
+	bool isValidScreen(){ return validScreen; }
 	bool isPointValid(Point _p) {
 		return (_p.getY() < height) && (_p.getY() >= 0) && (_p.getX() < width) && (_p.getX() >= 0);
 	}

@@ -19,8 +19,6 @@ namespace fs = std::filesystem;
 
 class Game_Logic {
 
-private:
-
 protected:
 
 	Board board;
@@ -39,7 +37,7 @@ public:
 		Game_Logic();
 
 		//----------Methods-----------//
-		virtual void runGame() = 0;
+		virtual void runGame(bool s) = 0;
 		virtual void run() = 0;
 		virtual void runScreen(bool& didILose, bool& continue_game) = 0;
 

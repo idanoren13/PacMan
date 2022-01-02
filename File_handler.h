@@ -5,6 +5,7 @@
 #include <queue>
 #include <fstream>
 #include <iostream>
+#include "Ghost.h"
 
 class File_handler
 {
@@ -32,7 +33,7 @@ public:
 	void readFromFile(std::string filename);
 	//save
 	void init_output(std::string filename);
-	std::string formatLine(const Creature& pacman,const std::vector<Creature>& ghosts,const Creature& fruit,const bool fruitActive);
+	std::string formatLine(const Creature& pacman,const std::vector<Ghost>& ghosts,const Creature& fruit,const bool fruitActive);
 	void push2Queue(std::string str) { q.push(str); }
 	void write2Files(std::string screenName, bool didILose, int point_of_time); //saves .steps and .result files
 
