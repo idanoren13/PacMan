@@ -89,6 +89,7 @@ void Regular_Mode::runScreen(bool& didILose, bool& continue_game)
 			}
 			slowCreature++;
 			creaturesCollision(didILose, fruitActive);
+			// print creatures
 			board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
 			if (save_mode)
 				my_stream.push2Queue(my_stream.formatLine(pacman, ghosts, fruit, fruitActive));
