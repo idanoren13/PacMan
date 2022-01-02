@@ -21,6 +21,8 @@ void Board::editCell(Point p, char ch) {
 void Board::resetBoard() {
 num_of_bread_crumbs = num_of_ghosts = 0; 
 validScreen = true;
+initPacman = false;
+initLegend = false;
 errMsg = "";
 }
 
@@ -141,6 +143,8 @@ void Board::handleRead(const char read, int& row, int& col, int& countChars) {
 	case ' ':
 		board[row][col] = BREAD;
 		num_of_bread_crumbs++;
+		break;
+	case EOF:
 		break;
 	default:
 		validScreen = false;

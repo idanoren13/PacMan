@@ -153,6 +153,7 @@
     <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Print_Manager.cpp" />
     <ClCompile Include="Regular_Mode.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="io_utils.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Print_Manager.h" />
     <ClInclude Include="Regular_Mode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
