@@ -1,7 +1,6 @@
 #pragma once
 #include "Game_Logic.h"
 
-
 class Regular_Mode : public Game_Logic
 {
 private:
@@ -23,15 +22,10 @@ public:
 	virtual void run();
 	virtual void runScreen(bool& didILose, bool& continue_game);
 
+	void resetGame(string screen);
+	void chooseBoard();
 	char menu();
 	char levelMenu();
-
-	void chooseBoard();
-	void printMenu();
-	void printInstractions();
-	void printLevelMenu();
-	void printGamePause();
-
 };
 
 

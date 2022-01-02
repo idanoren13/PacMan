@@ -17,7 +17,6 @@ protected:
 	Point curr_point;
 	Point next_point;
 	Point prev_point;
-	//Printer& printer;
 
 public:
 

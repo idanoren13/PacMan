@@ -3,15 +3,14 @@
 Game_Logic::Game_Logic() {
 	std::srand(std::time(nullptr));
 	ShowConsoleCursor(false); // hiding console cursor
-	black_and_white = true;
+	black_and_white = false;
 }
-
 
 void Game_Logic::resetGame(string screen) {
 	//reset board
 	board.initBoard(screen.c_str());
 	if (!board.isValidScreen()) {
-		printMsg(board.getErrMsg());
+		printer.printMsg(board.getErrMsg());
 		return;
 	}
 	
@@ -22,10 +21,8 @@ void Game_Logic::resetGame(string screen) {
 
 	//reset ghost
 	ghosts.clear();
-	for (int i = 0; i < board.getNumOfGhosts(); i++) {
+	for (int i = 0; i < board.getNumOfGhosts(); i++)
 		ghosts.push_back(Ghost((board.getGhostsPos())[i]));
-		//ghosts[i].setGhostLevel(ghostLevel);
-	}
 
 	if (black_and_white) {
 		for (auto&& ghost : ghosts)
@@ -47,7 +44,7 @@ void Game_Logic::readScreens() {
 		if (fileName.find(".screen") != string::npos)
 			screenNames.push_back(static_cast<string>(fileName));
 		else {
-			printMsg("File should end with .screen");
+			printer.printMsg("File should end with .screen");
 			return;
 		}
 	}
@@ -157,7 +154,7 @@ void Game_Logic::gameOver()
 		| |_| |  | |/ /    | |____  | | \  \
 		\_____/  |___/     |______| |_|  \__\ */
 	string s = "   _____      ___       ___  ___   _______ \n  /  ___|    /   |     /   |/   | |   ____| \n  | |       /    |    / /|   /| | |  |__ \n  | |  _   /  /| |   / / |__/ | | |   __| \n  | |_| | /  ___ |  / /       | | |  |____ \n  \\_____//_/   |_| /_/        |_| |_______| \n\n   _____    _     _   ______   ______ \n  /  _  \\  | |   / / | _____| |  _   \\ \n  | | | |  | |  / /  | |__    | |_|  | \n  | | | |  | | / /   |  __|   |  _   / \n  | |_| |  | |/ /    | |____  | | \\  \\ \n  \\_____/  |___/     |______| |_|  \\__\\  \n\nReturning to the menu";
-	printMsg(s);
+	printer.printMsg(s);
 }
 
 void Game_Logic::winGame() {
@@ -169,42 +166,7 @@ void Game_Logic::winGame() {
 		   | | | |__| | |__| |    \  /\  /   _| |_| |\  |
 		   |_|  \____/ \____/      \/  \/   |_____|_| \_|*/
 	string s = " __     ______  _    _  __          _______ _   _\n \\ \\   / / __ \\| |  | | \\ \\        / /_   _| \\ | |\n  \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| |\n   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` |\n    | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  |\n    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_|\n\nLoading next screen";
-	printMsg(s);
+	printer.printMsg(s);
 }
 
-void Game_Logic::printMsg(string s) {
-	clear_screen();
-	gotoxy(0, 0);
-	setTextColor(Color(WHITE));
-	s.append("\nPlease wait\n");
-	cout << s;
-	Sleep(3300);
-	system("cls");
-}
-
-void Game_Logic::printPacmanSign() {
-	cout << "" << endl
-		<< "********************************************" << endl
-		<< "    _____           __  __			      " << endl
-		<< "   |  __ \\	   |  \\/  |		      " << endl
-		<< "   | |__) |_ _  ___| \\  / | __ _ _ __      " << endl
-		<< "   | ___ / _` |/ __| |\\/| |/ _` | '_ \\    " << endl
-		<< "   | |  | (_| | (__| |  | | (_| | | | |     " << endl
-		<< "   |_|   \\__,_|\\___|_|  |_|\\__,_|_| |_|   " << endl
-		<< "                                            " << endl
-		<< "********************************************" << endl;
-}
-
-void Game_Logic::printExit() {
-	cout << endl
-		<< "    .______                _____		   " << endl
-		<< "   /       \\              /     \\		   " << endl
-		<< "  /    O   /   _   _     / O O   \\     _   _   " << endl
-		<< " |       ./   (_) (_)   |         |   (_) (_) " << endl
-		<< " |       \\              | ~~~     | 	   " << endl
-		<< " |        \\             |         |	   " << endl
-		<< "  \\        /            |         |	   " << endl
-		<< "   \\______/             |/vvvvvvv\\|      " << endl
-		<< "\n             GOOD BYE     \n";
-}
 

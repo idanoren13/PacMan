@@ -1,6 +1,5 @@
 #include "File_handler.h"
 
-
 char File_handler::directionLetter(const Move_Vector& _v) {
 	char ch;
 	switch (_v)
@@ -40,30 +39,38 @@ std::string File_handler::formatLine(const Creature& pacman, const std::vector<G
 		str.push_back(' ');
 		str.push_back(directionLetter(fruit.getVector()));
 	}
+	str.push_back('\n');
 	return str;
 }
 
 std::string File_handler::readFromQueue() {
-	std::string s;
+	std::string s = "";
 	if (q.size() > 0) {
 		s = q.front();
 		q.pop();
 	}
-		return s;
+	return s;
 }
 
 void File_handler::readFromFile(std::string filename) {
-	init_input(filename);
 	std::string str;
+
+	init_input(filename);
+
 	while (!input.eof()) {
 		std::getline(input, str);
 		q.push(str);
 	}
 }
 
+void File_handler::makeEmptyQueue() {
+	while (!q.empty())
+		q.pop();
+}
+
 void File_handler::init_output(std::string filename) {
-	output.open(filename.append(".steps"), ios::out);
-	output.open(filename.append(".result"), ios::out);
+	output.open(filename + ".steps", ios::out);
+	result.open(filename + ".result", ios::out);
 
 	is_open_out = true;
 }
@@ -75,9 +82,9 @@ void File_handler::write2Files(std::string screenName, bool didILose, int point_
 		q.pop();
 	}
 	if (!didILose)
-		result << "Pacman finish the screen at: " << point_of_time;
+		result << "Pacman finished the screen at the " << point_of_time << "th move";
 	else
-		result << "Pacman died at: " << point_of_time;
+		result << "Pacman died at the " << point_of_time << "th move";
 }
 
 

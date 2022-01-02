@@ -34,7 +34,6 @@ void Pacman::move(Board& board) {
 		board.editCell(curr_point, ' ');
 		curr_point = next_point;
 		printCreature();
-		//printer.print(shape, point);
 	}
 }
 

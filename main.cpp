@@ -5,7 +5,7 @@ void main(int argc, char** argv) {
 
 	// ignore the ifs
 
-		bool save_mode = false;
+		bool save_mode = true;
 		Regular_Mode game;
 		game.runGame(save_mode);
 //	if (argc == 0){

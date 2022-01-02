@@ -1,4 +1,4 @@
-#ifndef GAME_LOGIC_H__
+#ifndef GAME_LOGIC_H_
 #define GAME_LOGIC_H_
 #define _CRT_SECURE_NO_WORNINGS
 
@@ -12,6 +12,7 @@
 
 #include "io_utils.h"
 #include "File_handler.h"
+#include "Print_Manager.h"
 #include <vector>
 #include <filesystem>
 
@@ -29,8 +30,9 @@ protected:
 
 	bool black_and_white;
 	string fileName = "";
-	File_handler my_stream;
 
+	File_handler my_stream;
+	Print_Manager printer;
 
 public:
 		//--------Constructors--------//
@@ -54,9 +56,5 @@ public:
 		void ghostPacmanCollision(bool& didILose);
 		void fruitPacmanCollision(bool& fruitActive);
 		void hideFruit(bool& fruitActive);
-
-		void printExit();
-		void printPacmanSign();
-		void printMsg(string s);
 };
 #endif

@@ -18,7 +18,7 @@ void Regular_Mode::runGame(bool _save_mode) {
 			run();
 			break;
 		case '9':
-			printExit();
+			printer.printExit();
 			return;
 		}
 		fileName = "";
@@ -31,7 +31,7 @@ void Regular_Mode::run() {
 	bool continue_game = true;
 
 	readScreens();
-
+	
 	if (continue_game)
 	{
 		for (string& screen : screenNames)
@@ -55,7 +55,7 @@ void Regular_Mode::run() {
 			}
 		}
 		if (!didILose && continue_game)
-			printMsg("You won the last screen, congrats !\n");
+			printer.printMsg("You won the last screen, congrats !\n");
 	}
 }
 
@@ -89,21 +89,27 @@ void Regular_Mode::runScreen(bool& didILose, bool& continue_game)
 			}
 			slowCreature++;
 			creaturesCollision(didILose, fruitActive);
-			// print creatures
 			board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
 			if (save_mode)
 				my_stream.push2Queue(my_stream.formatLine(pacman, ghosts, fruit, fruitActive));
 		}
 		else
-			printGamePause();
+			printer.printGamePause(board.getHeight());
 
 		Sleep(100);
 	}
 	point_of_time = slowCreature;
 }
 
+void Regular_Mode::resetGame(string screen) {
+	Game_Logic::resetGame(screen);
+	for (int i = 0; i < board.getNumOfGhosts(); i++) {
+		ghosts[i].setGhostLevel(ghostLevel);
+	}
+}
+
 char Regular_Mode::menu() {
-	printMenu();
+	printer.printMenu();
 	char choice = _getch();
 	char levelChoice;
 
@@ -112,15 +118,15 @@ char Regular_Mode::menu() {
 		case '3':
 			levelChoice = levelMenu();
 			setGhostLevel(levelChoice);
-			printMenu();
+			printer.printMenu();
 			break;
 		case '4':
 			chooseBoard();
-			printMenu();
+			printer.printMenu();
 			break;
 		case '8':
-			printInstractions();
-			printMenu();
+			printer.printInstractions();
+			printer.printMenu();
 			break;
 		default:
 			gotoxy(0, 19);
@@ -136,7 +142,7 @@ char Regular_Mode::menu() {
 
 char Regular_Mode::levelMenu()
 {
-	printLevelMenu();
+	printer.printLevelMenu();
 	char choice = _getch();
 
 	while (choice != 'a' && choice != 'b' && choice != 'c') {
@@ -152,61 +158,16 @@ void Regular_Mode::chooseBoard() {
 	system("cls");
 	gotoxy(0, 0);
 
-	printPacmanSign();
+	printer.printPacmanSign();
 	cout << "Please insert screen name : " << endl;
 	fileName.clear();
 	cin >> fileName;
 	system("cls");
 }
 
-void Regular_Mode::printGamePause() {
-	setTextColor(Color::WHITE);
-	gotoxy(0, board.getHeight() + 3);
-	cout << "Game paused: press ESC to continue / press H to return the main menu";
-	Sleep(650);
-	cout << "\33[2K" << endl; // erase line from console
-	Sleep(100);
-}
 
-void Regular_Mode::printMenu() {
-	gotoxy(0, 0);
-	setTextColor(Color::WHITE);
-	clear_screen();
-	printPacmanSign();
-	cout << "Choose option from the following menu: " << endl
-		<< " 1.\tStart a new game (with colors) " << endl
-		<< " 2.\tStart a new game (without colors) " << endl
-		<< " 3.\tChoose level " << endl
-		<< " 4.\tInsert a screen name " << endl
-		<< " 8.\tInstructions & keys " << endl
-		<< " 9.\tExit" << endl;
-}
 
-void Regular_Mode::printLevelMenu() {
-	system("cls");
-	gotoxy(0, 0);
-	printPacmanSign();
-	cout << "Choose game level [a/b/c] " << endl
-		<< " a.\tBEST " << endl
-		<< " b.\tGOOD " << endl
-		<< " c.\tNOVICE " << endl;
-}
 
-void Regular_Mode::printInstractions() {
-	system("cls");
-	cout << "\nWelcome to Pacman !" << endl << "Your goal is to move the pacman on the screen and eat the breadcrumbs." << endl
-		<< "Each eaten breadcrumb equals a point to be earned." << endl
-		<< "Once all breadcrumbs on screen are eaten you win the game :)\n" << endl
-		<< "Keys for the game (make sure to use english keyboard!) :" << endl
-		<< "LEFT -> a or A" << endl
-		<< "RIGHT -> d or D" << endl
-		<< "UP -> w or W" << endl
-		<< "DOWN -> x or X" << endl
-		<< "STAY -> s or S" << endl
-		<< "ESC -> Pause" << endl
-		<< "H after ESC -> return the main menu" << endl << endl
-		<< "Press any key to return to the menu" << endl;
-	_getch();
-	system("cls");
-}
+
+
 
