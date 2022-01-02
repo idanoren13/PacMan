@@ -27,7 +27,7 @@ char File_handler::directionLetter(const Move_Vector& _v) {
 	return ch;
 }
 
-std::string File_handler::formatLine(const Creature& pacman, const std::vector<Creature>& ghosts, const Creature& fruit, const bool fruitActive){
+std::string File_handler::formatLine(const Creature& pacman, const std::vector<Ghost>& ghosts, const Creature& fruit, const bool fruitActive){
 	std::string str;
 	str.push_back(directionLetter(pacman.getVector()));
 	for (const Creature& _ghost : ghosts)
@@ -61,7 +61,6 @@ void File_handler::readFromFile(std::string filename) {
 	}
 }
 
-
 void File_handler::init_output(std::string filename) {
 	output.open(filename.append(".steps"), ios::out);
 	output.open(filename.append(".result"), ios::out);
@@ -84,24 +83,24 @@ void File_handler::write2Files(std::string screenName, bool didILose, int point_
 
 
 //TODO: finish if we have time
-bool File_handler::checkFormatVadility(std::string str) {
-	/*Point fp;
-	char ch;
-	std::string temp;
-	std::string set = "lurds";
-
-	if (str.size() == 0 || str.size() > 13)
-		return false;
-	str >> temp;
-	if (temp.size() - 1 != num_of_ghost)
-		return false;
-	for (ch; ch != 0;ch=getc(temp)) {
-		if (!set.find(ch))
-			return false;
-	}
-	if (str >> temp) {
-		;
-	}*/
-	;
-}
+//bool File_handler::checkFormatVadility(std::string str) {
+//	/*Point fp;
+//	char ch;
+//	std::string temp;
+//	std::string set = "lurds";
+//
+//	if (str.size() == 0 || str.size() > 13)
+//		return false;
+//	str >> temp;
+//	if (temp.size() - 1 != num_of_ghost)
+//		return false;
+//	for (ch; ch != 0;ch=getc(temp)) {
+//		if (!set.find(ch))
+//			return false;
+//	}
+//	if (str >> temp) {
+//		;
+//	}*/
+//	;
+//}
 

@@ -24,7 +24,7 @@ void Game_Logic::resetGame(string screen) {
 	ghosts.clear();
 	for (int i = 0; i < board.getNumOfGhosts(); i++) {
 		ghosts.push_back(Ghost((board.getGhostsPos())[i]));
-		ghosts[i].setGhostLevel(ghostLevel);
+		//ghosts[i].setGhostLevel(ghostLevel);
 	}
 
 	if (black_and_white) {

@@ -44,8 +44,8 @@ void Regular_Mode::run() {
 			if (!continue_game)
 				break;
 
-			if (save_game)
-				stream.write2Files(screen, didILose, point_of_time);
+			if (save_mode)
+				my_stream.write2Files(screen, didILose, point_of_time);
 
 			if (!didILose)
 				winGame();
@@ -91,7 +91,7 @@ void Regular_Mode::runScreen(bool& didILose, bool& continue_game)
 			creaturesCollision(didILose, fruitActive);
 			board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
 			if (save_mode)
-				stream.push2Queue(formatLine(pacman, ghosts, fruit, fruitActive));
+				my_stream.push2Queue(my_stream.formatLine(pacman, ghosts, fruit, fruitActive));
 		}
 		else
 			printGamePause();
