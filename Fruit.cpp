@@ -16,7 +16,6 @@ void Fruit::setFruit(Point p, Board& board) {
 	next_point = prev_point = curr_point = p;
 }
 
-
 //--------Methods------------------------------------//
 
 void Fruit::move(Board& board) {
@@ -32,8 +31,10 @@ void Fruit::move(Board& board) {
 	unsigned char readVal = board.getCell(next_point);
 	while (isEndBoard(board.getHeight(), board.getWidth()) || readVal == (unsigned char)WALL)
 	{
-		if (move_cntr % 5 == 0)
+		if (move_cntr % 5 == 0){
 			setVector((Move_Vector)(v - 1));
+			move_cntr = 1;
+		}
 		else
 			setVector((Move_Vector)(v + 1));
 
@@ -45,11 +46,11 @@ void Fruit::move(Board& board) {
 		next_point = curr_point;
 		next_point.move(v);
 		readVal = board.getCell(next_point);
-		overrun++;
-		if (overrun > 30) {
-			curr_point = board.getRandomPoint();
-			overrun = 0;
-		}
+		//overrun++;
+		//if (overrun > 30) {
+		//	curr_point = board.getRandomPoint();
+		//	overrun = 0;
+		//}
 	}
 	move_cntr++;
 	setTextColor(Color::LIGHTGREY);
@@ -58,8 +59,4 @@ void Fruit::move(Board& board) {
 	printCreature();
 }
 
-
-void Fruit::hideFruit(Board& board) {
-	curr_point.draw(board.getCell(curr_point));
-}
 

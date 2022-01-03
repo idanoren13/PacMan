@@ -43,9 +43,8 @@ void Regular_Mode::run() {
 			runScreen(didILose);
 			if (!continue_game)
 				break;
-
 			if (save_mode)
-				my_stream.write2Files(screen, didILose, point_of_time);
+				my_stream.write2Files(screen, didILose, point_of_time, pacman.getScore() + pacman.getFruitScore());
 
 			if (!didILose)
 				winGame();

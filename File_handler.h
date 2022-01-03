@@ -6,6 +6,8 @@
 #include <fstream>
 #include <iostream>
 #include "Ghost.h"
+#include "Fruit.h"
+
 
 class File_handler
 {
@@ -35,9 +37,9 @@ public:
 
 	//save
 	void init_output(std::string filename);
-	std::string formatLine(const Creature& pacman, const std::vector<Ghost>& ghosts, const Creature& fruit, const bool fruitActive);
+	std::string formatLine(const Creature& pacman, const std::vector<Ghost>& ghosts, const Fruit& fruit, const bool fruitActive);
 	void push2Queue(std::string str) { q.push(str); }
-	void write2Files(std::string screenName, bool didILose, int point_of_time); //saves .steps and .result files
+	void write2Files(std::string screenName, bool didILose, int point_of_time, int score); //saves .steps and .result files
 
 };
 
