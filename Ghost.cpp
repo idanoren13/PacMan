@@ -31,6 +31,8 @@ void Ghost::move(Board& board) {
 	case 'c':
 		dumbMove(board);
 		break;
+	case 'd':
+		controledMove(board);
 	}
 }
 
@@ -112,6 +114,31 @@ void Ghost::dumbMove(Board& board) {
 	move_cntr++;
 	printGhost(board);
 }
+
+
+//void Ghost::controledMove(Board& board) {
+//	next_point.move(v);
+//	unsigned char readVal = board.getCell(next_point);
+//	while (isEndBoard(board.getHeight(), board.getWidth()) || readVal == (unsigned char)WALL || readVal == (unsigned char)GHOST)
+//	{
+//		if (move_cntr % 5 == 0)
+//			setVector((Move_Vector)(v - 1));
+//		else
+//			setVector((Move_Vector)(v + 1));
+//
+//		if (v >= STAY)
+//			v = UP;
+//		if (v < UP)
+//			v = DOWN;
+//
+//		next_point = curr_point;
+//		next_point.move(v);
+//		readVal = board.getCell(next_point);
+//	}
+//		move_cntr++;
+//		//next_point.move(v);
+//		printGhost(board);
+//}
 
 void Ghost::printGhost(Board& board) {
 	setTextColor(Color::LIGHTGREY);

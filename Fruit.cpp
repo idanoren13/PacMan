@@ -57,3 +57,9 @@ void Fruit::move(Board& board) {
 	curr_point = next_point;
 	printCreature();
 }
+
+
+void Fruit::hideFruit(Board& board) {
+	curr_point.draw(board.getCell(curr_point));
+}
+

@@ -41,7 +41,7 @@ public:
 		//----------Methods-----------//
 		virtual void runGame(bool s) = 0;
 		virtual void run() = 0;
-		virtual void runScreen(bool& didILose, bool& continue_game) = 0;
+		virtual void runScreen(bool& didILose) = 0;
 
 		void getInput(bool& flag, bool& continue_game);
 
