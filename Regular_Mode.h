@@ -7,6 +7,7 @@ private:
 	bool save_mode;
 	char ghostLevel;
 	int point_of_time;
+	bool continue_game = true;
 
 public:
 
@@ -20,7 +21,7 @@ public:
 	//----------Methods-----------//
 	virtual void runGame(bool _save_mode);
 	virtual void run();
-	virtual void runScreen(bool& didILose, bool& continue_game);
+	virtual void runScreen(bool& didILose);
 
 	void resetGame(string screen);
 	void chooseBoard();

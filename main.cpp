@@ -1,13 +1,32 @@
 ﻿#include "Regular_Mode.h"
 #include "Load_Mode.h"
 
+
+
+
+void test() {
+	Regular_Mode game;
+	Load_Mode _game;
+	char x;
+	std::cout << "press 1 for save mode, press 2 for load mode:" << std::endl;
+	x = std::getchar();
+	switch (x)
+	{
+	case '1':
+		game.runGame(true);
+		break;
+	case '2':
+		_game.runGame(false);
+		break;
+	default:
+		break;
+	}
+}
 void main(int argc, char** argv) {
 
 	// ignore the ifs
 
-		bool save_mode = true;
-		Regular_Mode game;
-		game.runGame(save_mode);
+	test();
 //	if (argc == 0){
 //	}
 //	else { 
@@ -19,4 +38,3 @@ void main(int argc, char** argv) {
 //	// Game_Logic game;
 //	// game.runGame();
 }
-

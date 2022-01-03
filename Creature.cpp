@@ -3,6 +3,7 @@
 //--------Constructors--------//
 
 Creature::Creature(Point _p, Color _color, Shape _shape, Move_Vector _v) {
+	int move_cntr=0;
 	prev_point = next_point = curr_point = _p;
 	color = _color;
 	shape = (char)_shape;
@@ -46,3 +47,28 @@ char Creature::getVectorInChar() {
 	return ch;
 }
 
+void Creature::controledMove(Board& board) {
+	next_point.move(v);
+	unsigned char readVal = board.getCell(next_point);
+	while (isEndBoard(board.getHeight(), board.getWidth()) || readVal == (unsigned char)WALL || readVal == (unsigned char)GHOST)
+	{
+		if (move_cntr % 5 == 0)
+			setVector((Move_Vector)(v - 1));
+		else
+			setVector((Move_Vector)(v + 1));
+
+		if (v >= STAY)
+			v = UP;
+		if (v < UP)
+			v = DOWN;
+
+		next_point = curr_point;
+		next_point.move(v);
+		readVal = board.getCell(next_point);
+	}
+	move_cntr++;
+	setTextColor(Color::LIGHTGREY);
+	curr_point.draw(board.getCell(curr_point));
+	curr_point = next_point;
+	printCreature();
+}

@@ -55,13 +55,14 @@ std::string File_handler::readFromQueue() {
 void File_handler::readFromFile(std::string filename) {
 	std::string str;
 
-	init_input(filename);
+	init_input((filename.substr(0, filename.find(".screen"))).append(".steps"));
 
 	while (!input.eof()) {
 		std::getline(input, str);
 		q.push(str);
 	}
 }
+
 
 void File_handler::makeEmptyQueue() {
 	while (!q.empty())

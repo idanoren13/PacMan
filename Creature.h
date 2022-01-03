@@ -13,6 +13,7 @@ class Creature
 
 protected:
 
+	int move_cntr;
 	Move_Vector v;
 	Point curr_point;
 	Point next_point;
@@ -27,6 +28,7 @@ public:
 	void setColor(Color c) { color = c; }
 	void setShape(Shape _shape) { shape = _shape; }
 	void setVector(Move_Vector dir) { v = dir; }
+	void setCurrPoint(Point _p) { curr_point = _p; }
 
 	//----------Getters-----------//
 	char getShape() const { return shape; }
@@ -35,10 +37,13 @@ public:
 	Point getPrevPoint() const { return prev_point; }
 	char getVectorInChar();
 
+	void controledMove(Board& board);
+
 	//----------Methods-----------//
 	void printCreature();
 	bool isEndBoard(int height, int width);
 	virtual void move(Board& board) = 0;	// make Creature an abstract class
+	//void controledMove(Board& board);
 };
 
 #endif

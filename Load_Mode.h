@@ -9,9 +9,13 @@ class Load_Mode : public Game_Logic
 {
 	bool silent;
 	bool fruitActive;
+	
+private:
+	Move_Vector char2Vector(char ch);
 
 public:
 	//--------Constructors--------//
+	Load_Mode();
 	Load_Mode(bool _silent);
 
 
@@ -19,7 +23,7 @@ public:
 
 	//----------Methods-----------//
 
-	virtual void runGame();
+	virtual void runGame(bool s);
 	virtual void run();
 	virtual void runScreen(bool& didILose);
 	void resetGame(string screen);

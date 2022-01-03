@@ -28,7 +28,7 @@ void Regular_Mode::runGame(bool _save_mode) {
 
 void Regular_Mode::run() {
 	bool didILose = false;
-	bool continue_game = true;
+	//bool continue_game = true;
 
 	readScreens();
 	
@@ -40,7 +40,7 @@ void Regular_Mode::run() {
 			if (!board.isValidScreen())
 				return;
 
-			runScreen(didILose, continue_game);
+			runScreen(didILose);
 			if (!continue_game)
 				break;
 
@@ -59,7 +59,7 @@ void Regular_Mode::run() {
 	}
 }
 
-void Regular_Mode::runScreen(bool& didILose, bool& continue_game)
+void Regular_Mode::runScreen(bool& didILose)
 {
 	int slowCreature = 0;
 	bool pauseFlag = false;
