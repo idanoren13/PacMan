@@ -12,16 +12,16 @@ private:
 public:
 
 	//--------Constructors--------//
-	Regular_Mode() : ghostLevel('c') {}
+	Regular_Mode(bool _save) : ghostLevel('c'), save_mode(_save) {}
 
 	//-----Setters & Getters------//
 	void setGhostLevel(char _ghostLevel) { ghostLevel = _ghostLevel; }
 	char getGhostLevel() { return ghostLevel; }
 
 	//----------Methods-----------//
-	virtual void runGame(bool _save_mode);
-	virtual void run();
+	virtual void runGame();
 	virtual void runScreen(bool& didILose);
+	void run();
 
 	void resetGame(string screen);
 	void chooseBoard();

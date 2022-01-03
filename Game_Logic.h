@@ -21,7 +21,7 @@ namespace fs = std::filesystem;
 class Game_Logic {
 
 protected:
-
+	int slowCreature = 0;
 	Board board;
 	Pacman pacman;
 	Fruit fruit;
@@ -39,8 +39,8 @@ public:
 		Game_Logic();
 
 		//----------Methods-----------//
-		virtual void runGame(bool s) = 0;
-		virtual void run() = 0;
+		virtual void runGame() = 0;
+		//virtual void run() = 0;
 		virtual void runScreen(bool& didILose) = 0;
 
 		void getInput(bool& flag, bool& continue_game);

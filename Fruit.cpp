@@ -19,7 +19,6 @@ void Fruit::setFruit(Point p, Board& board) {
 //--------Methods------------------------------------//
 
 void Fruit::move(Board& board) {
-	int overrun = 0;
 	prev_point = next_point = curr_point;
 	if (move_cntr == 20) {
 		next_point.move();
@@ -46,11 +45,6 @@ void Fruit::move(Board& board) {
 		next_point = curr_point;
 		next_point.move(v);
 		readVal = board.getCell(next_point);
-		//overrun++;
-		//if (overrun > 30) {
-		//	curr_point = board.getRandomPoint();
-		//	overrun = 0;
-		//}
 	}
 	move_cntr++;
 	setTextColor(Color::LIGHTGREY);

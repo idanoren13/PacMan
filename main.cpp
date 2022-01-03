@@ -5,18 +5,18 @@
 
 
 void test() {
-	Regular_Mode game;
-	Load_Mode _game;
+	Regular_Mode game(true);
+	Load_Mode _game(false);
 	char x;
 	std::cout << "press 1 for save mode, press 2 for load mode:" << std::endl;
 	x = std::getchar();
 	switch (x)
 	{
 	case '1':
-		game.runGame(true);
+		game.runGame();
 		break;
 	case '2':
-		_game.runGame(false);
+		_game.runGame();
 		break;
 	default:
 		break;

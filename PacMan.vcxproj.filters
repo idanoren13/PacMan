@@ -99,4 +99,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="pacman_01.result" />
+    <None Include="pacman_01.steps" />
+    <None Include="pacman_04.result" />
+    <None Include="pacman_04.steps" />
+    <None Include="pacman_06.result" />
+    <None Include="pacman_06.steps" />
+  </ItemGroup>
 </Project>

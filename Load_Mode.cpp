@@ -13,16 +13,7 @@ Load_Mode::Load_Mode(bool _silent) {
 }
 
 
-void Load_Mode::runGame(bool s) {
-	silent = s;
-	run();
-	/*if (silent)
-		runSilentMode();
-	else
-		run();*/
-}
-
-void Load_Mode::run() {
+void Load_Mode::runGame() {
 	bool didILose = false;
 	initScreens();
 
@@ -33,6 +24,7 @@ void Load_Mode::run() {
 			return;
 
 		runScreen(didILose);
+		//compareResults(screen);
 
 		if (!didILose)
 			winGame();
@@ -46,7 +38,7 @@ void Load_Mode::run() {
 }
 
 void Load_Mode::runScreen(bool& didILose) {
-	int slowCreature = 0;
+	slowCreature = 0;
 
 	if (!silent) {
 		board.printBoard(black_and_white);
@@ -54,9 +46,8 @@ void Load_Mode::runScreen(bool& didILose) {
 	}
 
 	while (pacman.getScore() < board.getNumOfCrumbs() && !didILose) {
-		//getInput(pauseFlag, continue_game);
 		decodeLine(my_stream.readFromQueue());
-		pacman.move(board);
+		pacman.controledMove(board);
 		if (slowCreature % 2 == 0) {
 			for (Ghost& ghost : ghosts) {
 				ghost.move(board);
@@ -68,16 +59,13 @@ void Load_Mode::runScreen(bool& didILose) {
 			if (slowCreature % 203 == 0)
 				fruitActive = false;
 		}
-		//else {
-		//	fruit.hideFruit(board);
-		//}
+
 		slowCreature++;
 		creaturesCollision(didILose, fruitActive);
-
 		board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
 
 		if (!silent)
-			Sleep(100);
+			Sleep(2);
 	}
 }
 
@@ -89,14 +77,9 @@ void Load_Mode::resetGame(string screen) {
 		ghosts[i].setGhostLevel('d'); //controled
 	}
 }
-// num of ghosts
-// pgggg\n
-// pggg 99 99 f\n
-// p[0-4]g[\n | 99 99 f\n]
 
+//decodes the string (the commands) from q
 void Load_Mode::decodeLine(string line) {
-	// read until ' ' check next or \n
-
 	std::stringstream ss;
 	std::string temp;
 	int coordX,coordY;
@@ -109,55 +92,29 @@ void Load_Mode::decodeLine(string line) {
 	pacman.setNextPoint(Point(coordX, coordY));
 	
 	for (Ghost& ghost : ghosts) {
-		//ghost.setVector(char2Vector(line[i]));
-		i++;
-	}
-	if (line[i] == ' ') { // fruit is activated
-		fruitActive = true;
-		ss << line.substr(i, line.size() - 1);
 		ss >> coordX;
 		ss >> coordY;
-		ss >> v;
+		ghost.setNextPoint(Point(coordX, coordY));
+	}
+	if (ss >> coordX && ss >> coordY) { // fruit is activated
+		fruitActive = true;
 		ss >> val;
-		fruit.setVector(char2Vector(v));
+		fruit.setNextPoint(Point(coordX, coordY));
 		fruit.setShape((Shape)(val));
-		fruit.setCurrPoint(Point(coordX, coordY));
-
-
-		// update fruit shape
 	}
 	else
 		fruitActive = false;
 }
 
-void Load_Mode::runSilentMode() {
-
-}
-
-
-Move_Vector Load_Mode::char2Vector(char ch) {
-	Move_Vector v;
-	switch (ch)
-	{
-	case 'u':
-		v = UP;
-		break;
-	case 'd':
-		v = DOWN;
-		break;
-	case 'l':
-		v = LEFT;
-		break;
-	case 'r':
-		v = RIGHT;
-		break;
-	case 's':
-		v = STAY;
-		break;
-	default:
-		v = STAY;
-		//throw exception invalid character in file (prints the character)
-		break;
-	}
-	return v;
+//private methods
+void Load_Mode::compareResults(std::string fileName) {
+	clear_screen();
+	int* a = new int(2);
+	my_stream.getResult(a,fileName);
+	if (a[0] == slowCreature && a[1] == pacman.getScore())
+		std::cout << "test succeed";
+	else
+		std::cout << "test failed";
+	Sleep(2000);
+	delete[] a;
 }

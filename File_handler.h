@@ -3,6 +3,7 @@
 #include "Creature.h"
 #include <string>
 #include <queue>
+#include <sstream>
 #include <fstream>
 #include <iostream>
 #include "Ghost.h"
@@ -15,7 +16,7 @@ class File_handler
 private:
 	std::queue<std::string> q;
 	std::ofstream output;
-	std::ofstream result;
+	std::fstream result;
 	std::ifstream input;
 	bool is_open_out = false;
 	bool is_open_in = false;
@@ -30,13 +31,17 @@ public:
 	void setNumOfGhost(int n) { num_of_ghost = n; }
 	void makeEmptyQueue();
 
+	void getResult(int*& a, string fileName);
+
 	//load
 	std::string readFromQueue();
 	void init_input(std::string filename) { input.open(filename, ios::in); is_open_in = true; }
 	void readFromFile(std::string filename);
+	void close_input(std::string filename) { input.close(); }
 
 	//save
 	void init_output(std::string filename);
+	void close_output(std::string filename);
 	std::string formatLine(const Creature& pacman, const std::vector<Ghost>& ghosts, const Fruit& fruit, const bool fruitActive);
 	void push2Queue(std::string str) { q.push(str); }
 	void write2Files(std::string screenName, bool didILose, int point_of_time, int score); //saves .steps and .result files

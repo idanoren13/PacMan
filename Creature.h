@@ -5,6 +5,8 @@
 #include "Color.h"
 #include "Board.h"
 #include "io_utils.h"
+#include "Print_Manager.h"
+
 
 class Creature
 {
@@ -18,6 +20,7 @@ protected:
 	Point curr_point;
 	Point next_point;
 	Point prev_point;
+	//Print_Manager& printer;
 
 public:
 
@@ -36,15 +39,13 @@ public:
 	Move_Vector getVector() const { return v; }
 	Point getCurrPoint() const { return curr_point; }
 	Point getPrevPoint() const { return prev_point; }
-	char getVectorInChar();
 
-	void controledMove(Board& board);
 
 	//----------Methods-----------//
+	virtual void move(Board& board) = 0;	// make Creature an abstract class
+	void controledMove(Board& board);
 	void printCreature();
 	bool isEndBoard(int height, int width);
-	virtual void move(Board& board) = 0;	// make Creature an abstract class
-	//void controledMove(Board& board);
 };
 
 #endif

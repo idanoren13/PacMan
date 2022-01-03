@@ -1,8 +1,7 @@
 #include "Regular_Mode.h"
 
-void Regular_Mode::runGame(bool _save_mode) {
+void Regular_Mode::runGame() {
 	char choice;
-	save_mode = _save_mode;
 
 	while (true)
 	{
@@ -28,7 +27,6 @@ void Regular_Mode::runGame(bool _save_mode) {
 
 void Regular_Mode::run() {
 	bool didILose = false;
-	//bool continue_game = true;
 
 	readScreens();
 	
@@ -60,14 +58,14 @@ void Regular_Mode::run() {
 
 void Regular_Mode::runScreen(bool& didILose)
 {
-	int slowCreature = 0;
 	bool pauseFlag = false;
 	bool fruitActive = false;
+	slowCreature = 0;
 
 	board.printBoard(black_and_white);
 	pacman.printCreature();
 
-	while (pacman.getScore() < board.getNumOfCrumbs() && !didILose && continue_game) {
+	while (pacman.getScore() <board.getNumOfCrumbs() && !didILose && continue_game) {
 		getInput(pauseFlag, continue_game);
 		if (!pauseFlag) {
 			pacman.move(board);
@@ -87,10 +85,10 @@ void Regular_Mode::runScreen(bool& didILose)
 				fruitActive = true;
 			}
 			slowCreature++;
-			creaturesCollision(didILose, fruitActive);
-			board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
 			if (save_mode)
 				my_stream.push2Queue(my_stream.formatLine(pacman, ghosts, fruit, fruitActive));
+			creaturesCollision(didILose, fruitActive);
+			board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
 		}
 		else
 			printer.printGamePause(board.getHeight());

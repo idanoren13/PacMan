@@ -4,15 +4,13 @@
 #include <sstream>
 #include <string>
 
-
 class Load_Mode : public Game_Logic
 {
 	bool silent;
 	bool fruitActive;
-	
 private:
-	Move_Vector char2Vector(char ch);
-
+	void compareResults(std::string fileName);
+	
 public:
 	//--------Constructors--------//
 	Load_Mode();
@@ -22,14 +20,10 @@ public:
 	//-----Setters & Getters------//
 
 	//----------Methods-----------//
-
-	virtual void runGame(bool s);
-	virtual void run();
+	virtual void runGame();
+	//virtual void run();
 	virtual void runScreen(bool& didILose);
 	void resetGame(string screen);
 	void decodeLine(string line);
-
-	void runSilentMode();
-
 };
 

@@ -32,11 +32,12 @@ std::string File_handler::formatLine(const Creature& pacman, const std::vector<G
 	str.append(std::to_string(pacman.getCurrPoint().getX()));
 	str.push_back(' ');
 	str.append(std::to_string(pacman.getCurrPoint().getY()));
-	for (const Ghost& _ghost : ghosts)
+	for (const Ghost& _ghost : ghosts) {
 		str.push_back(' ');
 		str.append(std::to_string(_ghost.getCurrPoint().getX()));
 		str.push_back(' ');
 		str.append(std::to_string(_ghost.getCurrPoint().getY()));
+	}
 	if (fruitActive) {
 		str.push_back(' ');
 		str.append(std::to_string(fruit.getCurrPoint().getX()));
@@ -60,13 +61,15 @@ std::string File_handler::readFromQueue() {
 
 void File_handler::readFromFile(std::string filename) {
 	std::string str;
+	std::string name = (filename.substr(0, filename.find(".screen"))).append(".steps");
 
-	init_input((filename.substr(0, filename.find(".screen"))).append(".steps"));
+	init_input(name);
 
 	while (!input.eof()) {
 		std::getline(input, str);
 		q.push(str);
 	}
+	close_input(name);
 }
 
 
@@ -82,8 +85,13 @@ void File_handler::init_output(std::string filename) {
 	is_open_out = true;
 }
 
+void File_handler::close_output(std::string filename) {
+	output.close();
+	result.close();
+}
 void File_handler::write2Files(std::string screenName, bool didILose, int point_of_time, int score) {
-	init_output(screenName.substr(0, screenName.find(".screen")));
+	std::string name = screenName.substr(0, screenName.find(".screen"));
+	init_output(name);
 	while (q.size() > 0) {
 		output << q.front();
 		q.pop();
@@ -93,29 +101,23 @@ void File_handler::write2Files(std::string screenName, bool didILose, int point_
 	else
 		result << "Pacman died at the " << point_of_time << "th move";
 	result << endl << "With " << score <<" points";
+	close_output(name);
 }
 
+void File_handler::getResult(int*& a, std::string fileName) {
+	std::string name = (fileName.substr(0, fileName.find(".screen"))).append(".result");
+	result.flush();
+	result.open(name, ios::out);
+	if (result.is_open()) {
 
-
-//TODO: finish if we have time
-//bool File_handler::checkFormatVadility(std::string str) {
-//	/*Point fp;
-//	char ch;
-//	std::string temp;
-//	std::string set = "lurds";
-//
-//	if (str.size() == 0 || str.size() > 13)
-//		return false;
-//	str >> temp;
-//	if (temp.size() - 1 != num_of_ghost)
-//		return false;
-//	for (ch; ch != 0;ch=getc(temp)) {
-//		if (!set.find(ch))
-//			return false;
-//	}
-//	if (str >> temp) {
-//		;
-//	}*/
-//	;
-//}
-
+		std::string str;
+		std::getline(result, str);
+		std::stringstream ss;
+		ss << (str.substr(35, str.size() - 8));
+		ss >> a[0];
+		std::getline(result, str);
+		ss << (str.substr(20, str.size() - 8));
+		ss >> a[1];
+		result.close();
+	}
+}

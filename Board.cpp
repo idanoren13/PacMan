@@ -1,12 +1,5 @@
 #include "Board.h"
 
-// //--------Constructors--------//
-
-// Board::Board() {
-// 	num_of_ghosts = 0;
-// 	num_of_bread_crumbs = 0;
-// 	height = width = 0;
-// }
 
 //-----Setters & Getters------//
 

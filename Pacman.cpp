@@ -37,6 +37,16 @@ void Pacman::move(Board& board) {
 	}
 }
 
+void Pacman::controledMove(Board& board) {
+	if (board.getCell(curr_point) == (unsigned char)BREAD) {
+		score++;
+		board.editCell(curr_point, ' ');
+	}
+	Creature::controledMove(board);
+	if(!prev_point.isSamePoint( next_point))
+		prev_point.draw(' ');
+}
+
 void Pacman::manageBoardEdge(int height, int width) {
 	if (next_point.getX() > width - 1)
 		next_point.setPoint(0, next_point.getY());
