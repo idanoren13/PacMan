@@ -68,15 +68,16 @@ void Load_Mode::runScreen(bool& didILose) {
 			if (slowCreature % 203 == 0)
 				fruitActive = false;
 		}
-		else {
-			fruit.hideFruit(board);
-		}
+		//else {
+		//	fruit.hideFruit(board);
+		//}
 		slowCreature++;
 		creaturesCollision(didILose, fruitActive);
+
 		board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
 
 		if (!silent)
-			Sleep(25);
+			Sleep(100);
 	}
 }
 
@@ -95,23 +96,31 @@ void Load_Mode::resetGame(string screen) {
 
 void Load_Mode::decodeLine(string line) {
 	// read until ' ' check next or \n
-	int i = 1;
-	pacman.setVector(char2Vector(line[0]));
+
+	std::stringstream ss;
+	std::string temp;
+	int coordX,coordY;
+	char v,val;
+	int i;
+	ss << line;
+	ss >> coordX;
+	ss >> coordY;
+
+	pacman.setNextPoint(Point(coordX, coordY));
+	
 	for (Ghost& ghost : ghosts) {
-		ghost.setVector(char2Vector(line[i]));
+		//ghost.setVector(char2Vector(line[i]));
 		i++;
 	}
 	if (line[i] == ' ') { // fruit is activated
 		fruitActive = true;
-		std::stringstream ss;
-		std::string temp;
-		int coordX,coordY;
-		char v;
 		ss << line.substr(i, line.size() - 1);
 		ss >> coordX;
 		ss >> coordY;
 		ss >> v;
+		ss >> val;
 		fruit.setVector(char2Vector(v));
+		fruit.setShape((Shape)(val));
 		fruit.setCurrPoint(Point(coordX, coordY));
 
 

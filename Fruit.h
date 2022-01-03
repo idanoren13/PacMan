@@ -21,8 +21,10 @@ public:
 
 	//----------Methods-----------//
 	void virtual move(Board& board);
-	void hideFruit(Board& board);
+	//void hideFruit(Board& board);
 	//void controledMove(Board& board);
+	//char getValue() { return getShape(); }
+
 };
 
 #endif

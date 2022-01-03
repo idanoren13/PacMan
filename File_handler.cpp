@@ -25,19 +25,25 @@ char File_handler::directionLetter(const Move_Vector& _v) {
 	}
 	return ch;
 }
-
-std::string File_handler::formatLine(const Creature& pacman, const std::vector<Ghost>& ghosts, const Creature& fruit, const bool fruitActive){
+//** ** ** 
+//pp pp gg gg gg gg gg gg ff ff s
+std::string File_handler::formatLine(const Creature& pacman, const std::vector<Ghost>& ghosts, const Fruit& fruit, const bool fruitActive){
 	std::string str;
-	str.push_back(directionLetter(pacman.getVector()));
-	for (const Creature& _ghost : ghosts)
-		str.push_back(directionLetter(_ghost.getVector()));
+	str.append(std::to_string(pacman.getCurrPoint().getX()));
+	str.push_back(' ');
+	str.append(std::to_string(pacman.getCurrPoint().getY()));
+	for (const Ghost& _ghost : ghosts)
+		str.push_back(' ');
+		str.append(std::to_string(_ghost.getCurrPoint().getX()));
+		str.push_back(' ');
+		str.append(std::to_string(_ghost.getCurrPoint().getY()));
 	if (fruitActive) {
 		str.push_back(' ');
 		str.append(std::to_string(fruit.getCurrPoint().getX()));
 		str.push_back(' ');
 		str.append(std::to_string(fruit.getCurrPoint().getY()));
 		str.push_back(' ');
-		str.push_back(directionLetter(fruit.getVector()));
+		str.push_back(fruit.getShape());
 	}
 	str.push_back('\n');
 	return str;
@@ -76,7 +82,7 @@ void File_handler::init_output(std::string filename) {
 	is_open_out = true;
 }
 
-void File_handler::write2Files(std::string screenName, bool didILose, int point_of_time) {
+void File_handler::write2Files(std::string screenName, bool didILose, int point_of_time, int score) {
 	init_output(screenName.substr(0, screenName.find(".screen")));
 	while (q.size() > 0) {
 		output << q.front();
@@ -86,6 +92,7 @@ void File_handler::write2Files(std::string screenName, bool didILose, int point_
 		result << "Pacman finished the screen at the " << point_of_time << "th move";
 	else
 		result << "Pacman died at the " << point_of_time << "th move";
+	result << endl << "With " << score <<" points";
 }
 
 

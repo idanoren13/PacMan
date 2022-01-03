@@ -29,6 +29,7 @@ public:
 	void setShape(Shape _shape) { shape = _shape; }
 	void setVector(Move_Vector dir) { v = dir; }
 	void setCurrPoint(Point _p) { curr_point = _p; }
+	void setNextPoint(Point _p) { next_point = _p; }
 
 	//----------Getters-----------//
 	char getShape() const { return shape; }

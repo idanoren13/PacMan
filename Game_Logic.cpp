@@ -75,7 +75,7 @@ void Game_Logic::creaturesCollision(bool& didILose, bool& fruitActive) {
 			hideFruit(fruitActive);
 	}
 	
-	if (collision(pacman, fruit))	
+	if (collision(pacman, fruit) && fruitActive)	
 		fruitPacmanCollision(fruitActive);
 }
 
