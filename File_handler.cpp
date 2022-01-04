@@ -74,19 +74,20 @@ void File_handler::write2Files(std::string screenName, bool didILose, int point_
 
 void File_handler::getResult(int*& a, std::string fileName) {
 	std::string name = (fileName.substr(0, fileName.find(".screen"))).append(".result");
-	result.flush();
-	result.open(name, ios::out);
-	if (result.is_open()) {
+	//name = "pacman_01.result";
+	read_result.open(name);
+	if (read_result.is_open()) {
 
 		std::string str;
-		std::getline(result, str);
+		std::getline(read_result, str);
 		std::stringstream ss;
-		ss << (str.substr(35, str.size() - 8));
+		ss << (str.substr(18, str.size() - 6));
 		ss >> a[0];
-		std::getline(result, str);
-		ss << (str.substr(20, str.size() - 8));
+		std::getline(read_result, str);
+		ss.str("");
+		ss << (str.substr(5, str.size() - 7));
 		ss >> a[1];
-		result.close();
+		read_result.close();
 	}
 }
 
