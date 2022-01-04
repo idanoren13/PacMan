@@ -44,6 +44,7 @@ void File_handler::readFromFile(std::string filename) {
 		std::getline(input, str);
 		q.push(str);
 	}
+	close_input(filename);
 }
 
 
@@ -70,6 +71,7 @@ void File_handler::write2Files(std::string screenName, bool didILose, int point_
 	else
 		result << "Pacman died at the " << point_of_time << "th move";
 	result << endl << "With " << score <<" points";
+	close_output(screenName);
 }
 
 void File_handler::getResult(int*& a, std::string fileName) {
@@ -89,5 +91,12 @@ void File_handler::getResult(int*& a, std::string fileName) {
 		result.close();
 	}
 }
+
+void File_handler::close_output(std::string filename) {
+	output.close();
+	result.close();
+}
+
+
 
 

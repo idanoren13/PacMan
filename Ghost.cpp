@@ -8,10 +8,10 @@ void Ghost::setGhost(Point p, Board& board) {
 	switch (readVal) {
 	case (unsigned char)BREAD:
 		setTextColor(Color::LIGHTGREY);
-		Print_Creature::get().printObj(curr_point, (unsigned char)BREAD);
+		creature_printer.printObj(curr_point, (unsigned char)BREAD);
 		break;
 	default:
-		Print_Creature::get().printObj(curr_point, ' ');
+		creature_printer.printObj(curr_point, ' ');
 		break;
 	}
 	curr_point.setPoint(p.getX(), p.getY());

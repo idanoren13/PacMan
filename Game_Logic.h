@@ -5,14 +5,14 @@
 #include "Pacman.h"
 #include "Ghost.h"
 #include "Fruit.h"
-
-#include "Point.h"
 #include "Board.h"
-#include "Color.h"
 
 #include "io_utils.h"
+#include "Point.h"
+#include "Color.h"
 #include "File_handler.h"
 #include "Text_Printer.h"
+
 #include <vector>
 #include <filesystem>
 
@@ -21,8 +21,10 @@ namespace fs = std::filesystem;
 class Game_Logic {
 
 protected:
-	Print_Creature& boris = Print_Creature::get();
-	int slowCreature = 0;
+	Print_Creature& creature_printer = Print_Creature::Get();
+	Text_Printer& text_printer = Text_Printer::Get();
+
+	int point_of_time = 0;
 	Board board;
 	Pacman pacman;
 	Fruit fruit;
@@ -33,14 +35,13 @@ protected:
 	string fileName = "";
 
 	File_handler my_stream;
-	Text_Printer printer;
 
 public:
 		//--------Constructors--------//
 		Game_Logic();
 
 		//----------Methods-----------//
-		virtual void runGame(bool s) = 0;
+		virtual void runGame() = 0;
 		virtual void runScreen(bool& didILose) = 0;
 
 		void getInput(bool& flag, bool& continue_game);

@@ -10,9 +10,11 @@ void Game_Logic::resetGame(string screen) {
 	//reset board
 	board.initBoard(screen.c_str());
 	if (!board.isValidScreen()) {
-		printer.printMsg(board.getErrMsg());
+		text_printer.printMsg(board.getErrMsg());
 		return;
 	}
+
+	point_of_time = 0;
 	
 	//reset pacman
 	pacman.resetScore();
@@ -44,7 +46,7 @@ void Game_Logic::readScreens() {
 		if (fileName.find(".screen") != string::npos)
 			screenNames.push_back(static_cast<string>(fileName));
 		else {
-			printer.printMsg("File should end with .screen");
+			text_printer.printMsg("File should end with .screen");
 			return;
 		}
 	}
@@ -94,8 +96,8 @@ void Game_Logic::ghostPacmanCollision(bool& didILose) {
 void Game_Logic::fruitPacmanCollision(bool& fruitActive) {
 	pacman.setFruitScore((int)(fruit.getShape() - '0'));
 	hideFruit(fruitActive);
-	Print_Creature::get().printObj(pacman.getCurrPoint(), pacman.getShape());
-	//pacman.printCreature();
+	//creature_printer.printObj(pacman.getCurrPoint(), pacman.getShape());
+	pacman.printCreature();
 }
 
 void Game_Logic::hideFruit(bool& fruitActive) {
@@ -155,7 +157,7 @@ void Game_Logic::gameOver()
 		| |_| |  | |/ /    | |____  | | \  \
 		\_____/  |___/     |______| |_|  \__\ */
 	string s = "   _____      ___       ___  ___   _______ \n  /  ___|    /   |     /   |/   | |   ____| \n  | |       /    |    / /|   /| | |  |__ \n  | |  _   /  /| |   / / |__/ | | |   __| \n  | |_| | /  ___ |  / /       | | |  |____ \n  \\_____//_/   |_| /_/        |_| |_______| \n\n   _____    _     _   ______   ______ \n  /  _  \\  | |   / / | _____| |  _   \\ \n  | | | |  | |  / /  | |__    | |_|  | \n  | | | |  | | / /   |  __|   |  _   / \n  | |_| |  | |/ /    | |____  | | \\  \\ \n  \\_____/  |___/     |______| |_|  \\__\\  \n\nReturning to the menu";
-	printer.printMsg(s);
+	text_printer.printMsg(s);
 }
 
 void Game_Logic::winGame() {
@@ -167,7 +169,7 @@ void Game_Logic::winGame() {
 		   | | | |__| | |__| |    \  /\  /   _| |_| |\  |
 		   |_|  \____/ \____/      \/  \/   |_____|_| \_|*/
 	string s = " __     ______  _    _  __          _______ _   _\n \\ \\   / / __ \\| |  | | \\ \\        / /_   _| \\ | |\n  \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| |\n   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` |\n    | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  |\n    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_|\n\nLoading next screen";
-	printer.printMsg(s);
+	text_printer.printMsg(s);
 }
 
 
