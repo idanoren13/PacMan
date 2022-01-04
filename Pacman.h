@@ -30,6 +30,8 @@ class Pacman : public Creature {
 		//----------Methods-----------//
 		void virtual move(Board &board);
 		void manageBoardEdge(int height, int width);
+		void controledMove(Board& board);
+
 };
 
 #endif 

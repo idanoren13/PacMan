@@ -5,6 +5,8 @@
 #include <queue>
 #include <fstream>
 #include <iostream>
+#include <string>
+#include <sstream>
 #include "Ghost.h"
 #include "Fruit.h"
 
@@ -15,18 +17,15 @@ class File_handler
 private:
 	std::queue<std::string> q;
 	std::ofstream output;
-	std::ofstream result;
+	std::fstream result;
 	std::ifstream input;
 	bool is_open_out = false;
 	bool is_open_in = false;
 	int num_of_ghost;
-	char directionLetter(const Move_Vector& _v);
 	bool isNameValid();
 	bool checkFormatVadility(std::string str);
 
 public:
-	/*File_handler();
-	~File_handler();*/
 	void setNumOfGhost(int n) { num_of_ghost = n; }
 	void makeEmptyQueue();
 
@@ -40,6 +39,8 @@ public:
 	std::string formatLine(const Creature& pacman, const std::vector<Ghost>& ghosts, const Fruit& fruit, const bool fruitActive);
 	void push2Queue(std::string str) { q.push(str); }
 	void write2Files(std::string screenName, bool didILose, int point_of_time, int score); //saves .steps and .result files
+
+	void getResult(int*& a, std::string fileName);
 
 };
 

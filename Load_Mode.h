@@ -7,6 +7,7 @@
 
 class Load_Mode : public Game_Logic
 {
+	int slowCreature = 0;
 	bool silent;
 	bool fruitActive;
 	
@@ -28,6 +29,8 @@ public:
 	virtual void runScreen(bool& didILose);
 	void resetGame(string screen);
 	void decodeLine(string line);
+
+	void compareResults(std::string fileName);
 
 	void runSilentMode();
 

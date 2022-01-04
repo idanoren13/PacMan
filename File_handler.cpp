@@ -1,30 +1,6 @@
 #include "File_handler.h"
 
-char File_handler::directionLetter(const Move_Vector& _v) {
-	char ch;
-	switch (_v)
-	{
-	case UP:
-		ch = 'u';
-		break;
-	case DOWN:
-		ch = 'd';
-		break;
-	case LEFT:
-		ch = 'l';
-		break;
-	case RIGHT:
-		ch = 'r';
-		break;
-	case STAY:
-		ch = 's';
-		break;
-	default:
-		ch = 0;
-		break;
-	}
-	return ch;
-}
+
 //** ** ** 
 //pp pp gg gg gg gg gg gg ff ff s
 std::string File_handler::formatLine(const Creature& pacman, const std::vector<Ghost>& ghosts, const Fruit& fruit, const bool fruitActive){
@@ -32,11 +8,12 @@ std::string File_handler::formatLine(const Creature& pacman, const std::vector<G
 	str.append(std::to_string(pacman.getCurrPoint().getX()));
 	str.push_back(' ');
 	str.append(std::to_string(pacman.getCurrPoint().getY()));
-	for (const Ghost& _ghost : ghosts)
+	for (const Ghost& _ghost : ghosts) {
 		str.push_back(' ');
 		str.append(std::to_string(_ghost.getCurrPoint().getX()));
 		str.push_back(' ');
 		str.append(std::to_string(_ghost.getCurrPoint().getY()));
+	}
 	if (fruitActive) {
 		str.push_back(' ');
 		str.append(std::to_string(fruit.getCurrPoint().getX()));
@@ -95,27 +72,22 @@ void File_handler::write2Files(std::string screenName, bool didILose, int point_
 	result << endl << "With " << score <<" points";
 }
 
+void File_handler::getResult(int*& a, std::string fileName) {
+	std::string name = (fileName.substr(0, fileName.find(".screen"))).append(".result");
+	result.flush();
+	result.open(name, ios::out);
+	if (result.is_open()) {
 
+		std::string str;
+		std::getline(result, str);
+		std::stringstream ss;
+		ss << (str.substr(35, str.size() - 8));
+		ss >> a[0];
+		std::getline(result, str);
+		ss << (str.substr(20, str.size() - 8));
+		ss >> a[1];
+		result.close();
+	}
+}
 
-//TODO: finish if we have time
-//bool File_handler::checkFormatVadility(std::string str) {
-//	/*Point fp;
-//	char ch;
-//	std::string temp;
-//	std::string set = "lurds";
-//
-//	if (str.size() == 0 || str.size() > 13)
-//		return false;
-//	str >> temp;
-//	if (temp.size() - 1 != num_of_ghost)
-//		return false;
-//	for (ch; ch != 0;ch=getc(temp)) {
-//		if (!set.find(ch))
-//			return false;
-//	}
-//	if (str >> temp) {
-//		;
-//	}*/
-//	;
-//}
 
