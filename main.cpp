@@ -16,7 +16,7 @@ void test() {
 		game.runGame(true);
 		break;
 	case '2':
-		_game.runGame(false);
+		_game.runGame(true);
 		break;
 	default:
 		break;

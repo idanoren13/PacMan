@@ -20,8 +20,8 @@ public:
 
 	//----------Methods-----------//
 	virtual void runGame(bool _save_mode);
-	virtual void run();
 	virtual void runScreen(bool& didILose);
+	void run();
 
 	void resetGame(string screen);
 	void chooseBoard();

@@ -153,8 +153,9 @@
     <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Board.cpp" />
-    <ClCompile Include="Print_Manager.cpp" />
+    <ClCompile Include="Text_Printer.cpp" />
     <ClCompile Include="Regular_Mode.cpp" />
+    <ClCompile Include="Print_Creature.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -171,8 +172,9 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="io_utils.h" />
     <ClInclude Include="Point.h" />
-    <ClInclude Include="Print_Manager.h" />
+    <ClInclude Include="Text_Printer.h" />
     <ClInclude Include="Regular_Mode.h" />
+    <ClInclude Include="Print_Creature.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="pacman_01.result" />

@@ -15,14 +15,8 @@ Load_Mode::Load_Mode(bool _silent) {
 
 void Load_Mode::runGame(bool s) {
 	silent = s;
-	run();
-	/*if (silent)
-		runSilentMode();
-	else
-		run();*/
-}
-
-void Load_Mode::run() {
+	boris.setSilent(s);
+	
 	bool didILose = false;
 	initScreens();
 
@@ -43,7 +37,11 @@ void Load_Mode::run() {
 	}
 	if (!didILose)
 		printer.printMsg("You won the last screen, congrats !\n");
+	if(silent){
+		cout << "works";
+	}
 }
+
 
 void Load_Mode::runScreen(bool& didILose) {
 	
@@ -74,7 +72,7 @@ void Load_Mode::runScreen(bool& didILose) {
 
 		board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
 
-		if (!silent)
+		//if (!silent)
 			Sleep(20);
 	}
 }

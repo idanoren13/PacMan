@@ -51,7 +51,10 @@
     <ClCompile Include="Regular_Mode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Print_Manager.cpp">
+    <ClCompile Include="Text_Printer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Print_Creature.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,7 +98,10 @@
     <ClInclude Include="Regular_Mode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Print_Manager.h">
+    <ClInclude Include="Text_Printer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Print_Creature.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

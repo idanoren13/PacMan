@@ -2,15 +2,15 @@
 #include "File_handler.h"
 
 
-class Print_Manager
+class Text_Printer
 {
 	bool silent;
 
 public:
 
 	//--------Constructors--------//
-	Print_Manager() : silent(false) {}
-	Print_Manager(bool _silent) : silent(_silent) {}
+	Text_Printer() : silent(false) {}
+	Text_Printer(bool _silent) : silent(_silent) {}
 
 	//-----Setters & Getters------//
 	void setSilentMode(bool _silent) { silent = _silent; }

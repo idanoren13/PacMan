@@ -1,6 +1,7 @@
 #include "Regular_Mode.h"
 
 void Regular_Mode::runGame(bool _save_mode) {
+	boris.setSilent(false);
 	char choice;
 	save_mode = _save_mode;
 
@@ -60,12 +61,12 @@ void Regular_Mode::run() {
 
 void Regular_Mode::runScreen(bool& didILose)
 {
-	int slowCreature = 0;
 	bool pauseFlag = false;
 	bool fruitActive = false;
 
 	board.printBoard(black_and_white);
 	pacman.printCreature();
+	slowCreature = 0;
 
 	while (pacman.getScore() < board.getNumOfCrumbs() && !didILose && continue_game) {
 		getInput(pauseFlag, continue_game);

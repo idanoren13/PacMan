@@ -7,10 +7,10 @@ void Fruit::setFruit(Point p, Board& board) {
 	switch (readVal) {
 	case (unsigned char)BREAD:
 		setTextColor(Color::LIGHTGREY);
-		curr_point.draw((unsigned char)BREAD);
+		Print_Creature::get().printObj(curr_point, (unsigned char)BREAD);
 		break;
 	default:
-		curr_point.draw(' ');
+		Print_Creature::get().printObj(curr_point, ' ');
 		break;
 	}
 	next_point = prev_point = curr_point = p;
