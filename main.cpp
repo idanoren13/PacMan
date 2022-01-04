@@ -1,5 +1,6 @@
 ﻿#include "Regular_Mode.h"
 #include "Load_Mode.h"
+#include "File_handler.h"
 
 void test() {
 	Regular_Mode game(true);
@@ -19,6 +20,10 @@ void test() {
 		break;
 	}
 }
+//
+//void test2() {
+//	Load_Mode::compareResults("pacman_01.screen");
+//}
 void main(int argc, char** argv) {
 
 	// ignore the ifs

@@ -20,7 +20,7 @@ void Load_Mode::runGame() {
 			return;
 
 		runScreen(didILose);
-		//compareResults(screen);
+		compareResults(screen);
 		if (!didILose)
 			winGame();
 		else {
@@ -63,8 +63,8 @@ void Load_Mode::runScreen(bool& didILose) {
 
 		text_printer.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife(), board.getLegendPos());
 
-		//if (!silent)
-			Sleep(10);
+		if (!silent)
+			Sleep(20);
 	}
 }
 
@@ -107,12 +107,12 @@ void Load_Mode::decodeLine(string line) {
 
 void Load_Mode::compareResults(std::string fileName) {
 	clear_screen();
-	int* a = new int(2);
+	int* a = new int[2];
 	my_stream.getResult(a, fileName);
-	if (a[0] == point_of_time && a[1] == pacman.getScore())
+	if (a[0] == slowCreature && a[1] == (pacman.getScore()+pacman.getFruitScore()))
 		std::cout << "test succeed";
 	else
 		std::cout << "test failed";
 	Sleep(2000);
-	delete[] a;
+	delete a;
 }

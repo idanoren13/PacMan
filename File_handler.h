@@ -19,6 +19,7 @@ private:
 	std::ofstream output;
 	std::fstream result;
 	std::ifstream input;
+	std::ifstream read_result;
 
 	bool is_open_out = false;
 	bool is_open_in = false;
