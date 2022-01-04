@@ -36,15 +36,15 @@ public:
 	Move_Vector getVector() const { return v; }
 	Point getCurrPoint() const { return curr_point; }
 	Point getPrevPoint() const { return prev_point; }
-	char getVectorInChar();
+	
 
-	void controledMove(Board& board);
 
 	//----------Methods-----------//
 	void printCreature();
 	bool isEndBoard(int height, int width);
 	virtual void move(Board& board) = 0;	// make Creature an abstract class
-	//void controledMove(Board& board);
+	void controledMove(Board& board);
+	
 };
 
 #endif

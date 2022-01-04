@@ -1,12 +1,5 @@
 #include "Board.h"
 
-// //--------Constructors--------//
-
-// Board::Board() {
-// 	num_of_ghosts = 0;
-// 	num_of_bread_crumbs = 0;
-// 	height = width = 0;
-// }
 
 //-----Setters & Getters------//
 
@@ -19,11 +12,11 @@ void Board::editCell(Point p, char ch) {
 }
 
 void Board::resetBoard() {
-num_of_bread_crumbs = num_of_ghosts = 0; 
-validScreen = true;
-initPacman = false;
-initLegend = false;
-errMsg = "";
+	num_of_bread_crumbs = num_of_ghosts = 0; 
+	validScreen = true;
+	initPacman = false;
+	initLegend = false;
+	errMsg = "";
 }
 
 
