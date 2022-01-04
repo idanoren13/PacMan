@@ -5,7 +5,6 @@
 class Print_Manager
 {
 	bool silent;
-
 public:
 
 	//--------Constructors--------//

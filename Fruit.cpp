@@ -47,6 +47,11 @@ void Fruit::move(Board& board) {
 		readVal = board.getCell(next_point);
 	}
 	move_cntr++;
+	printFruit(board);
+}
+
+
+void Fruit::printFruit(Board& board) {
 	setTextColor(Color::LIGHTGREY);
 	curr_point.draw(board.getCell(curr_point));
 	curr_point = next_point;

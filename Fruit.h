@@ -24,6 +24,7 @@ public:
 	//void hideFruit(Board& board);
 	//void controledMove(Board& board);
 	//char getValue() { return getShape(); }
+	void printFruit(Board& board);
 
 };
 

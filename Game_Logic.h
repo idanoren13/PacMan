@@ -13,6 +13,7 @@
 #include "io_utils.h"
 #include "File_handler.h"
 #include "Print_Manager.h"
+#include "singleton.h"
 #include <vector>
 #include <filesystem>
 
@@ -21,6 +22,7 @@ namespace fs = std::filesystem;
 class Game_Logic {
 
 protected:
+
 	int slowCreature = 0;
 	Board board;
 	Pacman pacman;

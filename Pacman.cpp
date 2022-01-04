@@ -30,10 +30,7 @@ void Pacman::move(Board& board) {
 			v = STAY;
 			next_point = curr_point;
 		}
-		curr_point.draw(' ');
-		board.editCell(curr_point, ' ');
-		curr_point = next_point;
-		printCreature();
+		printPacman(board);
 	}
 }
 
@@ -43,8 +40,9 @@ void Pacman::controledMove(Board& board) {
 		board.editCell(curr_point, ' ');
 	}
 	Creature::controledMove(board);
-	if(!prev_point.isSamePoint( next_point))
+	if (!prev_point.isSamePoint(next_point))
 		prev_point.draw(' ');
+		//singleton::get().printObj(prev_point,color ,' ');
 }
 
 void Pacman::manageBoardEdge(int height, int width) {
@@ -56,4 +54,11 @@ void Pacman::manageBoardEdge(int height, int width) {
 		next_point.setPoint(next_point.getX(), 0);
 	else if (next_point.getY() < 0)
 		next_point.setPoint(next_point.getX(), height - 1);
+}
+
+void Pacman::printPacman(Board& board) {
+	curr_point.draw(' ');
+	board.editCell(curr_point, ' ');
+	curr_point = next_point;
+	printCreature();
 }

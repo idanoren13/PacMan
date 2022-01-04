@@ -6,6 +6,8 @@
 
 class Load_Mode : public Game_Logic
 {
+	//singleton ivan;
+	//singleton& boris = singleton::get();
 	bool silent;
 	bool fruitActive;
 private:

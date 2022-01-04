@@ -2,11 +2,12 @@
 
 Load_Mode::Load_Mode() {
 	silent = false;
-	printer.setSilentMode(silent);
+	//printer.setSilentMode(silent);
 	fruitActive = false;
 }
 
 Load_Mode::Load_Mode(bool _silent) {
+	//boris.setSilent(_silent);
 	silent = _silent;
 	printer.setSilentMode(silent);
 	fruitActive = false;

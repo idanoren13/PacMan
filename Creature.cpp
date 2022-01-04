@@ -26,5 +26,7 @@ void Creature::controledMove(Board& board) {
 	setTextColor(Color::LIGHTGREY);
 	curr_point.draw(board.getCell(curr_point));
 	curr_point = next_point;
+	//singleton::get().printObj(curr_point, color, shape);
 	printCreature();
+
 }

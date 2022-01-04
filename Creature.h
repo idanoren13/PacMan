@@ -6,21 +6,24 @@
 #include "Board.h"
 #include "io_utils.h"
 #include "Print_Manager.h"
+#include "singleton.h"
 
 
 class Creature
 {
-	char shape;
-	Color color;
 
 protected:
-
-	int move_cntr;
+	char shape;
+	Color color;
 	Move_Vector v;
+
 	Point curr_point;
 	Point next_point;
 	Point prev_point;
+	
 	//Print_Manager& printer;
+	//singleton printer = singleton::get();
+	int move_cntr;
 
 public:
 
