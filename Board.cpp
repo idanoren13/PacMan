@@ -170,11 +170,3 @@ void Board::printBoard(bool black_and_white) {
 	}
 	setTextColor(Color::WHITE);
 }
-
-void Board::printData(int score, int life) {
-	setTextColor(Color::WHITE);
-	gotoxy(legendPos.getX(), legendPos.getY());
-	cout << "Current Score  : " << score << endl;
-	gotoxy(legendPos.getX(), legendPos.getY() + 1);
-	cout << "Remaining Lives: " << life << endl;
-}

@@ -19,6 +19,7 @@ private:
 	std::ofstream output;
 	std::fstream result;
 	std::ifstream input;
+
 	bool is_open_out = false;
 	bool is_open_in = false;
 	int num_of_ghost;
@@ -41,6 +42,10 @@ public:
 	void write2Files(std::string screenName, bool didILose, int point_of_time, int score); //saves .steps and .result files
 
 	void getResult(int*& a, std::string fileName);
+
+	void close_output(std::string filename);
+	void close_input(std::string filename) { input.close(); }
+
 
 };
 

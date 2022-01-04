@@ -60,7 +60,6 @@ public:
 	void handleRead(const char read, int& row, int& col, int& countChars);
 	void initiateLegend();
 	void printBoard(bool black_and_white);
-	void printData(int score, int life);
 
 	bool isValidScreen(){ return validScreen; }
 	bool isPointValid(Point _p) {

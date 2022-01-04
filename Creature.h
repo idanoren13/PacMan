@@ -16,9 +16,12 @@ protected:
 
 	int move_cntr;
 	Move_Vector v;
+
 	Point curr_point;
 	Point next_point;
 	Point prev_point;
+
+	Print_Creature& creature_printer = Print_Creature::Get();
 
 public:
 

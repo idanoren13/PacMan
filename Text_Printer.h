@@ -1,22 +1,27 @@
 #pragma once
 #include "File_handler.h"
 
-
+// Singleton Class
 class Text_Printer
 {
-	bool silent;
+	bool silent = false;
+	Text_Printer() {}
 
 public:
+	Text_Printer(const Text_Printer&) = delete;
 
-	//--------Constructors--------//
-	Text_Printer() : silent(false) {}
-	Text_Printer(bool _silent) : silent(_silent) {}
+	static Text_Printer& Get() {
+		static Text_Printer printer;
+		return printer;
+	}
+	void operator=(Text_Printer const&) = delete;
 
 	//-----Setters & Getters------//
-	void setSilentMode(bool _silent) { silent = _silent; }
+	void setSilent(bool _silent) { silent = _silent; }
 
 	//----------Methods-----------//
-	void printObj(Point p, char c);
+
+	void printData(int score, int life, Point legendPos);
 	void printMenu();
 	void printGamePause(int height);
 	void printInstractions();

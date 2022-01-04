@@ -1,9 +1,7 @@
 #include "Regular_Mode.h"
 
-void Regular_Mode::runGame(bool _save_mode) {
-	boris.setSilent(false);
+void Regular_Mode::runGame() {
 	char choice;
-	save_mode = _save_mode;
 
 	while (true)
 	{
@@ -19,7 +17,7 @@ void Regular_Mode::runGame(bool _save_mode) {
 			run();
 			break;
 		case '9':
-			printer.printExit();
+			text_printer.printExit();
 			return;
 		}
 		fileName = "";
@@ -55,7 +53,7 @@ void Regular_Mode::run() {
 			}
 		}
 		if (!didILose && continue_game)
-			printer.printMsg("You won the last screen, congrats !\n");
+			text_printer.printMsg("You won the last screen, congrats !\n");
 	}
 }
 
@@ -66,39 +64,41 @@ void Regular_Mode::runScreen(bool& didILose)
 
 	board.printBoard(black_and_white);
 	pacman.printCreature();
-	slowCreature = 0;
 
 	while (pacman.getScore() < board.getNumOfCrumbs() && !didILose && continue_game) {
 		getInput(pauseFlag, continue_game);
 		if (!pauseFlag) {
 			pacman.move(board);
-			if (slowCreature % 2 == 0) {
+			if (point_of_time % 2 == 0) {
 				for (Ghost& ghost : ghosts) {
 					ghost.move(board);
 					ghost.setPacmanPoint(pacman.getCurrPoint());
 				}
 			}
 			if (fruitActive) {
-				if (slowCreature % 6 == 0)
+				if (point_of_time % 6 == 0)
 					fruit.move(board);
-				if (slowCreature % 203 == 0)
+				if (point_of_time % 203 == 0)
 					hideFruit(fruitActive);
 			}
 			if (!fruitActive && (pacman.getScore() > 50) && (rand() % 59 == 0)) {
 				fruitActive = true;
 			}
-			slowCreature++;
+			point_of_time++;
+
 			if (save_mode)
 				my_stream.push2Queue(my_stream.formatLine(pacman, ghosts, fruit, fruitActive));
+
 			creaturesCollision(didILose, fruitActive);
-			board.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife());
+
+			text_printer.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife(), board.getLegendPos());
 		}
 		else
-			printer.printGamePause(board.getHeight());
+			text_printer.printGamePause(board.getHeight());
 
 		Sleep(100);
 	}
-	point_of_time = slowCreature;
+	point_of_time = point_of_time;
 }
 
 void Regular_Mode::resetGame(string screen) {
@@ -109,7 +109,7 @@ void Regular_Mode::resetGame(string screen) {
 }
 
 char Regular_Mode::menu() {
-	printer.printMenu();
+	text_printer.printMenu();
 	char choice = _getch();
 	char levelChoice;
 
@@ -118,15 +118,15 @@ char Regular_Mode::menu() {
 		case '3':
 			levelChoice = levelMenu();
 			setGhostLevel(levelChoice);
-			printer.printMenu();
+			text_printer.printMenu();
 			break;
 		case '4':
 			chooseBoard();
-			printer.printMenu();
+			text_printer.printMenu();
 			break;
 		case '8':
-			printer.printInstractions();
-			printer.printMenu();
+			text_printer.printInstractions();
+			text_printer.printMenu();
 			break;
 		default:
 			gotoxy(0, 19);
@@ -142,7 +142,7 @@ char Regular_Mode::menu() {
 
 char Regular_Mode::levelMenu()
 {
-	printer.printLevelMenu();
+	text_printer.printLevelMenu();
 	char choice = _getch();
 
 	while (choice != 'a' && choice != 'b' && choice != 'c') {
@@ -158,7 +158,7 @@ void Regular_Mode::chooseBoard() {
 	system("cls");
 	gotoxy(0, 0);
 
-	printer.printPacmanSign();
+	text_printer.printPacmanSign();
 	cout << "Please insert screen name : " << endl;
 	fileName.clear();
 	cin >> fileName;

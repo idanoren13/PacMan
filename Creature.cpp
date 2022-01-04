@@ -14,8 +14,7 @@ Creature::Creature(Point _p, Color _color, Shape _shape, Move_Vector _v) {
 
 void Creature::printCreature() {
 	setTextColor(color);
-	Print_Creature::get().printObj(curr_point, shape);
-	//curr_point.draw(shape);
+	creature_printer.printObj(curr_point, shape);
 }
 
 bool Creature::isEndBoard(int height, int width) {
@@ -26,7 +25,7 @@ bool Creature::isEndBoard(int height, int width) {
 void Creature::controledMove(Board& board) {
 	prev_point = curr_point;
 	setTextColor(Color::LIGHTGREY);
-	Print_Creature::get().printObj(curr_point, board.getCell(curr_point));
+	creature_printer.printObj(curr_point, board.getCell(curr_point));
 	//curr_point.draw(board.getCell(curr_point));
 	curr_point = next_point;
 	//setTextColor(color);
