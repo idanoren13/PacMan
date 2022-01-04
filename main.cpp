@@ -4,7 +4,7 @@
 
 void test() {
 	Regular_Mode game(true);
-	Load_Mode _game(false);
+	Load_Mode _game(true);
 	char x;
 	std::cout << "press 1 for save mode, press 2 for load mode:" << std::endl;
 	x = std::getchar();

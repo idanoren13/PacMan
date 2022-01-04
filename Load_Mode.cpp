@@ -20,7 +20,8 @@ void Load_Mode::runGame() {
 			return;
 
 		runScreen(didILose);
-		compareResults(screen);
+		if(silent)
+			compareResults(screen);
 		if (!didILose)
 			winGame();
 		else {
@@ -30,9 +31,6 @@ void Load_Mode::runGame() {
 	}
 	if (!didILose)
 		text_printer.printMsg("You won the last screen, congrats !\n");
-	if (silent){
-		cout << "works";
-	}
 }
 
 
@@ -107,9 +105,10 @@ void Load_Mode::decodeLine(string line) {
 
 void Load_Mode::compareResults(std::string fileName) {
 	clear_screen();
+	setTextColor(Color::WHITE);
 	int* a = new int[2];
 	my_stream.getResult(a, fileName);
-	if (a[0] == slowCreature && a[1] == (pacman.getScore()+pacman.getFruitScore()))
+	if (a[0] == point_of_time && a[1] == (pacman.getScore()+pacman.getFruitScore()))
 		std::cout << "test succeed";
 	else
 		std::cout << "test failed";
