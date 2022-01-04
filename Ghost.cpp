@@ -8,10 +8,10 @@ void Ghost::setGhost(Point p, Board& board) {
 	switch (readVal) {
 	case (unsigned char)BREAD:
 		setTextColor(Color::LIGHTGREY);
-		curr_point.draw((unsigned char)BREAD);
+		Print_Creature::get().printObj(curr_point, (unsigned char)BREAD);
 		break;
 	default:
-		curr_point.draw(' ');
+		Print_Creature::get().printObj(curr_point, ' ');
 		break;
 	}
 	curr_point.setPoint(p.getX(), p.getY());
@@ -51,7 +51,7 @@ void Ghost::smartMove(Board& board) {
 	Point near_cell, cell, pacmanPos = pacmanPoint;
 	std::queue<Point> q;
 	std::vector<std::vector<bool>> visitedPointArr(board.getHeight() + 1, std::vector<bool>(board.getWidth(), false));
-	prev_point =curr_point;
+	prev_point = curr_point;
 
 	// Mark starting cell as visited
 	q.push(pacmanPos);

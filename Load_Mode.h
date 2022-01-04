@@ -1,18 +1,15 @@
 #pragma once
 #include "Game_Logic.h"
-#include "Print_Manager.h"
+#include "Text_Printer.h"
 #include <sstream>
 #include <string>
 
 
 class Load_Mode : public Game_Logic
 {
-	int slowCreature = 0;
+	//Print_Creature& boris = Print_Creature::get();
 	bool silent;
 	bool fruitActive;
-	
-private:
-	Move_Vector char2Vector(char ch);
 
 public:
 	//--------Constructors--------//
@@ -25,13 +22,11 @@ public:
 	//----------Methods-----------//
 
 	virtual void runGame(bool s);
-	virtual void run();
 	virtual void runScreen(bool& didILose);
 	void resetGame(string screen);
 	void decodeLine(string line);
 
 	void compareResults(std::string fileName);
-
 	void runSilentMode();
 
 };

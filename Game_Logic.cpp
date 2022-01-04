@@ -94,7 +94,8 @@ void Game_Logic::ghostPacmanCollision(bool& didILose) {
 void Game_Logic::fruitPacmanCollision(bool& fruitActive) {
 	pacman.setFruitScore((int)(fruit.getShape() - '0'));
 	hideFruit(fruitActive);
-	pacman.printCreature();
+	Print_Creature::get().printObj(pacman.getCurrPoint(), pacman.getShape());
+	//pacman.printCreature();
 }
 
 void Game_Logic::hideFruit(bool& fruitActive) {

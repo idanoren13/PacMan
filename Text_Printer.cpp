@@ -1,11 +1,11 @@
-#include "Print_Manager.h"
+#include "Text_Printer.h"
 
-void Print_Manager::printObj(Point p, char c) {
+void Text_Printer::printObj(Point p, char c) {
 	if (!silent)
 		p.draw(c);
 }
 
-void Print_Manager::printMenu() {
+void Text_Printer::printMenu() {
 	gotoxy(0, 0);
 	setTextColor(Color::WHITE);
 	clear_screen();
@@ -19,7 +19,7 @@ void Print_Manager::printMenu() {
 		<< " 9.\tExit" << endl;
 }
 
-void Print_Manager::printGamePause(int height) {
+void Text_Printer::printGamePause(int height) {
 	setTextColor(Color::WHITE);
 	gotoxy(0, height + 3);
 	cout << "Game paused: press ESC to continue / press H to return the main menu";
@@ -28,7 +28,7 @@ void Print_Manager::printGamePause(int height) {
 	Sleep(100);
 }
 
-void Print_Manager::printInstractions() {
+void Text_Printer::printInstractions() {
 	system("cls");
 	cout << "\nWelcome to Pacman !" << endl << "Your goal is to move the pacman on the screen and eat the breadcrumbs." << endl
 		<< "Each eaten breadcrumb equals a point to be earned." << endl
@@ -46,7 +46,7 @@ void Print_Manager::printInstractions() {
 	system("cls");
 }
 
-void Print_Manager::printLevelMenu() {
+void Text_Printer::printLevelMenu() {
 	system("cls");
 	gotoxy(0, 0);
 	printPacmanSign();
@@ -56,7 +56,7 @@ void Print_Manager::printLevelMenu() {
 		<< " c.\tNOVICE " << endl;
 }
 
-void Print_Manager::printMsg(string s) {
+void Text_Printer::printMsg(string s) {
 	clear_screen();
 	gotoxy(0, 0);
 	setTextColor(Color(WHITE));
@@ -66,7 +66,7 @@ void Print_Manager::printMsg(string s) {
 	system("cls");
 }
 
-void Print_Manager::printPacmanSign() {
+void Text_Printer::printPacmanSign() {
 	cout << "" << endl
 		<< "********************************************" << endl
 		<< "    _____           __  __			      " << endl
@@ -79,7 +79,7 @@ void Print_Manager::printPacmanSign() {
 		<< "********************************************" << endl;
 }
 
-void Print_Manager::printExit() {
+void Text_Printer::printExit() {
 	cout << endl
 		<< "    .______                _____		   " << endl
 		<< "   /       \\              /     \\		   " << endl

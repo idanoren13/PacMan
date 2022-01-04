@@ -5,13 +5,14 @@
 #include "Color.h"
 #include "Board.h"
 #include "io_utils.h"
+#include "Print_Creature.h"
 
 class Creature
 {
-	char shape;
 	Color color;
 
 protected:
+	char shape;
 
 	int move_cntr;
 	Move_Vector v;
