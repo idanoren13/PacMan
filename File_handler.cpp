@@ -81,13 +81,12 @@ void File_handler::getResult(int*& a, std::string fileName) {
 
 		std::string str;
 		std::getline(read_result, str);
-		std::stringstream ss;
-		ss << (str.substr(44, str.size()));
-		ss >> a[0];
-		ss.str("");
+		std::stringstream ss1,ss2;
+		ss1 << (str.substr(44, str.size()));
+		ss1 >> a[0];
 		std::getline(read_result, str);
-		ss << (str.substr(4, str.size()));
-		ss >> a[1];
+		ss2 << (str.substr(4, str.size()));
+		ss2 >> a[1];
 		read_result.close();
 	}
 }
