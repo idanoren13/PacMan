@@ -14,7 +14,7 @@ class Creature
 protected:
 	char shape;
 
-	int move_cntr;
+	int move_cntr = 0;
 	Move_Vector v;
 
 	Point curr_point;

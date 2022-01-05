@@ -37,7 +37,7 @@ void Ghost::move(Board& board) {
 }
 
 void Ghost::avgMove(Board& board) {
-	if (move_cntr % 20 < 5)
+	if (move_cntr % 20 < 4)
 		dumbMove(board);
 	else {
 		smartMove(board);
