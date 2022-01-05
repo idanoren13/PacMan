@@ -115,34 +115,9 @@ void Ghost::dumbMove(Board& board) {
 	printGhost(board);
 }
 
-
-//void Ghost::controledMove(Board& board) {
-//	next_point.move(v);
-//	unsigned char readVal = board.getCell(next_point);
-//	while (isEndBoard(board.getHeight(), board.getWidth()) || readVal == (unsigned char)WALL || readVal == (unsigned char)GHOST)
-//	{
-//		if (move_cntr % 5 == 0)
-//			setVector((Move_Vector)(v - 1));
-//		else
-//			setVector((Move_Vector)(v + 1));
-//
-//		if (v >= STAY)
-//			v = UP;
-//		if (v < UP)
-//			v = DOWN;
-//
-//		next_point = curr_point;
-//		next_point.move(v);
-//		readVal = board.getCell(next_point);
-//	}
-//		move_cntr++;
-//		//next_point.move(v);
-//		printGhost(board);
-//}
-
 void Ghost::printGhost(Board& board) {
 	setTextColor(Color::LIGHTGREY);
-	curr_point.draw(board.getCell(curr_point));
+	creature_printer.printObj(curr_point, board.getCell(curr_point));
 	curr_point = next_point;
 	printCreature();
 }

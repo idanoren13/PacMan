@@ -12,8 +12,8 @@ private:
 
 public:
 
-	Print_Creature(const Print_Creature&) = delete;
-	void operator=(Print_Creature const&) = delete;
+	Print_Creature(const Print_Creature&) = delete; // delete copy cntr
+	void operator=(Print_Creature const&) = delete; // delete operator = 
 
 	static Print_Creature& Get() {
 		static Print_Creature printer;

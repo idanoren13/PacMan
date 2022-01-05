@@ -6,16 +6,17 @@ Game_Logic::Game_Logic() {
 	black_and_white = false;
 }
 
-
 void Game_Logic::resetGame(string screen) {
+
+	point_of_time = 0;
+	my_stream.makeEmptyQueue();
+
 	//reset board
 	board.initBoard(screen.c_str());
 	if (!board.isValidScreen()) {
 		text_printer.printMsg(board.getErrMsg());
 		return;
 	}
-
-	point_of_time = 0;
 	
 	//reset pacman
 	pacman.resetScore();
@@ -98,7 +99,6 @@ void Game_Logic::ghostPacmanCollision(bool& didILose) {
 void Game_Logic::fruitPacmanCollision(bool& fruitActive) {
 	pacman.setFruitScore((int)(fruit.getShape() - '0'));
 	hideFruit(fruitActive);
-	//creature_printer.printObj(pacman.getCurrPoint(), pacman.getShape());
 	pacman.printCreature();
 }
 

@@ -2,27 +2,23 @@
 #include "Load_Mode.h"
 #include "Exceptions.h"
 
-void checkInput(bool& isSaveMode, bool& saveOrSilent, int argc, char argv[2][25]);
+void check_input(int argc, char** argv, bool& isSaveMode, bool& saveOrSilent);
+void play_pacman(int argc, char** argv);
+
 
 void main(int argc, char** argv) {
+	try { 
+		play_pacman(argc, argv);
+	}
+	catch (ExceptionInvalidUserArgument& e) {
+		e.Error();
+	}
+}
 
-	/*
-		if isSaveMode == true :=> regular game
-		   isSaveMode == false :=> load game
 
-		if saveOrSilent == true :=> save game || silent mode
-	*/
-
+void play_pacman(int argc, char** argv) {
 	bool isSaveMode, saveOrSilent;
-	//try { checkInput(isSaveMode, saveOrSilent, argc, argv); }
-	char argv1[2][25] = { "pacman.exe","-lo" };
-
-
-	 checkInput(isSaveMode, saveOrSilent, 2, argv1); 
-	
-
-	//cout << "isSaveMode: " << isSaveMode << endl
-	//	<< "saveOrSilent: " << saveOrSilent << endl;
+	check_input(argc, argv, isSaveMode, saveOrSilent);
 
 	if (isSaveMode) {
 		Regular_Mode game(saveOrSilent);
@@ -39,8 +35,14 @@ void main(int argc, char** argv) {
 //-load
 //-load -silent
 
-void checkInput(bool& isSaveMode, bool& saveOrSilent, int argc, char argv[2][25]) {
-	try {
+/*
+	if isSaveMode == true :=> regular game
+	   isSaveMode == false :=> load game
+
+	if saveOrSilent == true :=> save game || silent mode
+*/
+
+void check_input(int argc, char** argv, bool& isSaveMode, bool& saveOrSilent) {
 	std::string str1, str2;
 
 	if (argc == 1) {
@@ -58,7 +60,7 @@ void checkInput(bool& isSaveMode, bool& saveOrSilent, int argc, char argv[2][25]
 			saveOrSilent = true;
 		}
 		else
-			throw ExceptionInvalidArgv_1();
+			throw ExceptionInvalidUserArgument();
 	}
 	else if (argc == 3) {
 		str1 = argv[1];
@@ -68,14 +70,10 @@ void checkInput(bool& isSaveMode, bool& saveOrSilent, int argc, char argv[2][25]
 			saveOrSilent = true;
 		}
 		else
-			throw ExceptionInvalidArgv_2();
+			throw ExceptionInvalidUserArgument();
 	}
 	else
-		throw ExceptionInvalidArg();
-	}
-	catch (ExceptionInvalidUserArgoument& e) {
-	cout << e.Error();
-	}
+		throw ExceptionInvalidUserArgument();
 }
 
 

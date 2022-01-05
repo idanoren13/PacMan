@@ -68,7 +68,6 @@ void Load_Mode::runScreen(bool& didILose) {
 
 void Load_Mode::resetGame(string screen) {
 	Game_Logic::resetGame(screen);
-	my_stream.makeEmptyQueue();
 	my_stream.readFromFile(screen);
 	for (int i = 0; i < board.getNumOfGhosts(); i++) {
 		ghosts[i].setGhostLevel('d'); //controled

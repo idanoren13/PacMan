@@ -143,7 +143,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Creature.cpp" />
-    <ClCompile Include="Exceptions.cpp" />
     <ClCompile Include="File_handler.cpp" />
     <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="Game_Logic.cpp" />

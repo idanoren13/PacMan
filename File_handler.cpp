@@ -1,7 +1,6 @@
 #include "File_handler.h"
 
 
-//** ** ** 
 //pp pp gg gg gg gg gg gg ff ff s
 std::string File_handler::formatLine(const Creature& pacman, const std::vector<Ghost>& ghosts, const Fruit& fruit, const bool fruitActive){
 	std::string str;

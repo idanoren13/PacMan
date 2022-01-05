@@ -8,13 +8,13 @@ class Text_Printer
 	Text_Printer() {}
 
 public:
-	Text_Printer(const Text_Printer&) = delete;
+	Text_Printer(const Text_Printer&) = delete; // delete copy cntr
+	void operator=(Text_Printer const&) = delete; // delete operator =
 
 	static Text_Printer& Get() {
 		static Text_Printer printer;
 		return printer;
 	}
-	void operator=(Text_Printer const&) = delete;
 
 	//-----Setters & Getters------//
 	void setSilent(bool _silent) { silent = _silent; }

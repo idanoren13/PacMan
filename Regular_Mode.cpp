@@ -24,6 +24,7 @@ void Regular_Mode::runGame() {
 
 		fileName = "";
 		screenNames.clear();
+		continue_game = true;
 	}
 }
 
@@ -33,7 +34,6 @@ void Regular_Mode::run() {
 	readScreens();
 	if (continue_game)
 	{
-		_getch();
 		for (string& screen : screenNames)
 		{
 			resetGame(screen);
@@ -43,6 +43,7 @@ void Regular_Mode::run() {
 			runScreen(didILose);
 			if (!continue_game)
 				break;
+
 			if (save_mode)
 				my_stream.write2Files(screen, didILose, point_of_time, pacman.getScore() + pacman.getFruitScore());
 
