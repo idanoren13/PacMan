@@ -39,7 +39,7 @@ protected:
 public:
 		//--------Constructors--------//
 		Game_Logic();
-
+			
 		//----------Methods-----------//
 		virtual void runGame() = 0;
 		virtual void runScreen(bool& didILose) = 0;

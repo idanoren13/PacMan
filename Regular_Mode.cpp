@@ -18,8 +18,10 @@ void Regular_Mode::runGame() {
 			break;
 		case '9':
 			text_printer.printExit();
+			ShowConsoleCursor(true); // reveal console cursor
 			return;
 		}
+
 		fileName = "";
 		screenNames.clear();
 	}
@@ -27,12 +29,11 @@ void Regular_Mode::runGame() {
 
 void Regular_Mode::run() {
 	bool didILose = false;
-	//bool continue_game = true;
 
 	readScreens();
-	
 	if (continue_game)
 	{
+		_getch();
 		for (string& screen : screenNames)
 		{
 			resetGame(screen);

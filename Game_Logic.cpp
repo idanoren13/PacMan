@@ -6,6 +6,7 @@ Game_Logic::Game_Logic() {
 	black_and_white = false;
 }
 
+
 void Game_Logic::resetGame(string screen) {
 	//reset board
 	board.initBoard(screen.c_str());
@@ -45,6 +46,7 @@ void Game_Logic::readScreens() {
 	if (fileName.size()) {
 		if (fileName.find(".screen") != string::npos)
 			screenNames.push_back(static_cast<string>(fileName));
+
 		else {
 			text_printer.printMsg("File should end with .screen");
 			return;

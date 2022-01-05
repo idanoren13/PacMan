@@ -62,7 +62,7 @@ void Load_Mode::runScreen(bool& didILose) {
 		text_printer.printData(pacman.getScore() + pacman.getFruitScore(), pacman.getLife(), board.getLegendPos());
 
 		if (!silent)
-			Sleep(20);
+			Sleep(55);
 	}
 }
 

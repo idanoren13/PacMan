@@ -1,5 +1,16 @@
 #include "Text_Printer.h"
 
+void Text_Printer::printMsg(string s) {
+	if (!silent) {
+		clear_screen();
+		gotoxy(0, 0);
+		setTextColor(Color(WHITE));
+		s.append("\nPlease wait\n");
+		cout << s;
+		Sleep(3300);
+		system("cls");
+	}
+}
 
 void Text_Printer::printData(int score, int life, Point legendPos) {
 	if (!silent) {
@@ -67,18 +78,6 @@ void Text_Printer::printLevelMenu() {
 			<< " a.\tBEST " << endl
 			<< " b.\tGOOD " << endl
 			<< " c.\tNOVICE " << endl;
-	}
-}
-
-void Text_Printer::printMsg(string s) {
-	if (!silent) {
-		clear_screen();
-		gotoxy(0, 0);
-		setTextColor(Color(WHITE));
-		s.append("\nPlease wait\n");
-		cout << s;
-		Sleep(3300);
-		system("cls");
 	}
 }
 
