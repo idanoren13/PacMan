@@ -20,7 +20,7 @@ void Load_Mode::runGame() {
 			return;
 
 		runScreen(didILose);
-		if(silent)
+		if (silent)
 			compareResults(screen);
 		if (!didILose)
 			winGame();
@@ -103,14 +103,15 @@ void Load_Mode::decodeLine(string line) {
 }
 
 void Load_Mode::compareResults(std::string fileName) {
-	clear_screen();
 	setTextColor(Color::WHITE);
 	int* a = new int[2];
 	my_stream.getResult(a, fileName);
+	std::cout << "test " << fileName << " :" << endl;
+
 	if (a[0] == point_of_time && a[1] == (pacman.getScore()+pacman.getFruitScore()))
-		std::cout << "test succeed";
+		std::cout << "succeed" << endl;
 	else
-		std::cout << "test failed";
-	Sleep(2000);
-	delete a;
+		std::cout << "failed" << endl;
+	cout << endl;
+	delete[] a;
 }

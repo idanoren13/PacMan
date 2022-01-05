@@ -5,7 +5,7 @@
 //-----Setters & Getters------//
 
 void Pacman::setPacman(Point p) {
-	curr_point.draw(' ');
+	creature_printer.printObj(curr_point, ' ');
 	curr_point.setPoint(p.getX(), p.getY());
 	prev_point = curr_point;
 	next_point = curr_point;

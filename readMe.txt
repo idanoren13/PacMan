@@ -33,3 +33,8 @@ DONE:
 
 	- read argv argc from the cmd:
 		♦ check valdity and read game method
+
+		screen name:
+		test failed
+		screen name: 
+		test succeed

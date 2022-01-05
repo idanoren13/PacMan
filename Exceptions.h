@@ -9,7 +9,13 @@ public:
  	ExceptionInvalidUserArgument(std::string _s) : str(": " + _s) {}
 
 	void Error() {
-		cout << "Error: Invalid Argument " << str << endl;
+		clear_screen();
+		cout << "Error: Invalid Argument " << str << endl << endl
+			<< "To run pacman.exe use one of the following arguments: " << endl
+			<< "(1) no arguments : run program without saving" << endl
+			<< "(2) -save : run program and save results" << endl
+			<< "(3) -load : run last game played" << endl
+			<< "(4) -load -silent : tests" << endl;
 	}
 };
 
@@ -19,25 +25,3 @@ public:
 		cout << "Error: No Screen" << endl;
 	}
 };
-
-//class ExceptionInvalidArgv_1 : ExceptionInvalidUserArgument {
-//public:
-//	virtual const char* Error(){
-//		return "Error: Invalid Argv[1]";
-//	}
-//};
-//
-//class ExceptionInvalidArgv_2 : ExceptionInvalidUserArgument {
-//public:
-//	virtual const char* Error() {
-//		return "Error: Invalid Argv[1] or Argv[2]";
-//	}
-//};
-//
-//class ExceptionInvalidArg : ExceptionInvalidUserArgument {
-//public:
-//	virtual const char* Error() {
-//		return "Error: Invalid User  Argouments";
-//	}
-//};
-
