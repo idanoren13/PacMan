@@ -66,9 +66,9 @@ void File_handler::write2Files(std::string screenName, bool didILose, int point_
 		q.pop();
 	}
 	if (!didILose)
-		result << "Pacman finished the screen at the " << point_of_time << "th move";
+		result << "Pacman won at the following point of time : " << point_of_time;
 	else
-		result << "Pacman died at the " << point_of_time << "th move";
+		result << "Pacman die at the following point of time : " << point_of_time;
 	result << endl << "With " << score <<" points";
 	close_output(screenName);
 }
@@ -82,11 +82,11 @@ void File_handler::getResult(int*& a, std::string fileName) {
 		std::string str;
 		std::getline(read_result, str);
 		std::stringstream ss;
-		ss << (str.substr(18, str.size() - 6));
+		ss << (str.substr(44, str.size()));
 		ss >> a[0];
-		std::getline(read_result, str);
 		ss.str("");
-		ss << (str.substr(5, str.size() - 7));
+		std::getline(read_result, str);
+		ss << (str.substr(4, str.size()));
 		ss >> a[1];
 		read_result.close();
 	}
