@@ -60,7 +60,7 @@ void check_input(int argc, char** argv, bool& isSaveMode, bool& saveOrSilent) {
 			saveOrSilent = true;
 		}
 		else
-			throw ExceptionInvalidUserArgument();
+			throw ExceptionInvalidUserArgument(str1);
 	}
 	else if (argc == 3) {
 		str1 = argv[1];
@@ -69,8 +69,12 @@ void check_input(int argc, char** argv, bool& isSaveMode, bool& saveOrSilent) {
 			isSaveMode = false;
 			saveOrSilent = true;
 		}
+		else if (str1.compare("-save") == 0 && str2.compare("-silent") == 0) {
+			isSaveMode = true;
+			saveOrSilent = true;
+		}
 		else
-			throw ExceptionInvalidUserArgument();
+			throw ExceptionInvalidUserArgument(str1 + " " + str2);
 	}
 	else
 		throw ExceptionInvalidUserArgument();

@@ -1,12 +1,22 @@
 #pragma once
 class Exceptions {};
 
-// 2 3 =>how many variables
-// 2 => incorrect input
 class ExceptionInvalidUserArgument : public Exceptions {
+	std::string str = "";
+
+public:
+	ExceptionInvalidUserArgument() {}
+ 	ExceptionInvalidUserArgument(std::string _s) : str(": " + _s) {}
+
+	void Error() {
+		cout << "Error: Invalid Argument " << str << endl;
+	}
+};
+
+class ExceptionNoScreenWasFound : public Exceptions {
 public:
 	void Error() {
-		cout << "Error: Invalid Argument" << endl;
+		cout << "Error: No Screen" << endl;
 	}
 };
 

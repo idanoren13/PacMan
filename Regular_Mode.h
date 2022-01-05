@@ -6,7 +6,6 @@ class Regular_Mode : public Game_Logic
 private:
 	bool save_mode;
 	char ghostLevel;
-	int point_of_time;
 	bool continue_game = true;
 
 public:

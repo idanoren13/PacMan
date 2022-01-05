@@ -100,7 +100,6 @@ void Regular_Mode::runScreen(bool& didILose)
 
 		Sleep(100);
 	}
-	point_of_time = point_of_time;
 }
 
 void Regular_Mode::resetGame(string screen) {
