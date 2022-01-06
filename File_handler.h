@@ -24,8 +24,8 @@ private:
 	bool is_open_out = false;
 	bool is_open_in = false;
 	int num_of_ghost;
-	bool isNameValid();
-	bool checkFormatVadility(std::string str);
+	//bool isNameValid();
+	//bool checkFormatVadility(std::string str);
 
 public:
 	void setNumOfGhost(int n) { num_of_ghost = n; }

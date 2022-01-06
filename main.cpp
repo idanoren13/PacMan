@@ -30,18 +30,6 @@ void play_pacman(int argc, char** argv) {
 	}
 }
 
-//-save
-//-save -silent (same as save) 
-//-load
-//-load -silent
-
-/*
-	if isSaveMode == true :=> regular game
-	   isSaveMode == false :=> load game
-
-	if saveOrSilent == true :=> save game || silent mode
-*/
-
 void check_input(int argc, char** argv, bool& isSaveMode, bool& saveOrSilent) {
 	std::string str1, str2;
 

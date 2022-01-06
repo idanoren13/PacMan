@@ -55,7 +55,5 @@ void Pacman::controledMove(Board& board) {
 	}
 	Creature::controledMove(board);
 	if (!prev_point.isSamePoint(next_point))
-		//prev_point.draw(' ');
 		creature_printer.printObj(prev_point, ' ');
-
 }

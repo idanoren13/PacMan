@@ -26,8 +26,6 @@ void Creature::controledMove(Board& board) {
 	prev_point = curr_point;
 	setTextColor(Color::LIGHTGREY);
 	creature_printer.printObj(curr_point, board.getCell(curr_point));
-	//curr_point.draw(board.getCell(curr_point));
 	curr_point = next_point;
-	//setTextColor(color);
 	printCreature();
 }
