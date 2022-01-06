@@ -75,7 +75,6 @@ void File_handler::write2Files(std::string screenName, bool didILose, int point_
 
 void File_handler::getResult(int*& a, std::string fileName) {
 	std::string name = (fileName.substr(0, fileName.find(".screen"))).append(".result");
-	//name = "pacman_01.result";
 	read_result.open(name);
 	if (read_result.is_open()) {
 

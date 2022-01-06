@@ -1,7 +1,7 @@
 #include "Load_Mode.h"
 
 Load_Mode::Load_Mode(bool _silent) {
-	silent = _silent; // need to be remove
+	silent = _silent;
 	text_printer.setSilent(silent);
 	creature_printer.setSilent(silent);
 	fruitActive = false;

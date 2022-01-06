@@ -7,7 +7,7 @@
 
 class Load_Mode : public Game_Logic
 {
-	bool silent; // need to be remove
+	bool silent;
 	bool fruitActive;
 
 public:

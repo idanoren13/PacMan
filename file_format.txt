@@ -1,0 +1,10 @@
+Each line in pacman_*.steps file represents one iteration
+command of the game and it constructed as follows:
+
+Every two integers represents position of a creature.
+So first two integers are the position of PacMan, then Ghosts positions (position for rach ghost).
+In case there is an appearance of a fruit there will be an extra position along with the value of the fruit.
+
+For example, a command containing fruit will be displayed as follows:
+//creature:  pacman ghost1 ... ghostk fruit value
+actual line:   x y   x y   ...   x y   x y   5-9

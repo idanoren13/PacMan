@@ -158,6 +158,7 @@
     <ClCompile Include="Print_Creature.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="file_format.txt" />
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
