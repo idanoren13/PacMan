@@ -1,6 +1,6 @@
 PacMan Ex1
-Idan Oren 209007921
-Sagi Goldfarb 316496173
+Idan Oren 
+Sagi Goldfarb 
 
 Additions:
 
