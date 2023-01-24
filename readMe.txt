@@ -1,8 +1,8 @@
 ﻿
 PacMan Ex3
 
-Idan Oren       209007921
-Sagi Goldfarb   316496173
+Idan Oren       
+Sagi Goldfarb  
 
 Additions:
 	- Colors / B&W option
